@@ -1,0 +1,621 @@
+"Rows from: TestRun","Company Name","domain","LinkedIn Company URL Linkedin Company Url","Employee Count","Percent Employee Growth Over Last_6Months","Product Features","Pricing Plan Summary Result","Industry","Description","Sales Contact Email Sales Contact","Enterprise Sales Rep LinkedIn URL Linkedin Profile Url"
+,"AWS","aws.training","https://www.linkedin.com/showcase/aws-training-&-certification/",,,"AWS offers over 200 cloud-based products and services, including compute, storage, databases, networking, data lakes and analytics, machine learning, AI (including generative AI), and Internet of Things. Key features include robust security services, AWS Network Firewall, Amazon MemoryDB for Redis, AWS Panorama, Amazon Elastic Inference, AWS Security Hub, Amazon Q Developer Code Reviewer, AWS Elemental MediaTailor, Amazon OpenSearch Service, AWS Service Catalog, and AWS Marketplace. AWS also provides extensive training and certification programs.","I wasn't able to retrieve specific pricing plan options from AWS's pricing pages directly. AWS Skill Builder offers subscriptions, game-based learning, and self-paced labs, but specific plan details like names, key offerings, and costs were not available from the webpages I accessed. For accurate details, it's suggested to visit the AWS Training and Certification website or contact their customer service for updated information.","Diversified Consumer Services","AWS (Amazon Web Services) is a leading cloud computing platform that offers a wide range of services including computing power, storage, databases, machine learning, and more. AWS training and certification programs provide individuals and organization...","https://aws.amazon.com/contact-us/sales-support/","https://www.linkedin.com/in/chi-fu-43a793b2"
+,"Vercel","vercel.com","https://www.linkedin.com/company/vercel",703,,"Vercel offers a platform for building and deploying on the AI Cloud, providing developer tools and cloud infrastructure. Key features include: Git-connected deploys, collaborative preview deployments, route-aware observability, Vercel AI Gateway for accessing AI models, instant rollbacks, and global edge infrastructure. It also offers templates for various frameworks and AI apps. Third-party reviews highlight its exceptional developer experience, zero-configuration deployments, automatic preview deployments, seamless integration with frameworks like Next.js, global edge network for performance, automatic image optimization, and serverless/edge functions. Vercel Analytics provides privacy-friendly, real-time performance data. Recent developments include a focus on AI with the AI Cloud, partnerships with xAI, and the introduction of AI Gateway. Other features include Vercel BotID for endpoint protection, GrowthBook integration for feature flags and A/B testing, and new pricing for Fluid compute.","- Hobby Plan: Automatic CI/CD, Web Application Firewall, Global CDN, Fluid compute, DDoS Mitigation, Traffic & performance insights, Free.
+- Pro Plan: Everything in Hobby Plan plus 10x more included usage, Observability tools, Faster builds, Cold start prevention, Advanced WAF Protection, Email support, $20/month + additional usage.
+- Enterprise Plan: Everything in Pro Plan plus Guest & Team access controls, SCIM & Directory Sync, Managed WAF Rulesets, Multi-region compute & failover, 99.99% SLA, Advanced Support, Customized pricing.","Software Development","Vercel provides the developer tools and cloud infrastructure to build, scale, and secure a faster, more personalized web. Customers like Under Armour, Nintendo, The Washington Post, and Zapier use Vercel to build dynamic user experiences on the web.","https://vercel.com/contact/sales","https://www.linkedin.com/in/christopher-bartolotta"
+,"Alteryx","alteryx.com","https://www.linkedin.com/company/alteryx",2320,2.27,"Alteryx offers the Alteryx One Platform, an AI and analytics platform with the following key capabilities:
+
+Data Preparation and Blending: Cleansing, preparing, enriching, and blending data from multiple sources into unified datasets.
+Analytics and Insights: Predictive analytics, machine learning, statistical modeling, automated insights, data storytelling, generative AI, AutoML, spatial analytics, and PDF data extraction.
+Automation and Workflow Management: Automating and scaling analytics workflows through scheduling and orchestration.
+Collaboration and Reporting: Enabling teams to share data insights, analytic apps, and workflows, with integration for BI tools like Tableau and Power BI.
+AI Readiness and Governance: Making data AI-ready through the AI Data Clearinghouse, with a multi-layered governance framework.
+Accessibility: A drag-and-drop interface and integration with over 80 data sources.","- Starter Edition, Essential drag-and-drop data preparation, Code-free data analytics workflows, Share workflows, Connect to file sources (.csv, .xlsx, json), Deployed in the cloud, $250 USD user/month (billed annually).
+- Professional Edition, Includes Starter Edition features, Cloud and desktop applications flexibility, Advanced data prep & blend (Macros, Geospatial), AI Copilot, Automated insights, Cloud reporting, Connect to 100+ data sources (e.g. Snowflake, Databricks), Contact Sales.
+- Enterprise Edition, Includes Professional Edition features, Automated & API-triggered workflow scheduling & monitoring, Enterprise level governance (SDLC, custom roles, audit log integrations, SCIM), Build analytics applications, Free viewer licenses, Contact Sales.","Software Development","Alteryx One brings together everything you need to access, prepare, analyze, and act on data. Apply AI and generate instant insights in a governed and flexible platform.","sales@alteryx.com","https://www.linkedin.com/in/ginafarinich"
+,"Expensify","expensify.com","https://www.linkedin.com/company/expensify",210,-6.23,"Expensify offers an all-in-one expense management platform with core features including automated expense tracking, submission, approval, and reimbursement; AI-powered categorization and policy violation flagging; digital receipt capture with SmartScan OCR technology; automatic expense report generation and accounting software integration; budgeting tools; the Expensify Visa Commercial Card; virtual cards; global reimbursements; bill pay; in-app travel booking; customizable travel and expense rules; a mobile-first design; and 24/7 chat support. Third-party reviews highlight its ease of use and integrations, while some users mention occasional SmartScan inaccuracies and potential customer support delays.","- Free (Individuals): Up to 25 SmartScans monthly, no cost.
+- Collect: Expense management and reimbursement, $5 per user per month without Expensify Card.
+- Control: Full feature access including global reimbursements and integrations, $9 per user per month without Expensify Card.","Software Development","Expensify helps more than 12 million people around the world track expenses, reimburse employees, manage corporate cards, send invoices, pay bills, and book travel. All in one app. So whether you're working for yourself, running a small business, managing a team, or closing the books for your clients, let Expensify handle your spend so you can stay focused on success.","sales@expensify.com","https://www.linkedin.com/in/caitlin-white-28b6b3136"
+,"Pluralsight","pluralsight.com","https://www.linkedin.com/company/pluralsight",2252,-2.7,"Pluralsight is an online education platform focused on technology skills for individuals and businesses. Its core product features include:
+
+*   Extensive Course Library: Over 6,500 tech courses across AI, Data, Software Development, Cloud & IT Ops, and Security.
+*   Hands-on Labs: More than 3,500 interactive labs and sandboxes for practical skill application.
+*   Skill Assessments (Skill IQ): Over 500 assessments to gauge skill levels and identify learning gaps, enabling customized learning paths.
+*   Learning Paths & Channels: Structured content to develop specific skills or align with business objectives.
+*   Expert Instructors: Courses led by experienced professionals (91% with 10+ years of experience).
+*   Target Audience: Serves individuals, software development teams, IT operations teams, and security teams.
+*   AI Assistant (Iris): Provides in-platform guidance to enhance learning engagement.
+
+User reviews generally praise the high-quality, relevant content and the practical application offered through hands-on labs and skill tracking. Some users noted that content can become outdated, and navigation or integration with acquired services could be improved.","- Core Tech Plan, Over 3,900 courses in software development, IT operations, product & UX, business skills, $30.00/month or $21.00/month when billed yearly
+- Complete Plan, Access to over 6,500 courses including AI, data, cloud, and security, $55.00/month or $39.00/month when billed yearly
+- AI+ Plan, AI learning content including Core Tech offerings, $35.00/month or $24.50/month when billed yearly
+- Cloud+ Plan, All A Cloud Guru courses including Core Tech offerings, $35.00/month or $24.50/month when billed yearly
+- Data+ Plan, Over 1,400 data science courses including Core Tech offerings, $35.00/month or $24.50/month when billed yearly
+- Security+ Plan, Cybersecurity learning content including Core Tech offerings, $35.00/month or $24.50/month when billed yearly
+- Flow Core Plan, No offerings data, $38/user/month (billed annually)
+- Flow Plus Plan, No offerings data, $50/user/month (billed annually)","E-Learning Providers","Hi there! We’re inspiring and empowering the technology workforce to achieve their goals. And we're here to give you and your tech teams the skills and insights to thrive.","sales@pluralsight.com","https://www.linkedin.com/in/tyson-blackner-88160b12"
+,"Apollo.io","apollo.io","No LinkedIn company page found",,,"Apollo.io is an AI-powered outbound sales platform with the following core features:
+
+**Lead Generation and Prospecting:**
+*   B2B Prospecting Data (200M+ contacts, 35M+ companies)
+*   Pipeline Builder for finding prospects and booking meetings
+*   Data Enrichment (CRM, Waterfall, CSV, API) to keep data up-to-date
+*   Advanced Search Filters for precise audience targeting
+
+**Sales Engagement and Outreach:**
+*   Multichannel Outreach tools
+*   AI Assistants for automating and personalizing sales processes
+*   Call Assistant (recording, scheduling, AI insights)
+*   Meeting Scheduler
+*   Automated Meeting Follow-up
+*   Workflow Automation for repetitive sales tasks
+*   Chrome Extension for in-browser prospecting and outreach
+
+**Go-To-Market Platform:**
+*   Unified platform for managing the entire sales cycle
+*   Deal Management
+
+**Target Audience:** Sales Leaders, Account Executives, SDRs, Revenue Operations, Marketers, Founders. Used by over 500,000 businesses.
+
+**Standout Functionalities:** AI-powered engine, all-in-one platform replacing multiple tools, user-friendly interface, and generally good data quality.","- ""Pricing information not available"": The pricing information from Apollo.io's pricing page could not be retrieved as the content was not visible through the webpage scraping method.","Custom Computer Programming Services","Apollo.io is the only AI sales tool you need to sell, scale, and succeed","contact@apollo.io","https://www.linkedin.com/in/michaelbuscemi"
+,"Calendly","calendly.com","https://www.linkedin.com/company/calendly",556,-14.47,"Calendly's core product features include scheduling automation with various event types, calendar integration, availability management, automated reminders, meeting polls, one-off meetings, and managed events. It also offers integrations with video conferencing, CRM, workflow tools, payment processing, and browser extensions. Additional features include routing and qualification, customization and branding, and analytics and security.","- Free, Basic tools including one event type and unlimited meetings, free.
+- Standard, More features with unlimited event types, $10 per seat per month (billed annually).
+- Teams, For team scheduling and advanced tools, tiered pricing starting at $16 per seat per month.
+- Enterprise, Full control and support options, custom pricing.","Software Development","At Calendly, our vision is to take the work out of connecting with others so you can accomplish more. 
+
+Our scheduling automation platform helps individuals, teams, and organizations globally automate meetings by removing the back and forth with scheduling. Our platform enables companies to close deals, hire candidates, build relationships, and grow their business — faster. 
+
+More than 20 million users across 230 countries use Calendly to simplify meetings and collaborate more effectively and efficiently.","https://calendly.com/contact-us","https://www.linkedin.com/in/rachel-williams-3bb85422"
+,"BambooHR","bamboohr.com","https://www.linkedin.com/company/bamboohr",1735,3.45,"BambooHR's core features include Hiring & Onboarding, HR Data & Reporting, Payroll & Time management, Benefits Administration, Employee Experience & Performance, and Compensation Management. It is used by over 34,000 businesses and is praised for its user-friendly interface, ease of use, and ability to centralize HR data. Standout functionalities include its integrated HR ecosystem with over 150 integrations, embedded AI for HR assistance, and a unified data model for better decision-making.","- Core Plan: Foundational HR automation for smaller HR teams, cost varies per-employee for companies over 25 employees; flat rate for 25 or fewer.
+- Pro Plan: Complete, flexible HR platform for scaling companies, cost varies per-employee for companies over 25 employees; flat rate for 25 or fewer.
+- Payroll Add-on: Includes Direct Deposit, Flexible Pay Schedules, Tax Filing, available for US employees, pricing is additional.
+- Benefits Administration Add-on: Offers Self-Guided Configuration, Open Enrollment, available for US employees, pricing is additional.
+- Time Tracking Add-on: Features Mobile & Desktop Clock, Project Tracking, pricing is additional.","Human Resources Services","For 16 years, BambooHR has embarked on a mission to help organizations and their employees build better workplaces and achieve their unique missions. We call it “setting people free to do great work.” We believe one of the best ways to do this is by transforming workplace friction into workplace freedom by replacing tedious processes with intuitive experiences and turning dispersed data into strategic insights that inform better decisions.
+
+Serving more than 34,000 customers and 3 million employees across 190 countries, BambooHR is more than just HR software—it’s a complete HR ecosystem designed to manage, protect, enrich, report on, extend, and benchmark people data in a way that drives business goals and smarter decision making. Our vision is to become the #1 HR platform for small and medium-sized businesses (SMBs) around the world, and we empower organizations at every stage to make the most impact. We are proud to serve clients across all industries ranging from startups to household names such as Bitcoin.com, Quora, Le Creuset, MasterClass, and the New York City Ballet.
+
+To find out more, visit bamboohr.com or follow us on Twitter @bamboohr.
+
+For Customer Support, please reach out to support@bamboohr.com.","expansion@bamboohr.com","https://www.linkedin.com/in/geoffrey-geo-huntington-212b7713"
+,"Cloudflare","cloudflare.com","https://www.linkedin.com/company/cloudflare",5575,10.46,"Cloudflare's core product features are categorized into:
+
+1.  **External-Facing Infrastructure:** Secures, enhances performance, and improves reliability for websites, applications, and APIs. Key features include Security (DDoS Protection, WAF, Bot Management, API Shield, Browser Isolation, DNS Firewall), Performance (CDN, Argo Smart Routing, Image Resizing, Always Online™, Browser Insights), and Reliability (Anycast Network, Load Balancing, Healthchecks).
+2.  **Internal Infrastructure:** A secure, fast, and reliable network-as-a-service for corporate networks, including On-ramps (Magic Transit, Magic WAN) and Filters (Magic Firewall, Cloudflare Gateway, Zero Trust Network Access).
+3.  **Developer-based Solutions:** Serverless platform (Workers) for building scalable applications, featuring Workers Bundled, Workers KV, and Workers Unbound.
+4.  **Consumer Offerings:** Products for individuals to enhance Internet performance and security.
+
+Cloudflare's platform boasts a composable architecture, seamless integration, vast intelligence from processing ~20% of web traffic, a unified interface, privacy-first principles, and compliance with data locality regulations.","- **Free Plan**: Basic access controls, community forum support, zero cost, best for small teams up to 50 users with zero trust network access, secure web gateway, activity logging for up to 24 hours, cost: $0 forever.
+- **Pay As You Go Plan**: Includes all Free Plan features plus enhanced support with email and chat, 100% uptime SLA, activity logging for up to 30 days, additional key features like CASB in-line, optional Remote Browser Isolation, unlimited users, cost: $7/user/month.
+- **Contract (Enterprise) Plan**: Offers maximum custom support with advanced security controls, priority support via phone, email, chat with 1-hour response, unlimited users, 100% uptime SLA, extended activity logging for 6 months, advanced features such as Remote Browser Isolation and Data Loss Prevention, cost: custom annual price per user.","Computer and Network Security","Cloudflare, Inc. (NYSE: NET) is the leading connectivity cloud company. It empowers organizations to make their employees, applications and networks faster and more secure everywhere, while reducing complexity and cost. Cloudflare’s connectivity cloud delivers the most full-featured, unified platform of cloud-native products and developer tools, so any organization can gain the control they need to work, develop, and accelerate their business. 
+
+Powered by one of the world’s largest and most interconnected networks, Cloudflare blocks billions of threats online for its customers every day. It is trusted by millions of organizations – from the largest brands to entrepreneurs and small businesses to nonprofits, humanitarian groups, and governments across the globe.","sales@cloudflare.com","https://www.linkedin.com/in/normslaught"
+,"Rippling","rippling.com","https://www.linkedin.com/company/rippling",5420,37.5,"Rippling offers a unified platform for managing HR, IT, payroll, and spend management, built on its Employee Graph data platform. Key features include Human Capital Management (HCM) with HRIS, recruiting, and learning management; Payroll with US and global options; IT Management with identity and device management; Spend Management with expense tracking; and platform capabilities like workflow automation and integrations.","I'm unable to retrieve details about Rippling's pricing plans from their website, as they do not provide specific plan names, offerings, or costs directly on the pricing pages or the related links. Usually, such details might require contacting the company directly for a personalized quote or demo.","Software Development","Rippling is a workforce management system that eliminates the friction from running a business. Today, most companies struggle with everything from routine tasks, like running payroll, to cross-functional planning, like aligning on headcount. That’s because all their data related to people, processes, and systems is scattered in a hundred places. 
+
+Rippling has every application you need to run your business—from applicant tracking and payroll to IT and expenses—in one place. But unlike other systems, Rippling sits on top of a unified platform. Data flows dynamically between Rippling’s applications, giving every team a shared source of truth, the power to automate processes, and access to the insights they need. This allows your business to execute better, faster.
+
+Based in San Francisco, CA, Rippling has raised $1.2B from the world’s top investors—including Kleiner Perkins, Founders Fund, Sequoia, Greenoaks, and Bedrock.
+
+Get help: rippling.com/contact
+Licensing details: https://app.rippling.com/licensing","sales@rippling.com","https://www.linkedin.com/in/andrew-workman-030a5b160"
+,"Confluent","confluent.io","https://www.linkedin.com/company/confluent",3616,8.52,"Confluent's Data Streaming Platform, built on Apache Kafka and Apache Flink, offers core capabilities including streaming, connecting, processing, and governing data in real-time. Key features include a 10x Apache Kafka service (Kora Engine), over 120 pre-built connectors, in-flight stream processing with serverless Apache Flink, and enterprise-grade security and governance features. Additional technologies include KRaft Mode, CSFLE, ksqlDB, Confluent Control Center, Tiered Storage, Self-Balancing Kafka Clusters, Cluster Linking, REST Proxy, and Non-Java Clients. It supports use cases like AI, Event-Driven Microservices, and Hybrid & Multicloud strategies.","I was unable to retrieve the specific pricing plan details for Confluent from their available webpage data. No detailed pricing information was accessible regarding the names, key offerings, or costs of each plan.","Software Development","Confluent is pioneering a fundamentally new category of data infrastructure focused on data in motion.  Our cloud-native offering is the foundational platform for data in motion --- designed to be the intelligent connective tissue enabling real-time data, from multiple sources, to constantly stream across the organization.  With Confluent, our customers can meet the new business imperative of delivering rich, digital customer experiences and real-time business operations.  Our mission is to help every organization harness data in motion so they can compete and thrive in the modern world.","info@confluent.io","https://www.linkedin.com/in/greg-grimes-49aa44b"
+,"Airtable","airtable.com","https://www.linkedin.com/company/airtable",915,13.12,"Airtable is an AI-native app platform that allows users to build custom, AI-powered applications. Its core features include: AI App Building (no-code), AI Agents for tasks like web research, Portals for external collaboration, HyperDB for massive datasets (up to 100 million records), Automations for streamlining workflows, Relational databases to connect data, Customizable Interfaces (drag-and-drop), Reporting and analytics tools, Multiple data views (Grid, Kanban, Calendar, Gantt, Form), Governance and security features, and embedded Airtable AI. Key Use Cases include Project Management, Content Planning, CRM, Inventory Tracking, Event Planning, Product Development, HR, Sales, and Finance. The target audience is over 500,000 organizations, including 80% of the Fortune 100, with a strong presence in small businesses. It serves both technical and non-technical users. Standout Features include relational database functionality (spreadsheet simplicity with database power), high customization, real-time collaboration, extensive integrations (over 67 tools), a library of templates, and advanced AI capabilities.","- Free Plan: 1,000 records per base, 1 GB of attachments, 100 automation runs, up to 5 editors, $0.
+- Team Plan: Gantt, Timeline, and Calendar views; 50,000 records per base, 20 GB of attachments, 25,000 automation runs/month, $20/user/month (billed annually).
+- Business Plan: Premium integrations, 125,000 records per base, 100 GB attachments, 100,000 automation runs/month, $45/user/month (billed annually).
+- Enterprise Scale Plan: HyperDB, Enterprise Hub, 500,000+ records per base, 1 TB of attachments, 500,000 automation runs/month, Contact sales for pricing.","Software Development","Airtable is the no-code app platform that empowers people closest to the work to accelerate their most critical business processes. We believe in the transformative power of equipping anyone to build the software applications they wish existed – regardless of their technical skill. 
+
+That’s why more than 500,000 organizations, including 80% of the Fortune 100, rely on Airtable for collaborative work management and citizen development to transform how work gets done.  The result?  Faster innovation, happier customers, enterprise governance, and a modern work experience for teams and departments. 
+
+We’re hiring! Visit airtable.com/careers to learn more.","https://www.airtable.com/contact-sales","https://www.linkedin.com/in/jenny-mitchell-"
+,"Clay","clay.com","https://www.linkedin.com/company/grow-with-clay",779,,"Clay is an AI-powered platform designed for go-to-market (GTM) teams. Its core features include: Data Enrichment & Management: Access to over 100 data sources, multi-provider data enrichment (Waterfall Enrichment), CRM enrichment and hygiene, real-time data scraping, and AI-driven data cleaning and formatting. AI Capabilities: AI research agents for automating tasks like summarizing documents and lead scoring, an AI formula generator for custom code, and AI-powered copywriting for personalized outreach. Workflow Automation & GTM Solutions: Flexible workflows for automating growth use cases, inbound lead enrichment and scoring, automated outbound processes (building, enriching, scoring, messaging), targeted list building, account and lead scoring, custom signals (job changes, funding news), and integrations with various tools (CRM, email sequencers, etc.). It offers solutions for RevOps, Sales, and Growth Marketing teams, with use cases like TAM sourcing, inbound lead routing, intent-based outreach, and AI-powered outbound campaigns. Clay's target audience is GTM teams of all sizes, including enterprise, SMBs, startups, and outbound agencies. Users include GTM leaders, GTM operations teams, SDRs, growth leads, and founders. Key differentiators include consolidating the GTM stack, an intuitive spreadsheet-like interface, access to unique data, and automation of manual research.","The pricing page at Clay.com does not contain any detailed information about their pricing plans. No specific plans, key offerings, or costs are listed on the current pages available for scraping (https://clay.com and https://clay.com/pricing).","Software Development"," The creative tool for growth | Go to market with unique data - and the ability to act on it","https://www.clay.com/contact-form","https://www.linkedin.com/in/clay-fleming"
+,"Segment (Twilio)","segment.com","https://www.linkedin.com/company/segment-io",306,-23.59,"Segment (Twilio) is a customer data platform (CDP) that helps businesses collect, clean, and activate customer data. Its core product features include:
+
+*   **Connections:** Integrates web and mobile app data via a single API, with features like Warehouses for data transformation, Reverse ETL to move data to applications, Functions for pipeline customization, and a Developer Toolkit.
+*   **Protocols:** Focuses on data quality and integrity, including a Protocols Product Overview and a Privacy Portal.
+*   **Unify:** Unifies customer data across channels, with features such as Unify Overview and Profiles Sync to move customer profiles to the warehouse.
+*   **Twilio Engage:** A platform for building personalized customer experiences, featuring Audiences for building dynamic profiles and Journeys for orchestrating cross-channel customer journeys.
+*   **Customer Data Platform (CDP):** Offers a CDP Overview for collecting real-time data from any channel for a unified view.
+*   **AI Solutions:** Includes Predictive AI for predicting customer behavior and Generative AI for creating targeted audiences and personalized campaigns. These AI features are now generally available.","I attempted multiple methods to retrieve the pricing plans from Segment.com, including visiting their pricing pages and a Google search. Unfortunately, I could not extract or access detailed pricing plan options, names, key offerings, or specific costs. There might be a technical issue with accessing the required information via scraping tools from their web pages or specific access restrictions.","Technology, Information and Internet","Segment is a customer data platform (CDP) that helps companies harness first-party customer data. Our platform democratizes access to reliable data for all teams and offers a complete toolkit to standardize data collection, unify user records, and route customer data into any system where it’s needed. More than 20,000 companies like Intuit, FOX, Instacart, and Levi’s use Segment to make real-time decisions, accelerate growth, and deliver compelling user experiences.","https://segment.com/demo/","https://www.linkedin.com/in/kylematthewsmith"
+,"Carta","carta.com","https://www.linkedin.com/company/carta--",1946,-2.41,"Carta offers an end-to-end suite for managing private capital, with core features divided into fund management and equity management. Equity Management Features include Cap Table Management, 409a Valuations, Scenario Modeling, Total Comp, Employee Equity Understanding, and IPO Readiness. Fund Management Features include Portfolio Management, Fund Administration, LP Communications, Deal Closings, and Distributions. Carta provides solutions for Startups, Private Equity, Venture Capital, and LLCs. Additional Products/Services include IPO Advisory, Portfolio Insights, Waterfall Modeling, Distributions, and Scenario Modeling. Carta is trusted by over 50,000 companies and manages over $3 trillion in assets.","- Launch, cap table management, fundraising benchmarks, SAFE financings, Free for new customers with up to 25 stakeholders and up to $1M raised.
+- Build, everything in Launch, white glove onboarding, premier support, Pricing not specified.
+- Grow, everything in Build, 409A valuations, 83(b) form, Pricing not specified.
+- Scale, everything in Grow, GAAP Financial Reporting (ASC-718), IFRS Financial Reporting, Pricing not specified.","Software Development","Through a connected ecosystem of tools, Carta links together the key players in private equity and venture — from investors and LPs to their portfolio companies.
+
+Carta’s world-class fund administration platform supports nearly 7,000 funds and SPVs, and represents nearly $130B in assets under management.
+
+Trusted by more than 40,000 companies, Carta helps private businesses in over 160 countries manage their cap tables, valuations, taxes, equity programs, compensation, and more. 
+
+Today, Carta is setting a new standard as the end-to-end platform connecting private capital. Our fund management platform seamlessly integrates a suite of tools and insights purpose-built to support the strategic impact of the fund CFO.
+
+Carta has been included on the Fortune Best Large Workplaces in Financial Services and Insurance list, Forbes’ list of the World's Best Cloud Companies, Fast Company's Most Innovative list, and Inc.'s Fastest-Growing Private Companies list. For more information, visit carta.com.","sales@carta.com","https://www.linkedin.com/in/annacentrella"
+,"Dropbox","dropbox.com","https://www.linkedin.com/company/dropbox",3705,-0.47,"Dropbox offers a suite of products and features designed to simplify work, scale productivity, and enhance collaboration and security. Key features include:
+
+**Core Dropbox Product:**
+*   **File Storage and Access:** Securely store, access, and organize files from any device, with automatic syncing across all devices.
+*   **File Sharing:** Easily share files and folders with anyone via links, with options for password protection, expiring links, and download permissions.
+*   **File Syncing:** Keep projects and files in sync across devices and team members, with features like Smart Sync to save disk space.
+*   **File Backup and Recovery:** Automatic backup of important folders and the ability to recover previous versions of files or restore deleted data.
+*   **Content Collaboration:** Tools for real-time collaboration, including annotating files, task management, and video feedback.
+*   **Productivity Tools:** PDF editing, document scanning, and electronic signatures (Dropbox Sign).
+*   **Security:** Robust security features including two-factor authentication (2FA), end-to-end encryption (E2EE) for team folders, user and device management, and compliance with various standards.
+
+**Dropbox Dash:**
+*   **Universal Search:** An AI-powered search tool that finds content across connected apps, emails, and more, supporting various content types.
+*   **AI Writing Tools:** Capabilities for summarizing documents, generating drafts, and analyzing content.
+*   **People Search:** Helps identify subject matter experts within an organization.
+*   **Integrations:** Connects with essential apps like Slack, Microsoft Teams, Canva, Jira, and Google Workspace.
+*   **Security Controls:** Advanced controls for IT admins to manage access permissions.
+
+**Other Dropbox Products/Features:**
+*   **Dropbox Replay:** For faster video review and approval.
+*   **DocSend:** Secure document sharing with access controls and viewer analytics.
+*   **Dropbox Sign:** For requesting and adding legally-binding eSignatures.
+*   **Dropbox Transfer:** For sending large files securely.
+
+**User Feedback Highlights:**
+*   **Pros:** Ease of use, reliable performance, strong third-party integrations, seamless file syncing, effective file sharing, secure data storage, good for collaboration, intuitive interface.
+*   **Cons:** Limited free storage, can be expensive, occasional syncing issues, limited in-app document editing, some confusion with folder permission settings.
+
+**Recent Updates (Spring 2025 Release):**
+*   Enhanced Dropbox Dash with advanced video and image search, AI writing tools, and deeper integrations.
+*   Streamlined admin experience with a unified console.
+*   Simplified 2FA setup.
+*   New features in Dropbox Replay.","- Basic Plan, 2 GB to store and share files, Free
+- Plus Plan, 1 user, 2 TB of storage, 30 days to restore deleted files, Transfer files up to 50 GB, Edit PDFs and get eSignatures, $9.99 / month
+- Professional Plan, 1 user, 3 TB of storage, 180 days to restore deleted files, Transfer files up to 100 GB, Edit PDFs and get eSignatures, Brand your files to share, Password protect files, $16.58 / month
+- Standard Plan, 3+ users, 5 TB of storage for the team, 180 days to restore deleted files, Transfer files up to 100 GB, Edit PDFs and get eSignatures, Brand your files to share, Password protect files, Team folders for organization, Manage team sharing, Create groups and roles, Admin control, $15 / user / month
+- Advanced Plan, 3+ users, Starts at 15 TB for the team, 1 year to restore deleted files, Transfer files up to 100 GB, Edit PDFs and get eSignatures, Brand your files to share, Password protect files, Team folders for organization, Manage team sharing, Create groups and roles, Tiered-admin management, End-to-end encryption, Advanced key management, Compliance tracking, Single sign-on, $24 / user / month
+- Enterprise, Customization with enterprise-grade security, integrations with security solutions, and dedicated live support, Contact for pricing","Software Development","Dropbox is the one place to keep life organized and keep work moving. With more than 700 million registered users across 180 countries, we're on a mission to design a more enlightened way of working. 
+
+To learn more about working at Dropbox, visit jobs.dropbox.com
+
+We also have a few simple guidelines to keep this space respectful and productive. Please avoid:
+- Harassing other people or using language that’s hateful, offensive, vulgar, or advocates violence
+- Trolling, fraud and spamming
+- Violating someone else’s rights or privacy
+- Advertising or soliciting donations
+- Link baiting 
+- Posting off topic comments or thread hijacking
+
+We may remove comments that violate these guidelines.","https://www.dropbox.com/contact-sales","https://www.linkedin.com/in/jacobbrett"
+,"OpenAI","openai.com","https://www.linkedin.com/company/openai",5527,12.84,"OpenAI's core offerings include advanced AI models and tools. Their flagship products and features are:
+
+*   **Models and APIs:** GPT-4o and GPT-4.1 series, o-series models (o1, o3, o4-mini), Image Generation (GPT Image 1 and DALL-E 3), Code Interpreter, File Search, Text-to-Speech (TTS) models like TTS-1 and GPT-4o mini TTS, Transcription models like Whisper and GPT-4o Transcribe, Embeddings, and Moderation.
+*   **Key Products and Features:** ChatGPT, Sora, API Platform (including Responses API), and Deep Research.
+*   **Target Audience and Use Cases:** Developers, Businesses, and General Users.","- **Free Plan**, Access to GPT-4.1 mini, real-time data, and code edits, **$0/month**.
+- **Plus Plan**, Extended limits, voice mode, access to advanced features and models, **$20/month**.
+- **Pro Plan**, Unlimited access to models and advanced voice, **$200/month**.
+- **Team Plan**, Dedicated workspace, GDPR compliance, unlimited model access, **$25/user/month annually or $30/user/month monthly**.
+- **Enterprise Plan**, Expanded features with enterprise-level security and support, **custom pricing**.
+
+API Pricing Options:
+- **GPT-4.1**, Input $2.00/1M tokens, Output $8.00/1M tokens.
+- **GPT-4.1 mini**, Input $0.40/1M tokens, Output $1.60/1M tokens.
+- **GPT-4.1 nano**, Input $0.10/1M tokens, Output $0.40/1M tokens.
+- **OpenAI o3**, Input $2.00/1M tokens, Output $8.00/1M tokens.
+- **OpenAI o4-mini**, Input $1.10/1M tokens, Output $4.40/1M tokens.
+
+Fine-Tuning Pricing Options:
+- **GPT-4.1 Fine-tuning**, Input $3.00/1M tokens, Training $25.00/1M tokens.
+- **GPT-4.1 mini Fine-tuning**, Input $0.80/1M tokens, Training $5.00/1M tokens.
+- **GPT-4.1 nano Fine-tuning**, Input $0.20/1M tokens, Training $1.50/1M tokens.
+- **o4-mini Reinforcement Fine-tuning**, Input $4.00/1M tokens, Training $100/hour.","Research Services","OpenAI is an AI research and deployment company dedicated to ensuring that general-purpose artificial intelligence benefits all of humanity. AI is an extremely powerful tool that must be created with safety and human needs at its core. OpenAI is dedicated to putting that alignment of interests first — ahead of profit.
+
+To achieve our mission, we must encompass and value the many different perspectives, voices, and experiences that form the full spectrum of humanity. Our investment in diversity, equity, and inclusion is ongoing, executed through a wide range of initiatives, and championed and supported by leadership.
+
+At OpenAI, we believe artificial intelligence has the potential to help people solve immense global challenges, and we want the upside of AI to be widely shared. Join us in shaping the future of technology.","sales@openai.com","https://www.linkedin.com/in/aliisa-rosenthal"
+,"DocuSign","docusign.com","https://www.linkedin.com/company/docusign",8138,3.92,"DocuSign's core product is its eSignature platform, which facilitates electronic document signing and agreement management. Key features include:
+
+Document Preparation & Sending: Templates, web forms, document generation, support for various file types, bulk sending, and payment processing.
+
+Signing Experience: Remote/in-person mobile signing, responsive signing, mobile apps, SMS/WhatsApp delivery, accessibility features, branding customization, and comments.
+
+Signer Identification & Authentication: Email-based, access code, SMS, federated identity, phone, knowledge-based, and ID verification.
+
+Reporting & Compliance: Real-time status updates, customizable reports, data export, legal admissibility, digital signatures, tamper-sealed documents, audit trails, and compliance with industry regulations (FedRAMP, HIPAA, 21 CFR Part 11).
+
+Archiving & Document Retention: Secure archiving, document retention policies, authoritative copy maintenance, and agreement actions.
+
+Platform Features: High availability (99.99% uptime), robust security (AES 256-bit encryption, ISO 27001, FedRAMP, PCI DSS), multi-language support, and extensive administration controls.
+
+Intelligent Agreement Management (IAM): Leverages AI for data extraction, agreement analysis, and workflow automation.
+
+User reviews highlight ease of use, efficiency, and reliability, while noting potential concerns with pricing and UI complexity for new users. Recent announcements include Notary On-Demand and AI contract agents.","- Personal Plan, 5 envelopes per month and 900+ integrations, $10/month ($120 billed annually)
+- Standard Plan, All Personal features plus 100 envelopes/user/year and shareable templates, $25/month per user ($300 billed annually)
+- Business Pro Plan, All Standard features plus payment collection and auto-calculation, $40/month per user ($480 billed annually)
+- Additional options, Pay-As-You-Go and features like SMS delivery and Identity Verification, Contact sales","Software Development","Docusign brings agreements to life. Over 1.5 million customers and more than a billion people in over 180 countries use Docusign solutions to accelerate the process of doing business and simplify people’s lives. With intelligent agreement management, Docusign unleashes business critical data that is trapped inside of documents. Until now, these were disconnected from business systems of record, costing businesses time, money, and opportunity. Using Docusign IAM, companies can create, commit, and manage agreements with solutions created by the #1 company in e-signature and contract lifecycle management (CLM).","https://www.docusign.com/contact-sales","https://www.linkedin.com/in/waynephillipsdirectorsales"
+,"Slack (Salesforce)","slack.com","https://www.linkedin.com/company/tiny-spec-inc",3291,-3.16,"Slack is a communication and collaboration platform designed as the 'operating system for your entire workday.' Its core features include:
+
+*   **Collaboration and Communication:** Channels for organized conversations, Slack Connect for secure external collaboration, Huddles for instant audio and video calls, Direct Messaging for private conversations, Threads for focused discussions, and real-time Messaging with formatting and file sharing.
+*   **Productivity and Automation:** Workflow Builder for automating tasks, Apps and Integrations with over 2,600 third-party applications, Canvas as a digital whiteboard, Lists for project management, File Sharing, and Enterprise Search across connected apps.
+*   **Intelligence and AI:** Slack AI features like channel and thread summaries, daily recaps, file summaries, AI-powered search, and Agentforce for analyzing customer data.
+
+Slack targets businesses of all sizes and offers specific solutions for Sales, Customer Service, and Tech departments. Key differentiators include its unified platform, enterprise-grade security, AI integration, extensive app ecosystem, and Slack Connect for secure external collaboration.","- Free Plan, 90-day access to message history, limited features for external communication and integrations, $0.
+- Pro Plan, Unlimited message history, advanced communication and integrations features, $7.25 per person/month annually or $8.75 monthly.
+- Business+ Plan, Enhanced with Slack AI features, $15 per person/month annually or $18 monthly.
+- Enterprise Grid, Customizable security, compliance features, and AI integrations, pricing tailored per requirement.","Technology, Information and Internet","Slack is on a mission to make people's working lives simpler, more pleasant and more productive. It is the productivity platform for customer companies that improves performance by empowering everyone with no-code automation, making search and knowledge sharing seamless, and keeping teams connected and engaged as they move work forward together. As part of Salesforce, Slack is deeply integrated into the Salesforce Customer 360, supercharging productivity across sales, service and marketing teams. To learn more and get started with Slack for free, visit slack.com or connect with us @SlackHQ.
+
+Ensuring a diverse and inclusive workplace where we learn from each other is core to Slack’s values. We welcome people of different backgrounds, experiences, abilities and perspectives. We are an equal opportunity employer and a pleasant and supportive place to work.
+
+Come do the best work of your life here at Slack.","https://slack.com/contact-sales","https://www.linkedin.com/in/agrdonovan"
+,"Miro","miro.com","https://www.linkedin.com/company/mirohq",2789,-3.35,"Miro is an AI-powered visual workspace designed to bring teams together for collaboration and faster decision-making. Its key features include an Intelligent Canvas for ideation and iteration, AI Tools (Miro Assist) for automating tasks like diagram generation and content creation, Apps & Integrations for connecting with tools like Jira and Slack, Diagramming and Process Mapping tools, an Enterprise Platform with robust security and administration, Collaboration Features for real-time and asynchronous work, and over 300 customizable Templates. Miro serves a broad user base across UX/Design, Marketing, Sales, Product Management, and Engineering, with over 90 million global users.","- Free Plan, 3 editable boards and basic collaboration features, $0
+- Starter Plan, Unlimited and private boards with basic collaboration but lacks advanced security, $8/month/member
+- Business Plan, Advanced collaboration and security features with Jira integration, $16/month/member
+- Enterprise Plan, Top security and support with flexible licensing, Custom pricing","Software Development","Miro is an innovation workspace designed for teams of every size, everywhere, to dream, design, and build the future together. Our mission? To empower these teams to create the next big thing, powered by AI at every step of the way. 
+
+Over 80 million users around the world rely on Miro to untangle complex ideas, put customer needs first, and deliver products and services faster. All supported by best-in-class security, compliance, and scalability.","sales@miro.com","https://www.linkedin.com/in/brunocampuzano"
+,"Snowflake","snowflake.com","https://www.linkedin.com/company/snowflake-computing",9645,8.77,"Snowflake's core product is its AI Data Cloud, a unified platform offering data engineering, analytics, AI, applications, and collaboration. Key features include a fully managed, cross-cloud architecture with independent compute and storage scaling. Functionalities encompass data engineering, fast analytics, AI/ML model creation, secure data sharing, and robust security/governance. It supports standard SQL, various programming languages, and offers tools like Snowsight GUI and SnowSQL CLI. Users praise its ease of use and scalability but note potential high costs.","- Standard Edition, Complete SQL data warehouse, secure data sharing, up to 1 day of time travel, premier support 24x365, encryption, federated authentication, SOC 2 Type II certification, OAuth support, MFA, database replication and disaster recovery, $2.00 per use.
+- Enterprise Edition, Includes all Standard features, multi-cluster warehouses, up to 90 days time travel, advanced security, annual rekeying, audit user access history, materialized views, search optimization service, $3.00 per use.
+- Business Critical, Includes all Enterprise features, HIPAA and PCI DSS compliance, Tri-Secret Secure, private endpoints for AWS, Azure, Google Cloud, failover/failback features, support for public sector workloads, $4.00 per use.
+- Virtual Private Snowflake (VPS), Includes all Business Critical features, customer-dedicated virtual servers and metadata store, 24-hour early access to new releases, specialized offerings for isolated, private configurations, pricing on demand.","Software Development","Snowflake delivers the AI Data Cloud — a global network where thousands of organizations mobilize data with near-unlimited scale, concurrency, and performance. Inside the AI Data Cloud, organizations unite their siloed data, easily discover and securely share governed data, and execute diverse analytic workloads. Wherever data or users live, Snowflake delivers a single and seamless experience across multiple public clouds. Snowflake’s platform is the engine that powers and provides access to the AI Data Cloud, creating a solution for data warehousing, data lakes, data engineering, data science, data application development, and data sharing. Join Snowflake customers, partners, and data providers already taking their businesses to new frontiers in the AI Data Cloud.","https://www.snowflake.com/en/contact-sales/","https://www.linkedin.com/in/jrsnowflake"
+,"Twilio","twilio.com","https://www.linkedin.com/company/twilio-inc-",6442,1.14,"Twilio offers a Customer Engagement Platform with core product categories including Communications, Customer Data, Authentication, Conversational AI, and Builder Tools. Key features include:
+
+**Communications:** Messaging APIs (SMS, WhatsApp, etc.), Twilio SendGrid Email API, Voice API, Phone Numbers (toll-free, short codes), Twilio Flex (digital engagement center), Twilio Video, Marketing Campaigns, Event Streams, and Trust Hub (SHAKEN/STIR, CNAM).
+
+**Customer Data:** Twilio Segment Connections, Twilio Protocols, Twilio Unify, Twilio Engage, and Twilio Privacy Portal for managing and utilizing first-party data.
+
+**Authentication:** Verify API (OTP delivery) and Lookup (phone number validation).
+
+**Conversational AI:** ConversationRelay and Conversational Intelligence for AI-powered interactions and analysis.
+
+**Builder Tools:** Serverless, Studio (drag-and-drop workflow builder), and Functions for developing communication applications.
+
+Third-party reviews highlight Twilio's flexibility, developer-friendliness, extensive documentation, and scalability, while noting potential concerns about pricing and customer support responsiveness.","- Twilio Programmable Voice, Voice APIs start at $0.0085/min to receive and $0.014/min to make a call.
+- Twilio Video API, Starts at $0.004/min to receive or make a video call.
+- Twilio Elastic SIP Trunking, Starts at $0.0045/min for origination and $0.007/min for termination.
+- Twilio Engage, Pricing is customized based on needs.
+- Twilio Conversations API, Starts at $0.05 per active user per month.
+- Twilio Studio, Starts at $0.001 per flow execution.
+- Twilio Flex, Start with 5,000 hours free, then $1/active user hour or $150/named user per month.
+- Twilio Segment CDP, Starts at $120/month for up to 10k visitors/month. Try free for 14 days.
+- Twilio SendGrid Email API, Start for free with 100 emails/day; paid plans start at $19.95/month.
+- Twilio SendGrid Marketing Campaigns, Start for free with 6,000 emails/month; paid plans start at $15/month.
+- SMS, Starts at $0.0083 to send or receive a message.
+- WhatsApp Business API, Starts at $0.005 to send or receive a WhatsApp message with prices varying by use case.
+- Twilio Voice Intelligence, Starts at $0.0350/min for transcription and $0.0050/min for language operators.
+- Twilio TaskRouter, First 100 tasks/month are free, then $0.06/task.
+- Twilio Serverless, Start with free access to tools, then $0.0001 per request or invocation.
+- Twilio Functions, Start with 10,000 free invocations, then $0.0001 per invocation.
+- Twilio Sync, Start with 200 endpoint-hours free, then $0.0025/hour.
+- Twilio for Salesforce, Start with a 30-day free trial, then $15 per seat per month.","Software Development","Today's leading companies trust Twilio's Customer Engagement Platform (CEP) to build direct, personalized relationships with their customers everywhere in the world. Twilio enables companies to use communications and data to add intelligence and security to every step of the customer journey, from sales to marketing to growth, customer service and many more engagement use cases in a flexible, programmatic way. Across 180 countries, millions of developers and hundreds of thousands of businesses use Twilio to create magical experiences for their customers.","https://www.twilio.com/en-us/help/sales","https://www.linkedin.com/in/lopez0325"
+,"HubSpot","hubspot.com","https://www.linkedin.com/company/hubspot",10903,-1.35,"HubSpot offers an integrated customer platform powered by AI, encompassing marketing, sales, customer service, content management, and operations. Its core product hubs include Marketing Hub, Sales Hub, Service Hub, Content Hub, Operations Hub, and Commerce Hub. Key standout features across the platform include Breeze AI, Smart CRM, a user-friendly interface, integrations, and customer support. Customer reviews highlight HubSpot's effectiveness in lead generation, deal closing, and customer service efficiency.","- Standard Pricing, Marketing and Sales with Operations and Service software, $20/month per seat ($15/month per seat with annual commitment and upfront payment).
+- Promotional Pricing, Marketing Automation with lead generation and nurturing, $9/month per seat for first year (limited time offer, annual commitment) then $15/month per seat.
+- Month-to-Month, All same features as above with no annual commitment, $15/month per seat first year, $20/month per seat after.","Software Development","HubSpot is a leading CRM platform that provides software and support to help businesses grow better. Our platform includes marketing, sales, service, and website management products that start free and scale to meet our customers’ needs at any stage of growth. Today, thousands of customers around the world use our powerful and easy-to-use tools and integrations to attract, engage, and delight customers.
+
+HubSpot's award-winning culture has been recognized by Glassdoor, Great Place to Work, Comparably, Fortune, Entrepreneur, Inc., and more. We build connections, careers, and employee growth by creating a workplace that values flexibility, autonomy, and transparency. You can learn more about our commitment to creating an inclusive and diverse workplace in the HubSpot Culture Code.
+
+HubSpot is a hybrid company with employees working fully remotely, from an office, or a mix of the two. We are headquartered in Cambridge, MA with offices in Amsterdam, Berlin, Bogota, Dublin, Ghent, London, Madrid, Paris, San Francisco, Singapore, Sydney, Tokyo and Toronto. 
+
+To learn more about HubSpot, visit www.hubspot.com and to join our team, visit www.hubspot.com/careers","https://offers.hubspot.com/contact-sales","https://au.linkedin.com/in/lauren-shaw-22387758"
+,"Zendesk","zendesk.com","https://www.linkedin.com/company/zendesk",7215,9.91,"Zendesk offers a customer service solution powered by AI, designed to simplify customer interactions across various channels. Its core features include:
+
+*   **Unified Customer Service Platform:** Ticketing system, multi-channel support, AI-powered agents, and omnichannel resolutions.
+*   **Self-Service & Knowledge Management:** Knowledge base and AI for knowledge.
+*   **Automation & Efficiency:** Automation, workflows, and macros, and SLA management.
+*   **Data & Analytics:** Analytics and dashboards, and Zendesk Explore.
+*   **Customization & Integration:** Customization, integrations, and APIs and SDKs.
+*   **Employee Service:** Employee service solution.","- Suite Team, Omnichannel support, self-service, ticketing system, AI agents, prebuilt analytics, 1,000+ apps & integrations, macros, triggers & automations, online support, onboarding resources, workforce and quality assurance add-ons eligible, $55 per agent/month billed annually
+- Suite Growth, All features of Suite Team, plus multiple ticket forms, light agents, SLA, CSAT, multilingual support, self-service portal, business hours, $89 per agent/month billed annually
+- Suite Professional, All features of Suite Growth, plus custom analytics, live analytics, side conversations, skills-based routing, community forums, data location options, HIPAA enabled, Sunshine Conversations, Advanced AI add-on eligible, $115 per agent/month billed annually
+- Suite Enterprise, All features of Suite Professional, plus customized service, real-time analytics, sandbox, content blocks, custom agent roles, dynamic workspaces, Advanced Data Privacy and Protection add-on eligible, $169 per agent/month billed annually
+- Sell Team, Customizable sales pipeline, up to 2 pipelines, email and calendar integrations, task and appointment management, call tracking and recording, pre-built sales dashboards, robust APIs, $19 per agent/month billed annually
+- Sell Growth, Customizable sales pipeline, up to 10 pipelines, product and price book, advanced and custom sales reports, sales forecasting and goals tracking, prospecting and enrichment credits, $55 per agent/month billed annually
+- Sell Professional, Customizable sales pipeline, up to 20 pipelines, lead and deal scoring, task automation, advanced roles and permissions, company hierarchy, $115 per agent/month billed annually
+- Sell Enterprise, Unlimited pipelines and sequences, tailored to business needs with added customization, starting at $169 per user/month billed annually","Software Development","Zendesk started the customer experience revolution in 2007 by enabling any business around the world to take their customer service online. Today, Zendesk is the champion of great service everywhere for everyone, and powers billions of conversations, connecting more than 100,000 brands with hundreds of millions of customers over telephony, chat, email, messaging, social channels, communities, review sites and help centers. Zendesk products are built with love to be loved. The company was conceived in Copenhagen, Denmark, built and grown in California, taken public in New York City, and today employs more than 4,000 people across the world.","https://www.zendesk.com/contact/","linkedin.com/in/will-oliveira-18091b2b"
+,"Shopify","shopify.com","https://www.linkedin.com/company/shopify",23696,11.89,"Shopify offers a comprehensive e-commerce platform with core features including an online storefront (website builder, headless commerce support, customization), sales and checkout (Shopify checkout, POS, multichannel selling), shipping and fulfillment (Shopify shipping, fulfillment network, local delivery options), marketing and analytics tools, and business management and finance features (app store, financial services, B2B commerce, AI-powered tools). It serves businesses of all sizes.","- Shopify Starter, £5/month, Offerings not specified
+- Basic Shopify, $29/month, Transaction Fees: 5%, Staff Accounts: Up to 2
+- Shopify, $79/month, Online Credit Card Rate: 2.9% + $0.30, In Person Credit Card Rate: 1.6%, Third Party Payment Provider Fee: 1%, Staff Accounts: Up to 5
+- Shopify Advanced, $299/month, Online Credit Card Rate: 2.6% + $0.30, In Person Credit Card Rate: 1.5%, Third Party Payment Provider Fee: 0.5%, Staff Accounts: Up to 15
+- Shopify Plus, Approx $2,000/month, Online Credit Card Rate: Approx 2.15% + $0.30, In Person Credit Card Rate: Approx 1.5%, Third Party Payment Provider Fee: Approx 0.5%, Staff Accounts: Unlimited","Software Development","Shopify is a leading global commerce company, providing trusted tools to start, grow, market, and manage a retail business of any size. Shopify makes commerce better for everyone with a platform and services that are engineered for reliability, while delivering a better shopping experience for consumers everywhere. Shopify powers millions of businesses in more than 175 countries and is trusted by brands such as Allbirds, Gymshark, PepsiCo, Staples, and many more.
+
+Find all our jobs here: www.shopify.com/careers","https://www.shopify.com/plus/contact-sales-content-nurture","https://www.linkedin.com/in/aliciacornell"
+,"Atlassian","atlassian.com","https://www.linkedin.com/company/atlassian",16688,-4.02,"Atlassian's main products and their core features:
+
+*   **Jira:** Issue and project tracking for software development teams. Features include bug tracking, task management, agile project planning, code linking, and activity monitoring. Recent updates include AI-powered linking, improved Quick Actions, easier date selection, and AI triage for fields like Priority and Assignee.
+*   **Confluence:** A platform for team collaboration and knowledge sharing. Features include document creation, team spaces, and integration for information sharing. Recent updates include AI in whiteboards, creating Jira tasks from Confluence, and Figma integration.
+*   **Trello:** A visual collaboration tool for project management using boards, lists, and cards.
+*   **Bitbucket:** A Git-based code repository and collaboration tool for software teams.
+*   **Loom:** A video messaging tool for work communication.
+*   **Jira Service Management:** IT support and ticketing system, incorporating on-call management and alerting features from Opsgenie.
+*   **Jira Align:** Enterprise-level agile planning and portfolio management.
+*   **Opsgenie:** On-call management and alerting (features are being migrated to Jira Service Management).
+*   **Rovo:** A newer offering.","Unable to access specific details on Atlassian's pricing plans directly from their website at this moment. Attempts to visit their designated pricing pages for both Jira and Confluence did not yield specific plan details.
+
+However, from auxiliary sources:
+
+- **Jira Free Plan:** Includes unlimited goals, projects, tasks, and forms, free for teams of up to 10 users.
+- **Standard Plan:** Offers more control with additional security and administrative functions, around $7-8 per user/month as cited by third-party sites like [Capterra](https://www.capterra.com/p/19319/JIRA/pricing/).
+- **Premium Plan:** Focuses on larger teams needing advanced capabilities, potentially higher costs, cited by sources like [Tech.co](https://tech.co/project-management-software/jira-pricing).","Software Development","Atlassian powers the collaboration that helps teams accomplish what would otherwise be impossible alone.
+
+From space missions and motor racing to bugs in code and IT requests, no task is too large or too small with the right team, the right tools, and the right practices. 
+
+Over 300,000 global companies and 80% of the Fortune 500 rely on Atlassian’s software, like Jira, Confluence, Loom, and Trello, to help their teams work better together and deliver quality results on time.
+
+With our 300,000+ customers and team of 10,000+ Atlassians, we are building the next generation of team collaboration and productivity software.
+
+We believe the power of teams has the potential to change the world — one that is more open, authentic, and inclusive.","sales@atlassian.com","https://www.linkedin.com/in/julia-qu-60a31930"
+,"SAP","sap.com","https://www.linkedin.com/company/sap",130905,5.71,"SAP offers a comprehensive suite of enterprise software solutions. Key product categories and features include:
+
+*   **Core Offerings & Platforms:**
+    *   **SAP Business Suite:** Integrates AI, cloud data, and applications for enterprise operations.
+    *   **SAP S/4HANA Cloud:** An integrated enterprise resource planning (ERP) software for businesses of all sizes, offering deep and broad functionality with flexibility.
+    *   **SAP Business Technology Platform (BTP):** A unified environment for data and analytics, AI, application development, automation, and integration.
+    *   **SAP Business Network:** Facilitates real-time collaboration with trading partners across supply chains.
+    *   **SAP Signavio solutions:** For understanding and transforming business processes.
+
+*   **Specific Product Areas & Features:**
+    *   **Cloud ERP Applications:** Modular solutions with built-in AI and analytics.
+    *   **Financial Management:** Solutions for managing uncertainty, optimizing processes, and enabling compliance.
+    *   **Spend Management:** AI-powered processes from source to pay for spend visibility, control, and savings.
+    *   **Supply Chain Management:** Solutions for risk-resilient and sustainable supply chains, including planning, manufacturing, and logistics.
+    *   **Human Capital Management (HCM):** AI-enabled solutions for core HR, payroll, employee experience, talent management, and contingent workforce management.
+    *   **Customer Experience (CX):** Solutions connecting e-commerce, marketing, sales, and service data, using AI for personalization.
+    *   **Sustainability Management:** ERP-centric, AI-powered solutions for compliance, sustainability, and resilience.
+
+*   **Notable Products Mentioned:**
+    *   SAP Sales Cloud
+    *   SAP ECC (Enterprise Central Component)
+    *   SAP Ariba (for sourcing, procurement, supplier management)
+    *   SAP Concur (for expense management)
+    *   SAP SuccessFactors (for HCM)
+    *   SAP Build (for application development and automation)
+    *   SAP Commerce Cloud
+    *   SAP Integrated Product Development
+    *   SAP Emarsys (for customer engagement)
+    *   SAP Business AI","- **SAP BTP Free Tier Model**, Includes access to SAP BTP services as a free trial, **Cost:** Free, accessible through an SAP BTP Enterprise Agreement (SAP BTPEA) or Pay-As-You-Go.
+- **Annual Subscription Fee**, Provides extended access to SAP BTP services under a contract, **Cost:** Based on the specific agreement.
+- **Cloud Platform Enterprise Agreement (CPEA)**, Offers flexible access to SAP BTP resources and scaling based on needs, **Cost:** Custom pricing based on resources and services selected.","Software Development","SAP is the leading enterprise application and business AI company. We stand at the intersection of business and technology, where our innovations are designed to directly address real business challenges and produce real-world impacts.
+
+Our solutions are the backbone for the world’s most complex and demanding processes. SAP’s integrated portfolio unites the elements of modern organizations — from workforce and financials to customers and supply chains — into a unified ecosystem that drives progress.
+
+SAP privacy statement for followers: www.sap.com/sps
+
+Our Community Guidelines
+At SAP, we're committed to fostering meaningful conversations that respect everyone in our community. To maintain a positive environment, we moderate comments that:
+• Target individuals personally, including our employees, customers, or partners
+• Contain discriminatory, harassing, or threatening language/content
+• Share personal information without consent
+• Promote misinformation or spam or 3rd-party links
+
+We believe in open dialogue and constructive feedback, but we will remove content that violates these guidelines without notice. We appreciate your understanding and contribution to a respectful community.
+
+For questions about our moderation practices, please DM or contact us at brandsocial@sap.com.","https://www.sap.com/registration/contact.html","https://www.linkedin.com/in/stephanieforsyth429"
+,"Linktree","linktr.ee","https://www.linkedin.com/company/linktree",283,7.69,"Linktree's core features include: link aggregation, customization, monetization options (selling products, collecting tips, affiliate commissions), audience engagement and growth tools (email/phone number collection, social media scheduling, AI content ideas), analytics, various integrations (social media, payment processors, e-commerce platforms), QR code generation, NFT features, and automated Instagram DM replies. It serves as a 'link in bio' solution, consolidating multiple links into one shareable link.","- **Free**, Unlimited links, Social icons, videos & embeds, Essential analytics, SEO optimized design, Unique QR code, Linktree Shops & sponsored links, Digital products and courses, Free.
+- **Starter**, Includes features of Free plan, plus Custom themes, Own your audience, Redirect links, Social media scheduling, $5.00 per month.
+- **Professional**, Includes features of Starter plan, plus Personalized Linktree, Highlight key links, Comprehensive analytics, Automated Instagram replies, Link shortener, Email integrations, $9.00 per month.
+- **Business**, Includes features of Professional plan, plus Unlimited social posts, Optional add-on team tools, Unlimited Instagram replies, $26.25 per month.
+- **Agency or Enterprise**, Custom plan upon request, Custom.","Software Development","Linktree enables creators, brands, artists, publishers, agencies, and businesses of all sizes to curate a place where they can share, sell and grow. Among the top 300 most popular website destinations globally, Linktrees see over 1.2 billion unique visitors a month.
+
+In 2021 alone, we enabled over one million artists to generate 90 million streams across platforms – twice as many artists and three times as many streams than in the year prior. In 2022, we launched a developer marketplace and a mobile app to continue compounding the success for creators everywhere. That’s why more than 70 million people and global brands link everything they are on Linktree, including TikTok, Selena Gomez, Red Bull, Shawn Mendes, the LA Clippers, The Rock and HBO.","No sales contact found","No LinkedIn profile found"
+,"Zoom","zoom.us","https://www.linkedin.com/company/zoom",11591,3.11,"Zoom Workplace provides communication tools like Meetings, Team Chat, Phone, Mail & Calendar, and a Scheduler. Its productivity tools include AI Companion, Docs, Whiteboard, Clips, and Tasks. Business services consist of Contact Center, Virtual Agent, Workforce Engagement, and Sales & Marketing tools. It also offers a Developer Ecosystem with APIs & SDKs, and features like Workspace Reservation, Visitor Management, and Digital Signage.","- **Zoom Basic (Free)**, Up to 100 participants, 40-minute limit on group meetings, Local recording, No Cloud storage, Automated captions, Virtual backgrounds, Breakout rooms, Team Chat and 3 whiteboards, Free
+- **Zoom Pro**, Up to 100 participants, Extended meeting durations (up to 30 hours), 5 GB of Cloud recording per license, Social media streaming, Custom personal meeting IDs, AI Companion, $14.99/month or $149.90/year
+- **Zoom Business**, Up to 300 participants, Unlimited whiteboards, Company branding, SSO, Admin portal, Advanced analytics and reporting, Live chat and phone support, $21.99/month or $219.90/year
+- **Zoom Business Plus**, Includes Zoom Phone service, Centralized communications, Same features as Business plan, $22.49/user/month
+- **Zoom Enterprise**, Up to 1,000 participants, Unlimited Cloud storage, Enhanced security, Direct support from a customer success manager, Personalized onboarding and support, Custom pricing","IT Services and IT Consulting","Bring teams together, reimagine workspaces, engage new audiences, and delight your customers –– all on the Zoom AI-first work platform you know and love. 
+
+Zoomies help people stay connected so they can get more done together. We set out on a mission to make video communications frictionless and secure by building the world’s best video product for the enterprise, but we didn’t stop there. With products like AI Companion, Team Chat, Contact Center, Phone, Events, Rooms, Webinar, Contact Center and more, we bring innovation to a wide variety of customers, from the conference room to the classroom, from doctor’s offices to financial institutions to government agencies, from global brands to small businesses.
+
+We do what we do because of our core value of Care: care for our community, our customers, our company, our teammates, and ourselves. Our global employees help our customers meet happier, communicate better, and create meaningful connections the world over. Zoomies are problem-solvers and self-starters, working hard to get results and moving quickly to design solutions with our customers and users in mind. Here, you'll find room to grow with opportunities to stretch your skills and advance your career in a collaborative, growth-focused environment.
+
+Learn more about careers at Zoom by visiting our careers site: https://careers.zoom.us/home","https://www.zoom.com/en/contact/contact-sales/","https://www.linkedin.com/in/22dgonzalez"
+,"Workday","workday.com","https://www.linkedin.com/company/workday",24981,6.19,"Workday offers a suite of cloud-based enterprise applications for finance and human capital management (HCM) on a single AI-powered platform. Key features include:
+
+**Human Capital Management (HCM) & HR:** Core HCM, Talent Management (AI-powered), Employee Experience features, Workforce Management, Payroll, Workday Skills Cloud, Workday Peakon Employee Voice, and Workday VNDLY.
+
+**Financial Management:** Core Finance, Spend Management, Financial Planning, AI-Powered Accounts Payable (AP), and Workday Services CPQ.
+
+**Platform & Technology:** Workday Platform, AI and Machine Learning (Workday Illuminate™), AI Agent System of Record, AI Developer Toolset & Agent Gateway, Workday Assistant, Workday Help, and System Admin Hub.","- Workday Adaptive Planning Free Trial, 30-day access to core planning capabilities and dashboards, Free for 30 days
+- Workday Adaptive Planning, Boost agility and business growth with unlimited versions and scenarios, Pricing varies (Request a Quote)
+- Workday Adaptive Planning & Consolidation, Planning with consolidation features and unlimited scenarios, Pricing varies (Request a Quote)","Software Development","Workday is a leading provider of enterprise cloud applications for finance and human resources, helping customers adapt and thrive in a changing world. Workday applications for financial management, human resources, planning, spend management, and analytics are built with artificial intelligence and machine learning at the core to help organizations around the world embrace the future of work. Workday is used by more than 10,000 organizations around the world and across industries – from medium-sized businesses to more than 50% of the Fortune 500.","https://www.workday.com/en-us/company/about-workday/contact-us.html","https://www.linkedin.com/in/chrissheaworkday"
+,"Microsoft","microsoft.com","https://www.linkedin.com/company/microsoft",237475,-2.87,"Microsoft offers a wide range of products, apps, and services. Key offerings include:
+
+**Productivity and Collaboration:**
+*   **Microsoft 365:** An AI-powered suite (Word, Excel, PowerPoint, Outlook) with 1TB OneDrive storage, tech support, and collaboration tools.
+*   **Microsoft Teams:** Platform for chat, calls, communities, and events.
+*   **Office Suites:** Various versions of Office.
+*   **Note-taking:** OneNote, Sticky Notes.
+*   **Task Management:** To Do, Outlook.
+
+**AI and Innovation:**
+*   **Microsoft Copilot:** AI companion for information finding and content creation, available as a mobile app and Copilot Pro.
+*   **Microsoft Designer:** AI tool for design and photo editing.
+*   **Microsoft Fabric:** AI-powered data tools and AI-enabled decision-making.
+
+**Cloud and Business Solutions:**
+*   **Azure:** Microsoft's cloud platform.
+*   **Windows 365:** Cloud PC solutions.
+*   **Microsoft Cloud:** Enterprise solutions.
+
+**Devices and Hardware:**
+*   **Surface:** Laptops and devices (Surface Pro, Surface Laptop) with AI features.
+*   **Xbox:** Gaming consoles and accessories.
+
+**Other Products and Services:**
+*   **OneDrive:** Cloud storage.
+*   **Microsoft Defender:** Security solutions.
+*   **Microsoft Edge:** AI-powered web browser.
+*   **Bing:** AI-powered search engine.
+*   **Clipchamp:** Video editing tool.
+*   **Minecraft:** Game.
+*   **LinkedIn:** Professional networking.
+*   **Skype:** Communication tool.","- **Power BI Free Account**, basic features like creating interactive reports, Free
+- **Power BI Pro**, access Power BI reports shared with you and publish your own, $14.00 user/month, paid yearly
+- **Power BI Premium Per User**, includes all the features available with Power BI Pro plus additional features like larger model sizes, more frequent refreshes, $24.00 user/month, paid yearly
+- **Power BI Embedded**, create customer-facing reports, Pricing is variable, contact sales for details","Software Development","Every company has a mission. What's ours? To empower every person and every organization to achieve more. We believe technology can and should be a force for good and that meaningful innovation contributes to a brighter world in the future and today. Our culture doesn’t just encourage curiosity; it embraces it. Each day we make progress together by showing up as our authentic selves. We show up with a learn-it-all mentality. We show up cheering on others, knowing their success doesn't diminish our own. We show up every day open to learning our own biases, changing our behavior, and inviting in differences. Because impact matters. 
+
+Microsoft operates in 190 countries and is made up of approximately 228,000 passionate employees worldwide.","https://www.microsoft.com/en-us/microsoft-365/business/sales-support","https://ie.linkedin.com/in/louise-james-0a807020"
+,"IBM","ibm.com","https://www.linkedin.com/company/ibm",327962,5.33,"IBM's main product categories include Analytics, Business Operations, Cloud, and Cybersecurity. Key products are IBM Planning Analytics and IBM Db2 Database.
+
+IBM Planning Analytics: Business performance management software for planning, forecasting, and reporting, suitable for various industries and company sizes.
+
+IBM Db2 Database: An AI-powered database optimized for transactions and real-time analytics, geared towards enterprise needs.","- Watsonx Governance, Essentials, Use case for individuals and POCs, starting at USD 0.60 per resource unit.
+- Watsonx Governance, Standard, Use case for enterprise production, not specified.
+- Watson Studio, Pay-as-you-go, Fully managed on IBM Cloud.
+- IBM App Connect, Flow Runs edition, Starts at USD 200/month, charged based on integration flow invocations.
+- IBM App Connect, Runtime Compute Capacity edition, Starts at USD 667/month, charged per virtual core hour.
+- Databand, Essentials plan, Fully featured data observability platform, USD 450/month.
+- Databand, Standard plan, Single-pane-of glass observability, USD 1750/month.
+- Databand, Premium plan, Scale observability, price not specified.","IT Services and IT Consulting","At IBM, we do more than work. We create. We create as technologists, developers, and engineers. We create with our partners. We create with our competitors. If you're searching for ways to make the world work better through technology and infrastructure, software and consulting, then we want to work with you.
+
+We're here to help every creator turn their ""what if"" into what is. Let's create something that will change everything.","https://www.ibm.com/contact/global","https://www.linkedin.com/in/derek-lim-5316b284"
+,"Oracle","oracle.com","https://www.linkedin.com/company/oracle",207375,4.1,"Oracle's main product features include a comprehensive suite of integrated cloud applications and a cloud infrastructure platform (Oracle Cloud). Key offerings are categorized as:
+
+**Cloud Applications (SaaS):**
+*   Supply Chain Management (SCM): covering inventory, manufacturing, logistics, procurement, etc.
+*   Human Capital Management (HCM): for HR management.
+*   Customer Experience (CX): including marketing, sales, and service solutions.
+*   Analytics: various solutions for data analysis.
+*   NetSuite: cloud ERP solution.
+*   On-Premises Products: E-Business Suite, PeopleSoft, JD Edwards, Siebel CRM, etc.
+
+**Cloud Infrastructure (OCI):**
+*   A full stack of cloud services, including dedicated regions and offerings for running IT workloads.
+
+**Database Features:**
+*   AI-driven features: AI Vector Search, RAG, machine learning within the database.
+*   Analytics and Data Warehousing: advanced capabilities for data analysis.
+*   Application Development: tools like APEX and JSON Relational Duality.
+*   Data Sovereignty and Residency: solutions for managing data across multiple databases.
+*   Database Manageability: integrated management solutions.
+*   Database Security: encryption, masking, access controls.
+*   High Availability: features like Active Data Guard and Real Application Clusters.
+*   Performance and Scalability: optimized features for demanding environments.
+
+Oracle also offers hardware solutions and encourages customer reviews on platforms like Gartner Peer Insights, TrustRadius, and G2.","- **Universal Credits (Annual Commitment)**: Allows use of OCI services on a prepaid basis for a 12-month term with potential discounts. Pricing specifics, such as rate card information, were not disclosed.
+- **Universal Credits (Pay As You Go)**: Flexible options to pay only for what is used without long-term commitment. Specific prices per service are not detailed.
+- **Support Rewards**: Reduces on-premises support costs but exact terms or pricing details are not specific.","IT Services and IT Consulting","We’re a cloud technology company that provides organizations around the world with computing infrastructure and software to help them innovate, unlock efficiencies and become more effective. We also created the world’s first – and only – autonomous database to help organize and secure our customers’ data.
+ 
+Oracle Cloud Infrastructure offers higher performance, security, and cost savings. It is designed so businesses can move workloads easily from on-premises systems to the cloud, and between cloud and on-premises and other clouds. Oracle Cloud applications provide business leaders with modern applications that help them innovate, attain sustainable growth, and become more resilient. 
+ 
+The work we do is not only transforming the world of business--it's helping defend governments, and advance scientific and medical research. From nonprofits to companies of all sizes, millions of people use our tools to streamline supply chains, make HR more human, quickly pivot to a new financial plan, and connect data and people around the world.  
+
+At work, we embrace diversity, encourage personal and professional growth, and celebrate a global team of passionate people developing innovative technologies that help people and companies tackle real-world problems head-on.
+
+If you’d like to join us, please visit our Careers page: https://www.oracle.com/corporate/careers/
+
+For investor news, SEC filings, and financial information about Oracle (NYSE:ORCL), please visit https://investor.oracle.com/home/.
+ 
+Follow us on X: x.com/oracle 
+Like our page on Facebook: facebook.com/Oracle/ 
+Follow us on Instagram: instagram.com/oracle/","https://www.oracle.com/corporate/contact/","No LinkedIn profile found"
+,"Apple","apple.com","https://www.linkedin.com/company/apple",176018,4.98,"Apple's main product offerings include:
+
+Hardware:
+- iPhone: Latest models are iPhone 16 family, with features like Apple Intelligence integration.
+- iPad: Including iPad Pro with advanced features and iPad Air.
+- Mac: Such as MacBook Air, MacBook Pro, iMac, Mac mini, Mac Studio, and Mac Pro.
+- Apple Watch: Including Apple Watch SE and Apple Watch Ultra.
+- AirPods: Including AirPods Pro 2.
+- Apple Vision Pro: A spatial computing device.
+- Accessories: Such as Apple Pencil, Magic Keyboard, AirTag, HomePod, and HomePod mini.
+
+Software & Services:
+- Operating Systems: iOS, iPadOS, macOS, watchOS, visionOS, tvOS.
+- Apple Intelligence: An AI system integrated into Apple devices to enhance user experience in communication, productivity, and creativity. Features include Live Translation, visual intelligence, Image Playground, Genmoji, and enhanced Siri capabilities.
+- Apple Music: Offers features like AutoMix, Lyrics Translation, Lyrics Pronunciation, and Sing.
+- Apple Maps: Provides preferred routes, Visited Places, and commute notifications.
+- Apple Wallet: Integrates order tracking with Apple Intelligence, Apple Pay, and Digital ID.
+- Apple Pay: For secure payments.
+- Apple Podcasts: Offers customizable playback speeds and Enhance Dialogue.
+- Apple Fitness+: Provides custom workout plans.
+- iCloud: For cloud storage and services.","- Individual Plan, iCloud+ 50GB, Apple TV+, Apple Music, Apple Arcade, $19.95/month
+- Family Plan, iCloud+ 200GB, Share with up to five people, Apple TV+, Apple Music, Apple Arcade, $25.95/month
+- Premier Plan, iCloud+ 2TB, Share with up to five people, Apple TV+, Apple Music, Apple Arcade, Apple Fitness+, Apple News+, $37.95/month","Computers and Electronics Manufacturing","We’re a diverse collective of thinkers and doers, continually reimagining what’s possible to help us all do what we love in new ways. And the same innovation that goes into our products also applies to our practices — strengthening our commitment to leave the world better than we found it. This is where your work can make a difference in people’s lives. Including your own.
+
+Apple is an equal opportunity employer that is committed to inclusion and diversity. Visit apple.com/careers to learn more.","https://www.apple.com/contact/","https://www.linkedin.com/in/cynthiaglinski"
+,"Salesforce","salesforce.com","https://www.linkedin.com/company/salesforce",87189,10.72,"Salesforce offers a comprehensive suite of AI-powered Customer Relationship Management (CRM) products. Key features include:
+
+**Core CRM Functionalities:** Contact management, a single source of truth for customer data, AI-driven analytics and content generation, robust reporting and dashboards (enhanced by AI/Tableau), cloud-based SaaS delivery, mobile CRM access, workflow automation, collaboration tools, scalability, sales forecasting, opportunity management, product-level quotes, omni-channel customer support, customer self-service portals, field service management, campaign management, customer journey orchestration, third-party integrations (e.g., MuleSoft), and robust security features.
+
+**Key Product Suites:**
+*   **Sales Cloud:** Focuses on revenue acceleration, lead and pipeline management, AI insights, and sales forecasting.
+*   **Service Cloud:** Provides AI-powered customer service support for efficient and scalable service.
+*   **Marketing Cloud:** Enables personalized customer journeys, campaign management, and audience segmentation.
+*   **Data Cloud:** Unifies and activates customer data for a single source of truth and cross-channel actions.
+*   **Agentforce:** Salesforce's digital labor solution deploying AI agents for various business functions, including sales coaching and automated outreach, with recent Summer '25 release enhancements.
+
+**User Experience and Reviews:** Salesforce is generally seen as powerful, customizable, and effective for customer interactions, with strong AI capabilities and extensive training resources (Trailhead). However, it can have a steep learning curve, a sometimes dated UI, and can be costly. It has received high ratings from G2 and Gartner.
+
+**Recent Innovations:** The Summer '25 release emphasizes AI agent integration (Agentforce) for employee assistance and productivity, alongside improvements in Data Cloud for AI accuracy and governance.","- **Salesforce Sales Cloud Essentials**, Basic CRM capabilities, $25/user/month.
+- **Salesforce Sales Cloud Lightning Professional**, Advanced CRM functionalities, $80/user/month.
+- **Salesforce Sales Cloud Lightning Enterprise**, Enhanced CRM with AI features, $165/user/month.
+- **Salesforce Sales Cloud Lightning Unlimited**, Full CRM suite with customizability, $330/user/month.
+- **Salesforce Sales Cloud Lightning Unlimited+**, Premium CRM with maximum features, $500/user/month.
+- **Salesforce Service Cloud Starter Suite**, Ideal for small businesses, $25/user/month.
+- **Salesforce Service Cloud Professional**, Supports omni-channel routing, $80/user/month.
+- **Salesforce Service Cloud Enterprise**, Includes advanced pipeline management, $165/user/month.
+- **Salesforce Service Cloud Unlimited**, Comprehensive suite for customer service, $330/user/month.
+- **Salesforce Service Cloud Einstein 1 Service**, Top-tier AI-driven service options, $500/user/month.
+- **Salesforce Marketing Cloud Engagement**, Pricing starts from $25/user/month.
+- **Salesforce Marketing Cloud Account Engagement**, Ideal for larger marketing campaigns, starting at $1,250/month.
+- **Salesforce Quip**, Collaborative productivity software, $100/user/month.","Software Development","We're the #1 AI CRM—where humans with agents drive customer success together with AI, data, and Customer 360 apps on one platform.
+
+Privacy Statement: http://www.salesforce.com/company/privacy/","https://www.salesforce.com/company/contact-us/","https://www.linkedin.com/in/kathy-trinh-trinh-my-thanh-891031355"
+,"ADP","adp.com","https://www.linkedin.com/company/adp",91999,16.53,"ADP offers a comprehensive suite of Human Capital Management (HCM) solutions catering to businesses of all sizes. Key product features and services include:
+
+*   Payroll and Tax Administration: Automated payroll processing, tax filing, compliance monitoring, and flexible payment options.
+*   HR Services: HR outsourcing, compliance services, employee handbook creation, HR forms and documents, and access to HR professionals.
+*   Time and Attendance: Automated time tracking, scheduling, and absence management.
+*   Talent Management: Solutions for recruitment, hiring, onboarding, performance management, learning and development, and succession planning.
+*   Benefits Administration: Offering and managing employee benefits such as retirement plans, group health insurance, business insurance, and workers' compensation.
+*   PEO & HR Outsourcing: Professional Employer Organization (PEO) services for businesses with 5-250 employees.
+*   AI Capabilities: Integration of AI to enhance payroll and HR experiences and provide deeper HR insights.
+*   Integrations and App Marketplace: Ability to connect ADP solutions with other software and an online marketplace for HR apps.
+*   Data & Insights: Workforce analytics, benchmarking, and predictive insights through tools like ADP DataCloud.","I'm unable to find specific pricing plan details for ADP's offerings on their website. It appears that ADP doesn't list their plans and prices openly online, potentially requiring direct contact or sign-up for details. For precise information, visiting ADP directly or contacting their sales would be advisable.","Human Resources Services","Designing better ways to work through cutting-edge products, premium services and exceptional experiences that enable people to reach their full potential. HR, Talent, Time Management, Benefits and Payroll. Informed by data and designed for people.","https://www.adp.com/contact-us/new-sales.aspx","https://www.linkedin.com/in/jeff-kratohwill-652a2437"
+,"Intuit","intuit.com","https://www.linkedin.com/company/intuit",16866,-2.7,"Intuit's core products and their main features include: TurboTax for easy tax filing with expert assistance and automatic calculations; Credit Karma for free credit scores, reports, and tools for credit health management; QuickBooks for accounting and financial management, including income/expense tracking, invoicing, and payroll; and Mailchimp for email marketing automation. Intuit is also emphasizing AI-powered experiences and intelligent automations across its suite.","- QuickBooks Money, Tools for managing money without bookkeeping, $0/month, pay per transaction
+- QuickBooks Solopreneur, Money and business management tools for self-employed individuals, includes invoicing, estimates, and growth goal tracking, $20/month, reduced to $2/month for the first three months
+- QuickBooks Online Plus, Accounting and project profitability tools, business money management, invoicing, payment acceptance, and extensive reporting, $115/month, reduced to $11.50/month for the first three months","Software Development","Intuit is a global technology platform that helps our customers and communities overcome their most important financial challenges. Serving millions of customers worldwide with TurboTax, QuickBooks, Credit Karma and Mailchimp, we believe that everyone should have the opportunity to prosper and we work tirelessly to find new, innovative ways to deliver on this belief.
+
+We encourage conversations on this page and will not delete comments that follow our terms of use. In order to keep this a safe community, the below posts may be removed: Repeated posts of the same content, spam or posts from fake accounts or profiles, offensive language or material, threats to others in the community, posts deliberately aimed to have a negative effect on the community or conversations.","https://quickbooks.intuit.com/contact/","https://www.linkedin.com/in/markdjackson"
+,"Alphabet (Google)","abc.xyz","https://www.linkedin.com/company/alphabet-inc",2482,28.35,"Alphabet (Google) offers a wide range of products and platforms including Google Search, Google Maps, calendar, ads, Gmail, Google Play, Android, Google Cloud, Chrome, Google Display & Video 360, Google Marketing Platform, and YouTube. Key features and capabilities include:
+- AI-powered store summaries in Google Chrome to help shoppers assess store reputation.
+- Integration of AI directly into its browser, with developments like an AI agent for Chrome and Gemini AI assistant support.
+- Google Services (ads, Android, Chrome, devices, Google Maps, Google Play, Search, YouTube).
+- Google Cloud offering infrastructure, platform, and application services.
+- Core competencies in data management and analysis.
+- Focus on AI advancements.","Unfortunately, I was unable to find the specific pricing plan options for abc.xyz. The website and available search results did not provide the necessary information.","Holding Companies","Alphabet is a collection of companies, including Google, Verily Life Sciences, GV, Calico, and X.
+
+In October 2015, Alphabet became the parent holding company of Google, with the companies far afield of our main internet products contained in Alphabet.","No sales contact found","https://www.linkedin.com/in/ankit-paul-8121607b"
+,"ServiceNow","servicenow.com","https://www.linkedin.com/company/servicenow",31913,7.67,"ServiceNow's core product features include the ServiceNow AI Platform, which provides AI agents, workflow automation, App Engine, and Integration Hub. Key solution areas and products are IT Service Management (ITSM), Customer Service Management (CSM), IT Operations Management (ITOM), HR Service Delivery, Risk and Security, Finance and Supply Chain, Workplace Service Delivery, and Field Service Management. These products streamline IT processes, improve customer service, and automate various business workflows.","Unable to retrieve the exact pricing options for ServiceNow from the available pages as the pricing information was not directly accessible. Please visit the [ServiceNow Pricing Page](https://www.servicenow.com/lpgp/pricing.html) directly to explore their detailed pricing plans.","Software Development","ServiceNow (NYSE: NOW) makes the world work better for everyone. Ourcloud-basedplatform and solutions help digitize and unify organizations so that they can find smarter, faster, better ways to make work flow. So employees and customers can be more connected, more innovative, and more agile. And we can all create the future we imagine. The world works with ServiceNow. 
+
+For more information, visit www.servicenow.com.","https://www.servicenow.com/contact-us/sales.html","https://www.linkedin.com/in/zack-holt-"
+,"Adobe","adobe.com","https://www.linkedin.com/company/adobe",40294,-6.04,"Adobe's main product offerings are categorized into:
+
+Creative Cloud: A suite of over 20 applications for creative professionals, including:
+*   Photoshop: Image editing, compositing, and creation.
+*   Illustrator: Vector art and illustration creation.
+*   Premiere Pro: Video and film editing.
+*   Adobe Express: Content creation for social media, images, and videos.
+*   Adobe Firefly: Generative AI for images, video, audio, and vector graphics.
+*   InDesign: Layout design for print and digital media.
+*   After Effects: Visual effects and motion graphics.
+*   Lightroom: Photo editing, organization, and storage.
+*   Animate: Animation creation for various platforms.
+*   Dreamweaver: Website design and development.
+*   Substance 3D Collection: Tools for 3D asset creation, capture, and texturing.
+*   Audition: Audio editing.
+*   InCopy: Collaboration for copywriters and editors.
+*   Aero: Augmented reality experience design and sharing.
+
+PDF & E-signatures:
+*   Acrobat Pro: PDF creation, editing, signing, and management, with an AI Assistant.
+*   Acrobat Reader: Free PDF viewing, scanning, annotation, and signing.
+*   Acrobat Sign: E-signature solution.
+
+Marketing & Commerce: Solutions for business needs including content supply chain management, customer experience unification, B2B go-to-market orchestration, and AI for business (Adobe GenAI).","- Creative Cloud Pro, 20+ apps including Photoshop, Illustrator, Adobe Express, Premiere Pro, Acrobat Pro (Substance 3D apps not included), Annual, billed monthly, 50% off for 3 months for new subscribers
+- Photoshop, Includes Adobe Express Premium plan, Annual, billed monthly, 50% off for 3 months for new subscribers
+- Acrobat Pro, Features for PDF creation, editing, signing, and management, Annual, billed monthly
+- Photography, Includes Lightroom, Lightroom Classic, Photoshop on desktop, web, iPhone, iPad, and 1TB of cloud storage, Annual, billed monthly
+- Adobe Premiere Pro, Key offerings not specified, Annual, billed monthly
+- Illustrator, Key offerings not specified, Annual, billed monthly
+- After Effects, Key offerings not specified, Annual, billed monthly
+- InDesign, Key offerings not specified, Annual, billed monthly
+- Lightroom, Key offerings not specified, Annual, billed monthly
+- AI Assistant for Acrobat, Key offerings not specified, Annual, billed monthly
+- Audition, Key offerings not specified, Annual, billed monthly
+- Animate, Key offerings not specified, Annual, billed monthly
+- Dreamweaver, Key offerings not specified, Annual, billed monthly
+- InCopy, Key offerings not specified, Annual, billed monthly
+- Creative Cloud Standard, Includes top Creative Cloud apps, Annual, billed monthly
+- Acrobat Standard, Simple PDF editing and converting, Annual, billed monthly
+- Adobe Stock, Includes royalty-free stock images and more, Annual, billed monthly
+- Adobe Firefly (Standard, Pro, Premium), Monthly credits for premium video and audio features, standard image features access varies from 2,000 to 50,000 credits, Monthly billing","Software Development","Adobe is the global leader in digital media and digital marketing solutions. Our creative, marketing and document solutions empower everyone – from emerging artists to global brands – to bring digital creations to life and deliver immersive, compelling experiences to the right person at the right moment for the best results. In short, Adobe is everywhere, and we’re changing the world through digital experiences.","adobeconnectsales@adobe.com","https://www.linkedin.com/in/tomoudinot"
