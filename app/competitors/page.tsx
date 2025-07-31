@@ -231,70 +231,6 @@ const parseMultiValueField = (fieldValue: string, fieldType: string): string[] =
     .filter((item) => item.length > 0)
 }
 
-const parseAlignedJobData = (titlesStr: string, urlsStr: string, descriptionsStr: string) => {
-  // Parse each field into arrays, maintaining order alignment
-  const titles = titlesStr
-    ? titlesStr
-        .split(/[,\n]/)
-        .map((t) => t.trim())
-        .filter((t) => t.length > 0)
-    : []
-  const urls = urlsStr
-    ? urlsStr
-        .split(/[,\n]/)
-        .map((u) => u.trim())
-        .filter((u) => u.length > 0)
-    : []
-  const descriptions = descriptionsStr
-    ? descriptionsStr
-        .split(/\n\n|\n(?=[A-Z])/)
-        .map((d) => d.trim())
-        .filter((d) => d.length > 10)
-    : []
-
-  // Ensure all arrays have the same length by taking the minimum
-  const maxLength = Math.min(titles.length, urls.length, descriptions.length)
-
-  return {
-    titles: titles.slice(0, maxLength),
-    urls: urls.slice(0, maxLength),
-    descriptions: descriptions.slice(0, maxLength),
-  }
-}
-
-const cleanField = (field: string): string => {
-  if (!field) return ""
-  return field
-    .replace(/^["'\s]+|["'\s]+$/g, "") // Remove leading/trailing quotes and spaces
-    .replace(/\s+/g, " ") // Normalize whitespace
-    .trim()
-}
-
-const parseNumericValue = (value: string): number => {
-  if (!value) return 0
-  // Handle funding amounts like "$4.39M" or revenue numbers
-  const cleaned = value.replace(/[$,\s]/g, "")
-
-  // Handle M (millions) and B (billions) suffixes
-  if (cleaned.includes("M")) {
-    const num = Number.parseFloat(cleaned.replace("M", ""))
-    return isNaN(num) ? 0 : num * 1000000
-  } else if (cleaned.includes("B")) {
-    const num = Number.parseFloat(cleaned.replace("B", ""))
-    return isNaN(num) ? 0 : num * 1000000000
-  } else {
-    const parsed = Number.parseInt(cleaned)
-    return isNaN(parsed) ? 0 : parsed
-  }
-}
-
-const determineTier = (employeeCount: number, growth: number, revenue: number): string => {
-  if ((employeeCount > 2000 || revenue > 100000000) && growth > 0) return "enterprise"
-  if (employeeCount > 1000 || revenue > 50000000 || (employeeCount > 500 && growth > 10)) return "growth"
-  if (employeeCount > 200 || revenue > 10000000 || growth > 20) return "emerging"
-  return "startup"
-}
-
 const businessNeedSuggestions = [
   "ai and machine learning",
   "data analytics",
@@ -314,8 +250,6 @@ export default function CompetitorDiscoveryPage() {
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState("")
   const [showSuggestions, setShowSuggestions] = useState(false)
-  const [minEmployees, setMinEmployees] = useState(0)
-  const [tagSearch, setTagSearch] = useState("")
   const [accordionOpen, setAccordionOpen] = useState<string | null>(null)
 
   // Load CSV data on component mount
@@ -351,19 +285,16 @@ export default function CompetitorDiscoveryPage() {
         competitor.productFeatures.some((feature) => feature.toLowerCase().includes(searchQuery.toLowerCase()))
 
       // Employee count filter
-      const employeeMatch = competitor.employeeCount >= minEmployees
+      const employeeMatch = competitor.employeeCount >= 0
 
       // Product features filter
-      const tagMatch =
-        !tagSearch ||
-        competitor.productFeatures.some((feature) => feature.toLowerCase().includes(tagSearch.toLowerCase())) ||
-        competitor.description.toLowerCase().includes(tagSearch.toLowerCase())
+      const tagMatch = true
 
       return searchMatch && employeeMatch && tagMatch
     })
-
+    
     setFilteredCompetitors(filtered)
-  }, [competitors, searchQuery, minEmployees, tagSearch])
+  }, [competitors, searchQuery])
 
   const filteredSuggestions = businessNeedSuggestions.filter((suggestion) =>
     suggestion.toLowerCase().includes(searchQuery.toLowerCase()),
