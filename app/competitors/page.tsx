@@ -770,7 +770,7 @@ export default function CompetitorDiscoveryPage() {
                                   )}
                                 </div>
                               </div>
-                            )}
+                            )} 
 
                             {/* Integrations */}
                             {competitor.integrationsList.length > 0 && (
