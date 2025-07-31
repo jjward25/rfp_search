@@ -736,20 +736,7 @@ export default function VendorDiscoveryPage() {
                                   <span>Contact Sales</span>
                                 </a>
                               )}
-                              {vendor.enterpriseSalesRepLinkedinUrl && (
-                                <a
-                                  href={vendor.enterpriseSalesRepLinkedinUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 transition-colors duration-200 font-medium group"
-                                >
-                                  <div className="p-2 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-all duration-200 active:scale-95">
-                                    {/* Linkedin is not imported, assuming it's a placeholder */}
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7H4v-7a6 6 0 0 1 6-6"/><path d="M22 9h-1M8 21h13a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2H6"/></svg>
-                                  </div>
-                                  <span>Sales Rep</span>
-                                </a>
-                              )}
+                            
                             </div>
                             <div className="flex space-x-3">
                               <Button
