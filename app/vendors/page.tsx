@@ -33,7 +33,7 @@ interface Vendor {
   employeeCount: number
   percentEmployeeGrowthOverLast6Months: number
   productFeatures: string[]
-  pricingPlanSummaryResult: string
+  pricingPlanSummaryResult: string[]
   customerNames: string[]
   industry: string
   description: string
@@ -80,7 +80,7 @@ const parseCSV = (csvText: string): Promise<Vendor[]> => {
               employeeCount,
               percentEmployeeGrowthOverLast6Months: growth,
               productFeatures: parseMultiValueField(row["Product Features"] || "", "features"),
-              pricingPlanSummaryResult: row["Pricing Plan Summary Result"] || "",
+              pricingPlanSummaryResult: parseMultiValueField(row["Pricing Plan Summary Result"] || "", "pricing"),
               customerNames: (row["Customer Names"] || "").split(',').filter((c: string) => c.trim()),
               industry: row["Industry"] || "",
               description: row["Description"] || "",
@@ -165,6 +165,29 @@ const parseMultiValueField = (fieldValue: string, fieldType: string): string[] =
         .split(/[,\n]/)
         .map((item) => item.trim())
         .filter((item) => item.length > 2)
+      break
+
+    case "pricing":
+      // Pricing plans use the same bullet point parsing as features
+      const foundPricingBullets: string[] = []
+      
+      // Find all lines that match the bullet pattern
+      const pricingLines = fieldValue.split('\n')
+      for (const line of pricingLines) {
+        const trimmedLine = line.trim()
+        const match = trimmedLine.match(/^(?:\*\s|\-\s|\*\*)\s*(.*)/) 
+        if (match && match[1].trim().length > 0) {
+          foundPricingBullets.push(match[1].trim())
+        }
+      }
+      
+      if (foundPricingBullets.length > 0) {
+        // If bullets were found, use them
+        items = foundPricingBullets
+      } else {
+        // If no bullets were found, return the whole string as a single entry
+        items = [fieldValue.trim()]
+      }
       break
 
     default:
@@ -627,6 +650,35 @@ export default function VendorDiscoveryPage() {
                                       className="text-xs text-gray-500 border-gray-300 px-3 py-1"
                                     >
                                       +{vendor.productFeatures.length - 10} more
+                                    </Badge>
+                                  )}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Pricing Plans */}
+                            {vendor.pricingPlanSummaryResult.length > 0 && (
+                              <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 shadow-sm mb-4">
+                                <h5 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                                  <DollarSign className="w-5 h-5 text-green-600 mr-2" />
+                                  Pricing Plans
+                                </h5>
+                                <div className="flex flex-wrap gap-2">
+                                  {vendor.pricingPlanSummaryResult.slice(0, 10).map((plan, index) => (
+                                    <Badge
+                                      key={index}
+                                      variant="secondary"
+                                      className="text-xs bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 transition-colors duration-200 px-3 py-1 text-left whitespace-normal max-w-none"
+                                    >
+                                      {plan}
+                                    </Badge>
+                                  ))}
+                                  {vendor.pricingPlanSummaryResult.length > 10 && (
+                                    <Badge
+                                      variant="outline"
+                                      className="text-xs text-gray-500 border-gray-300 px-3 py-1"
+                                    >
+                                      +{vendor.pricingPlanSummaryResult.length - 10} more
                                     </Badge>
                                   )}
                                 </div>

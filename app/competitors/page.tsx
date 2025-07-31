@@ -37,7 +37,7 @@ interface Competitor {
   employeeCount: number
   percentEmployeeGrowthOverLast6Months: number
   productFeatures: string[]
-  pricingPlanSummaryResult: string
+  pricingPlanSummaryResult: string[]
   customerNames: string[]
   industry: string
   description: string
@@ -123,8 +123,8 @@ const parseCSV = (csvText: string): Promise<Competitor[]> => {
                     totalFundingRaised: row["Total Funding Raised"] || "",
                     employeeCount: parseInt(row["Employee Count"]) || 0,
                     percentEmployeeGrowthOverLast6Months: parseFloat(row["Percent Employee Growth Over Last_6Months"]) || 0,
-                    productFeatures: (row["Product Features"] || "").split('\n').filter((f: string) => f.trim()),
-                    pricingPlanSummaryResult: row["Pricing Plan Summary Result"] || "",
+                    productFeatures: parseMultiValueField(row["Product Features"] || "", "features"),
+                    pricingPlanSummaryResult: parseMultiValueField(row["Pricing Plan Summary Result"] || "", "pricing"),
                     customerNames: (row["Customer Names"] || "").split(',').filter((c: string) => c.trim()),
                     industry: row["Industry"] || "",
                     description: row["Description"] || "",
@@ -220,6 +220,29 @@ const parseMultiValueField = (fieldValue: string, fieldType: string): string[] =
         .split(/[,\n]/)
         .map((item) => item.trim())
         .filter((item) => item.length > 2)
+      break
+
+    case "pricing":
+      // Pricing plans use the same bullet point parsing as features
+      const foundPricingBullets: string[] = []
+      
+      // Find all lines that match the bullet pattern
+      const pricingLines = fieldValue.split('\n')
+      for (const line of pricingLines) {
+        const trimmedLine = line.trim()
+        const match = trimmedLine.match(/^(?:\*\s|\-\s|\*\*)\s*(.*)/) 
+        if (match && match[1].trim().length > 0) {
+          foundPricingBullets.push(match[1].trim())
+        }
+      }
+      
+      if (foundPricingBullets.length > 0) {
+        // If bullets were found, use them
+        items = foundPricingBullets
+      } else {
+        // If no bullets were found, return the whole string as a single entry
+        items = [fieldValue.trim()]
+      }
       break
 
     default:
@@ -679,6 +702,35 @@ export default function CompetitorDiscoveryPage() {
                                       className="text-xs text-gray-500 border-gray-300 px-3 py-1"
                                     >
                                       +{competitor.productFeatures.length - 10} more
+                                    </Badge>
+                                  )}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Pricing Plans */}
+                            {competitor.pricingPlanSummaryResult.length > 0 && (
+                              <div className="mb-6 pl-4">
+                                <h5 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                                  <DollarSign className="w-4 h-4 mr-2 text-green-600" />
+                                  Pricing Plans
+                                </h5>
+                                <div className="flex flex-wrap gap-2 max-w-full overflow-hidden">
+                                  {competitor.pricingPlanSummaryResult.slice(0, 10).map((plan, index) => (
+                                    <Badge
+                                      key={index}
+                                      variant="secondary"
+                                      className="text-xs bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 transition-colors duration-200 px-3 py-1 text-left whitespace-normal max-w-none"
+                                    >
+                                      {plan}
+                                    </Badge>
+                                  ))}
+                                  {competitor.pricingPlanSummaryResult.length > 10 && (
+                                    <Badge
+                                      variant="outline"
+                                      className="text-xs text-gray-500 border-gray-300 px-3 py-1"
+                                    >
+                                      +{competitor.pricingPlanSummaryResult.length - 10} more
                                     </Badge>
                                   )}
                                 </div>
