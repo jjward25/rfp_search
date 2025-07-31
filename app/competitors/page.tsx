@@ -9,14 +9,9 @@ import {
   Sparkles,
   Globe,
   ExternalLink,
-  Mail,
   Linkedin,
   ArrowUp,
   ArrowDown,
-  Star,
-  Zap,
-  Rocket,
-  Crown,
   Shield,
   Home,
   DollarSign,
@@ -25,6 +20,7 @@ import {
   Briefcase,
   Users,
   TrendingUp,
+  Rocket,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -57,6 +53,21 @@ interface Competitor {
   tier: string
 }
 
+// Define proper interfaces
+interface JobData {
+  title: string;
+  url: string;
+  description: string;
+}
+
+interface JobsDataRecord {
+  [companyName: string]: JobData[];
+}
+
+interface CsvRowData {
+  [key: string]: string;
+}
+
 // Papa Parse CSV parsing with job data merge
 const parseCSV = (csvText: string): Promise<Competitor[]> => {
   console.log("Starting Papa Parse CSV parsing...")
@@ -68,15 +79,15 @@ const parseCSV = (csvText: string): Promise<Competitor[]> => {
       const jobsText = await jobsResponse.text()
       
       // Parse jobs data
-      const jobsData: any = {}
+      const jobsData: JobsDataRecord = {}
       Papa.parse(jobsText, {
         header: true,
         skipEmptyLines: true,
-        complete: (jobsResults: Papa.ParseResult<any>) => {
+        complete: (jobsResults: Papa.ParseResult<CsvRowData>) => {
           console.log("Jobs data loaded:", jobsResults.data.length)
           
           // Group jobs by company name
-          jobsResults.data.forEach((job: any) => {
+          jobsResults.data.forEach((job: CsvRowData) => {
             const companyName = job["Company Name"]
             if (!jobsData[companyName]) {
               jobsData[companyName] = []
@@ -92,12 +103,12 @@ const parseCSV = (csvText: string): Promise<Competitor[]> => {
           Papa.parse(csvText, {
             header: true,
             skipEmptyLines: true,
-            complete: (results: Papa.ParseResult<any>) => {
+            complete: (results: Papa.ParseResult<CsvRowData>) => {
               console.log("Papa Parse results:", results.data.length)
               
               const competitors: Competitor[] = []
               
-              results.data.forEach((row: any, index: number) => {
+              results.data.forEach((row: CsvRowData, index: number) => {
                 try {
                   const companyName = row["Company Name"] || ""
                   
@@ -120,9 +131,9 @@ const parseCSV = (csvText: string): Promise<Competitor[]> => {
                     salesContactEmail: row["Sales Contact Email Sales Contact"] || "",
                     enterpriseSalesRepLinkedinUrl: row["Enterprise Sales Rep LinkedIn URL Linkedin Profile Url"] || "",
                     // Use jobs from jobsList.csv
-                    jobTitles: companyJobs.map((job: any) => job.title),
-                    jobUrls: companyJobs.map((job: any) => job.url),
-                    jobDescriptions: companyJobs.map((job: any) => job.description),
+                    jobTitles: companyJobs.map((job: JobData) => job.title),
+                    jobUrls: companyJobs.map((job: JobData) => job.url),
+                    jobDescriptions: companyJobs.map((job: JobData) => job.description),
                     integrationsList: (row["Integrations List"] || "").split(',').filter((i: string) => i.trim()),
                     companyRevenue: parseInt(row["Company Revenue"]) || 0,
                     productsAndServicesResult: (row["Products & Services Result"] || "").split(',').filter((p: string) => p.trim()),
@@ -130,7 +141,7 @@ const parseCSV = (csvText: string): Promise<Competitor[]> => {
                     tier: row["Tier"] || "startup",
                   }
                   competitors.push(competitor)
-                } catch (error: any) {
+                } catch (error: unknown) {
                   console.warn("Error parsing row in Papa Parse:", error)
                 }
               })
@@ -138,13 +149,13 @@ const parseCSV = (csvText: string): Promise<Competitor[]> => {
               console.log("Successfully parsed competitors:", competitors.length)
               resolve(competitors)
             },
-            error: (error: any) => {
+            error: (error: unknown) => {
               console.error("Papa Parse Error:", error)
               reject(error)
             },
           })
         },
-        error: (error: any) => {
+        error: (error: unknown) => {
           console.error("Jobs Parse Error:", error)
           reject(error)
         }
