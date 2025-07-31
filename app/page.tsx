@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import {
   Building2,
   Users,
@@ -9,7 +10,6 @@ import {
   Target,
   Globe,
   ArrowRight,
-  Briefcase,
   Eye,
   BarChart3,
 } from "lucide-react"
@@ -32,8 +32,14 @@ export default function HomePage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-6">
               <div className="relative group">
-                <div className="relative w-14 h-14 bg-gradient-to-r from-blue-600 to-slate-600 rounded-xl flex items-center justify-center shadow-lg">
-                  <Briefcase className="w-7 h-7 text-white" />
+                <div className="relative w-14 h-14 rounded-xl flex items-center justify-center shadow-lg overflow-hidden">
+                  <Image 
+                    src="/logo.png" 
+                    alt="Business Intelligence Visuals Logo" 
+                    width={56} 
+                    height={56}
+                    className="object-contain"
+                  />
                 </div>
               </div>
               <div>
