@@ -80,7 +80,7 @@ const parseCSV = (csvText: string): Promise<Vendor[]> => {
               employeeCount,
               percentEmployeeGrowthOverLast6Months: growth,
               productFeatures: parseMultiValueField(row["Product Features"] || "", "features"),
-              pricingPlanSummaryResult: parseMultiValueField(row["Pricing Plan Summary Result"] || "", "pricing"),
+              pricingPlanSummaryResult: parseMultiValueField(row["Pricing Plan Summary Result"] || "", "pricing") || [],
               customerNames: (row["Customer Names"] || "").split(',').filter((c: string) => c.trim()),
               industry: row["Industry"] || "",
               description: row["Description"] || "",
@@ -657,7 +657,7 @@ export default function VendorDiscoveryPage() {
                             )}
 
                             {/* Pricing Plans */}
-                            {vendor.pricingPlanSummaryResult.length > 0 && (
+                            {Array.isArray(vendor.pricingPlanSummaryResult) && vendor.pricingPlanSummaryResult.length > 0 && (
                               <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 shadow-sm mb-4">
                                 <h5 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
                                   <DollarSign className="w-5 h-5 text-green-600 mr-2" />

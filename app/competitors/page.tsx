@@ -709,7 +709,7 @@ export default function CompetitorDiscoveryPage() {
                             )}
 
                             {/* Pricing Plans */}
-                            {competitor.pricingPlanSummaryResult.length > 0 && (
+                            {Array.isArray(competitor.pricingPlanSummaryResult) && competitor.pricingPlanSummaryResult.length > 0 && (
                               <div className="mb-6 pl-4">
                                 <h5 className="text-sm font-semibold text-gray-700 mb-2 flex items-center">
                                   <DollarSign className="w-4 h-4 mr-2 text-green-600" />
