@@ -34,7 +34,7 @@ export interface ClaySearchResponse {
 const CLAY_API_KEY = process.env.NEXT_PUBLIC_CLAY_API_KEY || ''
 const CLAY_API_BASE_URL = 'https://api.clay.com/v1'
 
-export async function searchCompanies(params: ClaySearchParams): Promise<void> {
+export async function searchCompanies(params: ClaySearchParams): Promise<ClaySearchResponse> {
   try {
     // Extract potential filters from the search query
     const filters = extractFiltersFromQuery(params.query)
@@ -59,8 +59,17 @@ export async function searchCompanies(params: ClaySearchParams): Promise<void> {
       throw new Error(`Clay API error: ${response.status} ${response.statusText}`)
     }
 
-    // Clay.com will process this asynchronously and send results to your webhook
+    // For now, return mock data since Clay.com will send results via webhook
+    // In production, you'd either wait for the webhook or use a different approach
+    const mockResponse: ClaySearchResponse = {
+      companies: [],
+      total: 0,
+      page: 1,
+      limit: 50
+    }
+    
     console.log('Search request sent to Clay.com successfully')
+    return mockResponse
     
   } catch (error) {
     console.error('Error searching companies via Clay:', error)
