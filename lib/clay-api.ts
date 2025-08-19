@@ -20,59 +20,58 @@ export interface ClayCompany {
   location?: string
   linkedinUrl?: string
   website?: string
-  // Add more fields as needed based on Clay's response
 }
 
 export interface ClaySearchResponse {
-  companies: ClayCompany[]
-  total: number
-  page: number
-  limit: number
+  success: boolean
+  message: string
+  timestamp: string
 }
 
-// You'll need to get your Clay.com API key from their dashboard
-const CLAY_API_KEY = process.env.NEXT_PUBLIC_CLAY_API_KEY || ''
-const CLAY_API_BASE_URL = 'https://api.clay.com/v1'
+// Clay.com webhook URL for sending data
+const CLAY_WEBHOOK_URL = 'https://api.clay.com/v3/sources/webhook/pull-in-data-from-a-webhook-717b978b-98aa-4d91-8be2-8cd73bcf6222'
 
 export async function searchCompanies(params: ClaySearchParams): Promise<ClaySearchResponse> {
   try {
     // Extract potential filters from the search query
     const filters = extractFiltersFromQuery(params.query)
     
-    // Call Clay.com API with your webhook URL
-    const response = await fetch(`${CLAY_API_BASE_URL}/companies/search`, {
+    console.log('Sending search data to Clay.com webhook:', { query: params.query, mode: params.mode, filters })
+    
+    // Send data to Clay.com's webhook
+    const response = await fetch(CLAY_WEBHOOK_URL, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${CLAY_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        query: params.query,
-        mode: params.mode,
-        filters: { ...filters, ...params.filters },
-        webhook_url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/webhook/clay-results`, // Your webhook URL
-        limit: 50
+        searchQuery: params.query,
+        searchMode: params.mode,
+        searchFilters: { ...filters, ...params.filters },
+        timestamp: new Date().toISOString(),
+        source: 'business-intelligence-visuals',
+        userId: 'anonymous', // You can add user identification if needed
+        sessionId: Date.now().toString()
       })
     })
 
     if (!response.ok) {
-      throw new Error(`Clay API error: ${response.status} ${response.statusText}`)
+      const errorText = await response.text()
+      console.error('Clay webhook error response:', errorText)
+      throw new Error(`Clay webhook error: ${response.status} ${response.statusText}`)
     }
 
-    // For now, return mock data since Clay.com will send results via webhook
-    // In production, you'd either wait for the webhook or use a different approach
-    const mockResponse: ClaySearchResponse = {
-      companies: [],
-      total: 0,
-      page: 1,
-      limit: 50
+    const data = await response.json()
+    console.log('Clay webhook response:', data)
+    
+    return {
+      success: true,
+      message: 'Search data sent to Clay.com successfully',
+      timestamp: new Date().toISOString()
     }
     
-    console.log('Search request sent to Clay.com successfully')
-    return mockResponse
-    
   } catch (error) {
-    console.error('Error searching companies via Clay:', error)
+    console.error('Error sending data to Clay webhook:', error)
     throw error
   }
 }
@@ -100,30 +99,4 @@ function extractFiltersFromQuery(query: string) {
   }
   
   return filters
-}
-
-// Alternative: Use Clay's company enrichment endpoint if search isn't available
-export async function enrichCompanyData(domain: string): Promise<ClayCompany> {
-  try {
-    const response = await fetch(`${CLAY_API_BASE_URL}/companies/enrich`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${CLAY_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        domain: domain
-      })
-    })
-
-    if (!response.ok) {
-      throw new Error(`Clay API error: ${response.status} ${response.statusText}`)
-    }
-
-    const data = await response.json()
-    return data
-  } catch (error) {
-    console.error('Error enriching company data via Clay:', error)
-    throw error
-  }
 }
