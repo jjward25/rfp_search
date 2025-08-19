@@ -21,18 +21,28 @@ export default function HomePage() {
     setHasSearched(true)
     
     try {
-      const params: ClaySearchParams = {
-        query: searchQuery,
-        mode: searchMode
+      // Call YOUR API endpoint instead of Clay directly
+      const response = await fetch('/api/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: searchQuery,
+          mode: searchMode
+        })
+      })
+      
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`)
       }
       
-      const response = await searchCompanies(params)
-      setSearchResults(response.companies)
+      const data = await response.json()
+      setSearchResults(data.data.companies || [])
       
-      console.log(`Found ${response.companies.length} companies for ${searchMode} mode`)
+      console.log(`Search request sent successfully for ${searchMode} mode`)
     } catch (error) {
       console.error('Search failed:', error)
-      // You might want to show an error message to the user
       setSearchResults([])
     } finally {
       setIsSearching(false)

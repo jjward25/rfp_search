@@ -7,8 +7,8 @@ export async function POST(request: NextRequest) {
     // This is where Clay.com will send the search results
     console.log('Received results from Clay:', body)
     
-    // Process the results from Clay.com
-    // You can store them in state, database, or pass them to your frontend
+    // TODO: Store results in database or pass to frontend
+    // For now, just log them
     
     return NextResponse.json({
       success: true,

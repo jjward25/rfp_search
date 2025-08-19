@@ -28,12 +28,13 @@ export async function POST(request: NextRequest) {
       filters: filters || {}
     }
 
-    // Call Clay API
+    // Call Clay API from your server (no CORS issues here)
     const results = await searchCompanies(searchParams)
 
     return NextResponse.json({
       success: true,
       data: results,
+      message: 'Search request sent to Clay.com successfully',
       timestamp: new Date().toISOString()
     })
 
