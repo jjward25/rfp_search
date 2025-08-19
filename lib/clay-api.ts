@@ -6,7 +6,7 @@ export interface ClaySearchParams {
     industry?: string
     location?: string
     companySize?: string
-    [key: string]: any
+    [key: string]: string | number | boolean | undefined
   }
 }
 
@@ -70,7 +70,7 @@ export async function searchCompanies(params: ClaySearchParams): Promise<void> {
 
 // Helper function to extract potential filters from search query
 function extractFiltersFromQuery(query: string) {
-  const filters: any = {}
+  const filters: Record<string, string> = {}
   
   // Extract industry mentions
   const industryMatch = query.match(/in the (\w+(?:\s+\w+)*) industry/i)
