@@ -1,8 +1,8 @@
 import { NextRequest } from 'next/server'
 
 // In-memory storage for received companies (in production, use a database)
-let receivedCompanies: any[] = []
-let connectedClients: Set<ReadableStreamDefaultController> = new Set()
+const receivedCompanies: any[] = []
+const connectedClients: Set<ReadableStreamDefaultController> = new Set()
 
 export async function GET(request: NextRequest) {
   const stream = new ReadableStream({

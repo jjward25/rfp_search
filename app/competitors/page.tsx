@@ -176,7 +176,6 @@ const parseMultiValueField = (fieldValue: string, fieldType: string): string[] =
   switch (fieldType) {
     case "features":
       // Regex pattern for bullet points: "* ", "- ", or "**" at the beginning of a line
-      const bulletPattern = /^(?:\*\s|\-\s|\*\*)\s*(.*)/gm
       const foundBullets: string[] = []
       
       // Find all lines that match the bullet pattern
