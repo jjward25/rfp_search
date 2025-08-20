@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Search, ArrowRight, Building2, Loader2, Check, X, Sparkles, Eye } from "lucide-react"
+import { Search, ArrowRight, Building2, Loader2, Check, X, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import CompetitorCard, { type Competitor } from "@/components/CompetitorCard"
@@ -54,30 +54,33 @@ export default function RFPView({ searchQuery, setSearchQuery }: RFPViewProps) {
         const data = await response.json()
         if (data.success && data.competitors) {
           // Map EnrichedCompetitor to Competitor interface
-          const mappedCompetitors: Competitor[] = data.competitors.map((comp: any, index: number) => ({
-            id: comp.id || index + 1,
-            companyName: comp.companyName,
-            domain: comp.domain,
-            linkedinCompanyUrl: comp.linkedinCompanyUrl,
-            totalFundingRaised: comp.totalFundingRaised,
-            employeeCount: comp.employeeCount,
-            percentEmployeeGrowthOverLast6Months: comp.percentEmployeeGrowthOverLast6Months,
-            productFeatures: comp.productFeatures || [],
-            pricingPlanSummaryResult: comp.pricingPlanSummaryResult || [],
-            customerNames: comp.customerNames || [],
-            industry: comp.industry,
-            description: comp.description,
-            salesContactEmail: comp.salesContactEmail,
-            enterpriseSalesRepLinkedinUrl: comp.enterpriseSalesRepLinkedinUrl,
-            jobTitles: comp.jobTitles || [],
-            jobUrls: comp.jobUrls || [],
-            jobDescriptions: comp.jobDescriptions || [],
-            integrationsList: comp.integrationsList || [],
-            companyRevenue: comp.companyRevenue,
-            productsAndServicesResult: comp.productsAndServicesResult || [],
-            productRoadmap: comp.productRoadmap,
-            tier: comp.tier
-          }))
+          const mappedCompetitors: Competitor[] = data.competitors.map((comp: unknown, index: number) => {
+            const competitor = comp as Record<string, unknown>
+            return {
+              id: (competitor.id as number) || index + 1,
+              companyName: competitor.companyName as string,
+              domain: competitor.domain as string,
+              linkedinCompanyUrl: competitor.linkedinCompanyUrl as string,
+              totalFundingRaised: competitor.totalFundingRaised as string,
+              employeeCount: competitor.employeeCount as number,
+              percentEmployeeGrowthOverLast6Months: competitor.percentEmployeeGrowthOverLast6Months as number,
+              productFeatures: (competitor.productFeatures as string[]) || [],
+              pricingPlanSummaryResult: (competitor.pricingPlanSummaryResult as string[]) || [],
+              customerNames: (competitor.customerNames as string[]) || [],
+              industry: competitor.industry as string,
+              description: competitor.description as string,
+              salesContactEmail: competitor.salesContactEmail as string,
+              enterpriseSalesRepLinkedinUrl: competitor.enterpriseSalesRepLinkedinUrl as string,
+              jobTitles: (competitor.jobTitles as string[]) || [],
+              jobUrls: (competitor.jobUrls as string[]) || [],
+              jobDescriptions: (competitor.jobDescriptions as string[]) || [],
+              integrationsList: (competitor.integrationsList as string[]) || [],
+              companyRevenue: competitor.companyRevenue as number,
+              productsAndServicesResult: (competitor.productsAndServicesResult as string[]) || [],
+              productRoadmap: competitor.productRoadmap as string,
+              tier: competitor.tier as string
+            }
+          })
           
           setEnrichedCompetitors(mappedCompetitors)
           console.log('Loaded enriched competitors:', mappedCompetitors.length)
@@ -512,7 +515,7 @@ export default function RFPView({ searchQuery, setSearchQuery }: RFPViewProps) {
               <Building2 className="w-16 h-16 text-blue-300 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-700 mb-2">No vendor analysis yet</h3>
               <p className="text-gray-500">
-                Select vendors above and click "Get Vendor Details" to see comprehensive analysis here
+                Select vendors above and click &ldquo;Get Vendor Details&rdquo; to see comprehensive analysis here
               </p>
             </div>
           ) : (

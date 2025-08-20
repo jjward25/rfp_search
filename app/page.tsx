@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import CompetitorCard, { type Competitor } from "@/components/CompetitorCard"
 import RFPView from "@/components/RFPView"
 
+
 // Update the Company interface to match Clay.com's format
 interface Company {
   search_query: string
@@ -58,30 +59,33 @@ export default function HomePage() {
         const data = await response.json()
         if (data.success && data.competitors) {
           // Map EnrichedCompetitor to Competitor interface
-          const mappedCompetitors: Competitor[] = data.competitors.map((comp: any, index: number) => ({
-            id: comp.id || index + 1,
-            companyName: comp.companyName,
-            domain: comp.domain,
-            linkedinCompanyUrl: comp.linkedinCompanyUrl,
-            totalFundingRaised: comp.totalFundingRaised,
-            employeeCount: comp.employeeCount,
-            percentEmployeeGrowthOverLast6Months: comp.percentEmployeeGrowthOverLast6Months,
-            productFeatures: comp.productFeatures || [],
-            pricingPlanSummaryResult: comp.pricingPlanSummaryResult || [],
-            customerNames: comp.customerNames || [],
-            industry: comp.industry,
-            description: comp.description,
-            salesContactEmail: comp.salesContactEmail,
-            enterpriseSalesRepLinkedinUrl: comp.enterpriseSalesRepLinkedinUrl,
-            jobTitles: comp.jobTitles || [],
-            jobUrls: comp.jobUrls || [],
-            jobDescriptions: comp.jobDescriptions || [],
-            integrationsList: comp.integrationsList || [],
-            companyRevenue: comp.companyRevenue,
-            productsAndServicesResult: comp.productsAndServicesResult || [],
-            productRoadmap: comp.productRoadmap,
-            tier: comp.tier
-          }))
+          const mappedCompetitors: Competitor[] = data.competitors.map((comp: unknown, index: number) => {
+            const competitor = comp as Record<string, unknown>
+            return {
+              id: (competitor.id as number) || index + 1,
+              companyName: competitor.companyName as string,
+              domain: competitor.domain as string,
+              linkedinCompanyUrl: competitor.linkedinCompanyUrl as string,
+              totalFundingRaised: competitor.totalFundingRaised as string,
+              employeeCount: competitor.employeeCount as number,
+              percentEmployeeGrowthOverLast6Months: competitor.percentEmployeeGrowthOverLast6Months as number,
+              productFeatures: (competitor.productFeatures as string[]) || [],
+              pricingPlanSummaryResult: (competitor.pricingPlanSummaryResult as string[]) || [],
+              customerNames: (competitor.customerNames as string[]) || [],
+              industry: competitor.industry as string,
+              description: competitor.description as string,
+              salesContactEmail: competitor.salesContactEmail as string,
+              enterpriseSalesRepLinkedinUrl: competitor.enterpriseSalesRepLinkedinUrl as string,
+              jobTitles: (competitor.jobTitles as string[]) || [],
+              jobUrls: (competitor.jobUrls as string[]) || [],
+              jobDescriptions: (competitor.jobDescriptions as string[]) || [],
+              integrationsList: (competitor.integrationsList as string[]) || [],
+              companyRevenue: competitor.companyRevenue as number,
+              productsAndServicesResult: (competitor.productsAndServicesResult as string[]) || [],
+              productRoadmap: competitor.productRoadmap as string,
+              tier: competitor.tier as string
+            }
+          })
           
           setEnrichedCompetitors(mappedCompetitors)
           console.log('Loaded enriched competitors:', mappedCompetitors.length)
@@ -605,21 +609,36 @@ export default function HomePage() {
                 <Sparkles className="w-16 h-16 text-purple-300 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-gray-700 mb-2">No {searchMode === "rfp" ? "vendor analysis" : "enriched data"} yet</h3>
                 <p className="text-gray-500">
-                  Select {searchMode === "rfp" ? "vendors" : "companies"} above and click "{searchMode === "rfp" ? "Get Vendor Details" : "Analyze Competitors"}" to see detailed analysis here
+                  Select {searchMode === "rfp" ? "vendors" : "companies"} above and click &ldquo;{searchMode === "rfp" ? "Get Vendor Details" : "Analyze Competitors"}&rdquo; to see detailed analysis here
                 </p>
               </div>
             ) : (
               <div className="space-y-8">
-                {enrichedCompetitors.map((competitor, index) => (
-                  <CompetitorCard
-                    key={competitor.id}
-                    competitor={competitor}
-                    index={index}
-                    showTrackButton={true}
-                    onTrackCompetitor={handleTrackCompetitor}
-                    mode={searchMode}
-                  />
-                ))}
+                {searchMode === "rfp" ? (
+                  // RFP Mode: Show as vendor cards with RFP context
+                  enrichedCompetitors.map((competitor, index) => (
+                    <CompetitorCard
+                      key={competitor.id}
+                      competitor={competitor}
+                      index={index}
+                      showTrackButton={true}
+                      onTrackCompetitor={handleTrackCompetitor}
+                      mode="rfp"
+                    />
+                  ))
+                ) : (
+                  // Competitor Mode: Show as competitor cards
+                  enrichedCompetitors.map((competitor, index) => (
+                    <CompetitorCard
+                      key={competitor.id}
+                      competitor={competitor}
+                      index={index}
+                      showTrackButton={true}
+                      onTrackCompetitor={handleTrackCompetitor}
+                      mode="competitor"
+                    />
+                  ))
+                )}
               </div>
             )}
           </div>

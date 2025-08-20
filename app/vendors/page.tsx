@@ -8,12 +8,12 @@ import {
   Building2,
   Users,
   TrendingUp,
-  MapPin,
+
   ArrowDown,
   Shield,
   Home,
   DollarSign,
-  Eye,
+
   BarChart3,
   Briefcase,
 } from "lucide-react"

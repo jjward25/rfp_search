@@ -48,12 +48,7 @@ export interface Competitor {
   tier: string
 }
 
-// Define proper interfaces for job data
-interface JobData {
-  title: string;
-  url: string;
-  description: string;
-}
+
 
 interface CompetitorCardProps {
   competitor: Competitor
