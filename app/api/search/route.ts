@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { searchCompanies, type ClaySearchParams } from '@/lib/clay-api'
+import { clearCompanies } from '@/lib/shared-storage'
+
+interface SearchParams {
+  query: string
+  mode: 'rfp' | 'competitor'
+  filters?: Record<string, any>
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,38 +29,47 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Prepare search parameters
-    const searchParams: ClaySearchParams = {
-      query,
-      mode,
-      filters: filters || {}
-    }
+    // Clear previous companies before starting new search
+    clearCompanies()
+    console.log('Cleared previous companies for new search')
 
-    console.log('Calling Clay API with params:', searchParams)
-
+    // Send search request to Clay.com webhook
     try {
-      // Call Clay API from your server (no CORS issues here)
-      const results = await searchCompanies(searchParams)
-      console.log('Clay API response:', results)
-
-      return NextResponse.json({
-        success: true,
-        data: results,
-        message: 'Search request sent to Clay.com successfully',
-        timestamp: new Date().toISOString()
+      const clayWebhookUrl = 'https://api.clay.com/v3/sources/webhook/pull-in-data-from-a-webhook-717b978b-98aa-4d91-8be2-8cd73bcf6222'
+      
+      const response = await fetch(clayWebhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          searchQuery: query,
+          searchMode: mode,
+          searchFilters: filters || {},
+          timestamp: new Date().toISOString(),
+          source: 'business-intelligence-visuals',
+          userId: 'anonymous',
+          sessionId: Date.now().toString()
+        })
       })
+
+      if (response.ok) {
+        console.log('Search request sent to Clay.com successfully')
+      } else {
+        console.warn('Clay.com webhook returned non-200 status:', response.status)
+      }
 
     } catch (clayError) {
       console.error('Clay API Error:', clayError)
-      
-      // Return a more graceful error response
-      return NextResponse.json({
-        success: false,
-        error: 'Clay API temporarily unavailable',
-        message: 'Search request could not be processed at this time',
-        timestamp: new Date().toISOString()
-      }, { status: 503 })
+      // Don't fail the request - Clay.com might still process it
     }
+
+    // Always return success so frontend starts polling
+    return NextResponse.json({
+      success: true,
+      message: 'Search request initiated - companies will appear as they are found',
+      timestamp: new Date().toISOString()
+    })
 
   } catch (error) {
     console.error('API Error:', error)
