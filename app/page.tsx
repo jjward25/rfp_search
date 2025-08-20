@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import { Search, ArrowRight, Building2, Eye, Loader2, Check, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -29,7 +29,6 @@ export default function HomePage() {
   const [companies, setCompanies] = useState<Company[]>([])
   const [selectedCompanies, setSelectedCompanies] = useState<Set<string>>(new Set())
   const [isEnriching, setIsEnriching] = useState(false)
-  const eventSourceRef = useRef<EventSource | null>(null)
 
   // Add state for editable source URLs
   const [sourceUrls, setSourceUrls] = useState<Record<string, string>>({})
@@ -42,50 +41,24 @@ export default function HomePage() {
     }))
   }
 
-  // Connect to SSE stream
-  useEffect(() => {
-    if (hasSearched) {
-      const eventSource = new EventSource('/api/stream-companies')
-      eventSourceRef.current = eventSource
-
-      eventSource.onmessage = (event) => {
-        try {
-          const data = JSON.parse(event.data)
-          
-          if (data.type === 'initial') {
-            setCompanies(data.companies)
-          } else if (data.type === 'new_company') {
-            setCompanies(prev => [...prev, data.company])
-            // Auto-select new companies
-            setSelectedCompanies(prev => new Set([...prev, data.company.Company_Name]))
-          }
-        } catch (error) {
-          console.error('Error parsing SSE data:', error)
-        }
-      }
-
-      eventSource.onerror = (error) => {
-        console.error('SSE error:', error)
-      }
-
-      return () => {
-        eventSource.close()
-        eventSourceRef.current = null
-      }
-    }
-  }, [hasSearched])
-
-  // Add this effect to poll for new companies after search
+  // Poll for companies after search
   useEffect(() => {
     if (hasSearched) {
       const pollInterval = setInterval(async () => {
         try {
-          // Check for new companies
           const response = await fetch('/api/stream-companies')
           if (response.ok) {
             const data = await response.json()
             if (data.companies && data.companies.length > 0) {
               setCompanies(data.companies)
+              // Auto-select new companies
+              setSelectedCompanies(prev => {
+                const newSet = new Set(prev)
+                data.companies.forEach((company: Company) => {
+                  newSet.add(company.Company_Name)
+                })
+                return newSet
+              })
               console.log('Received companies:', data.companies)
             }
           }
@@ -95,11 +68,14 @@ export default function HomePage() {
       }, 2000) // Check every 2 seconds
 
       // Stop polling after 5 minutes
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         clearInterval(pollInterval)
       }, 300000)
 
-      return () => clearInterval(pollInterval)
+      return () => {
+        clearInterval(pollInterval)
+        clearTimeout(timeout)
+      }
     }
   }, [hasSearched])
 
@@ -157,7 +133,6 @@ export default function HomePage() {
     setSelectedCompanies(new Set())
   }
 
-  // Update the sendSelectedToClay function to use the new webhook
   const sendSelectedToClay = async () => {
     if (selectedCompanies.size === 0) return
     
@@ -206,9 +181,6 @@ export default function HomePage() {
     setCompanies([])
     setSelectedCompanies(new Set())
     setHasSearched(false)
-    if (eventSourceRef.current) {
-      eventSourceRef.current.close()
-    }
   }
 
   return (
@@ -268,12 +240,12 @@ export default function HomePage() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                  className="text-lg placeholder-gray-400 focus:ring-0 px-0 py-0 bg-transparent font-medium resize-none"
+                  className="border-0 text-lg placeholder-gray-400 focus:ring-0 px-0 py-0 bg-transparent font-medium resize-none"
                   style={{ height: 'auto', minHeight: '24px' }}
                 />
                 <div className="text-sm text-gray-400 mt-1">
                   <div>... in the workflow automation industry</div>
-                  <div>{`... with over 1,000 employees and Headquartered in New Jersey`} </div>
+                  <div>{`... with over 1,000 employees and Headquartered in New Jersey`}</div>
                 </div>
               </div>
               <Button
