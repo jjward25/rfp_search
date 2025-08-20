@@ -1,6 +1,5 @@
 import { promises as fs } from 'fs'
 import { join } from 'path'
-import { statSync } from 'fs'
 
 // Define proper types for company data
 export interface CompanyData {
@@ -85,8 +84,9 @@ async function readCompaniesFromFile(): Promise<CompanyData[]> {
     console.log('Read companies from file:', companies.length)
     console.log('Company names:', companies.map(c => c.Company_Name))
     return companies
-  } catch (error: any) {
-    if (error.code === 'ENOENT') {
+  } catch (error) {
+    // Type-safe error checking
+    if (error && typeof error === 'object' && 'code' in error && error.code === 'ENOENT') {
       // File doesn't exist yet, return empty array
       console.log('Companies file does not exist yet, starting with empty array')
       return []
