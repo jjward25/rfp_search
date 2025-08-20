@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { clearCompanies, setCurrentSession } from '@/lib/shared-storage'
+import { clearCompanies } from '@/lib/shared-storage'
 
 export async function POST(request: NextRequest) {
   try {
