@@ -11,8 +11,7 @@ interface CompanyData {
 }
 
 // Shared storage (in production, use a database)
-// Use let because we modify the array with .push()
-let sharedCompanies: CompanyData[] = []
+const sharedCompanies: CompanyData[] = []
 
 export async function POST(request: NextRequest) {
   try {
