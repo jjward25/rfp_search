@@ -240,7 +240,7 @@ export default function HomePage() {
                 />
                 <div className="text-sm text-gray-400 mt-1">
                   <div>... in the workflow automation industry</div>
-                  <div>... with over 1,000 employees and Headquartered in New Jersey</div>
+                  <div>{`... with over 1,000 employees and Headquartered in New Jersey`} </div>
                 </div>
               </div>
               <Button
