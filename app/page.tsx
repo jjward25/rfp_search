@@ -133,10 +133,13 @@ export default function HomePage() {
     if (hasSearched && !hasReceivedBulkData) { // Stop polling once we get bulk data
       const pollInterval = setInterval(async () => {
         try {
+          console.log('🔍 Polling for companies...')
           const response = await fetch('/api/stream-companies')
           if (response.ok) {
             const data = await response.json()
+            console.log('🔍 Stream-companies response:', data)
             if (data.companies && data.companies.length > 0) {
+              console.log('🔍 Found companies:', data.companies.length)
               
               // Check if this looks like bulk data (significant number of companies)
               const isBulkData = data.companies.length >= 5 // Threshold for bulk data
@@ -166,10 +169,14 @@ export default function HomePage() {
               })
               
               console.log('Received companies:', data.companies)
+            } else {
+              console.log('🔍 No companies found in response')
             }
+          } else {
+            console.log('🔍 Stream-companies API failed:', response.status)
           }
         } catch (error) {
-          console.error('Error polling for companies:', error)
+          console.error('🔍 Error polling for companies:', error)
         }
       }, 2000) // Check every 2 seconds
 

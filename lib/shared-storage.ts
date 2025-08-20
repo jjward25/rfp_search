@@ -278,45 +278,83 @@ async function atomicWriteEnrichedCompetitors(competitors: EnrichedCompetitor[])
   }
 }
 
-// Add enriched competitor
+// Smart merge function for enriched competitor data
+function mergeEnrichedCompetitor(existing: EnrichedCompetitor, incoming: EnrichedCompetitor): EnrichedCompetitor {
+  // Helper function to merge arrays without duplicates
+  const mergeArrays = (arr1: string[], arr2: string[]): string[] => {
+    const combined = [...arr1, ...arr2]
+    return [...new Set(combined)].filter(item => item && item.trim() !== '')
+  }
+  
+  // Helper function to use non-empty value or keep existing
+  const useNonEmpty = <T>(existing: T, incoming: T): T => {
+    if (Array.isArray(existing) && Array.isArray(incoming)) {
+      return mergeArrays(existing as string[], incoming as string[]) as T
+    }
+    if (typeof existing === 'string' && typeof incoming === 'string') {
+      return (incoming.trim() !== '' ? incoming : existing) as T
+    }
+    if (typeof existing === 'number' && typeof incoming === 'number') {
+      return (incoming > 0 ? incoming : existing) as T
+    }
+    return incoming ?? existing
+  }
+
+  return {
+    id: incoming.id || existing.id,
+    companyName: existing.companyName,
+    domain: useNonEmpty(existing.domain, incoming.domain),
+    linkedinCompanyUrl: useNonEmpty(existing.linkedinCompanyUrl, incoming.linkedinCompanyUrl),
+    industry: useNonEmpty(existing.industry, incoming.industry),
+    description: useNonEmpty(existing.description, incoming.description),
+    tier: useNonEmpty(existing.tier, incoming.tier),
+    totalFundingRaised: useNonEmpty(existing.totalFundingRaised, incoming.totalFundingRaised),
+    employeeCount: useNonEmpty(existing.employeeCount, incoming.employeeCount),
+    percentEmployeeGrowthOverLast6Months: useNonEmpty(existing.percentEmployeeGrowthOverLast6Months, incoming.percentEmployeeGrowthOverLast6Months),
+    companyRevenue: useNonEmpty(existing.companyRevenue, incoming.companyRevenue),
+    salesContactEmail: useNonEmpty(existing.salesContactEmail, incoming.salesContactEmail),
+    enterpriseSalesRepLinkedinUrl: useNonEmpty(existing.enterpriseSalesRepLinkedinUrl, incoming.enterpriseSalesRepLinkedinUrl),
+    productFeatures: mergeArrays(existing.productFeatures || [], incoming.productFeatures || []),
+    pricingPlanSummaryResult: mergeArrays(existing.pricingPlanSummaryResult || [], incoming.pricingPlanSummaryResult || []),
+    customerNames: mergeArrays(existing.customerNames || [], incoming.customerNames || []),
+    integrationsList: mergeArrays(existing.integrationsList || [], incoming.integrationsList || []),
+    productsAndServicesResult: mergeArrays(existing.productsAndServicesResult || [], incoming.productsAndServicesResult || []),
+    jobTitles: mergeArrays(existing.jobTitles || [], incoming.jobTitles || []),
+    jobUrls: mergeArrays(existing.jobUrls || [], incoming.jobUrls || []),
+    jobDescriptions: mergeArrays(existing.jobDescriptions || [], incoming.jobDescriptions || []),
+    productRoadmap: useNonEmpty(existing.productRoadmap || '', incoming.productRoadmap || ''),
+    originalSearchQuery: incoming.originalSearchQuery || existing.originalSearchQuery,
+    enrichmentTimestamp: incoming.enrichmentTimestamp || new Date().toISOString(),
+    enrichmentSource: incoming.enrichmentSource || existing.enrichmentSource,
+  }
+}
+
+// Add enriched competitor with smart merging
 export async function addEnrichedCompetitor(competitor: EnrichedCompetitor): Promise<void> {
   console.log('=== ADDING ENRICHED COMPETITOR ===')
   console.log('Competitor to add:', competitor.companyName)
   
   try {
-    // Use a separate lock for enriched competitors to avoid conflicts
     await withEnrichedLock(async () => {
       const competitors = await readEnrichedCompetitorsFromFile()
       
-      // Check if competitor already exists
-      const exists = competitors.find(c => c.companyName === competitor.companyName)
+      const existingIndex = competitors.findIndex(c => c.companyName === competitor.companyName)
       
-      if (!exists) {
+      if (existingIndex !== -1) {
+        console.log('🔄 Competitor already exists, merging data:', competitor.companyName)
+        const existing = competitors[existingIndex]
+        const merged = mergeEnrichedCompetitor(existing, competitor)
+        competitors[existingIndex] = merged
+        
+        await atomicWriteEnrichedCompetitors(competitors)
+        console.log('✅ Competitor data merged successfully. Total:', competitors.length)
+      } else {
         competitors.push(competitor)
         await atomicWriteEnrichedCompetitors(competitors)
         console.log('✅ NEW enriched competitor added successfully. Total:', competitors.length)
-        console.log('✅ Added:', competitor.companyName)
-        console.log('✅ Current competitors:', competitors.map(c => c.companyName))
-      } else {
-        console.log('🔄 Enriched competitor already exists, updating:', competitor.companyName)
-        // Update existing competitor, but preserve job data if it exists
-        const index = competitors.findIndex(c => c.companyName === competitor.companyName)
-        const existingCompetitor = competitors[index]
-        
-        // Merge data: use new main data but preserve existing job data
-        competitors[index] = {
-          ...competitor,
-          // Preserve existing job data if it exists and new data is empty
-          jobTitles: competitor.jobTitles.length > 0 ? competitor.jobTitles : existingCompetitor.jobTitles,
-          jobUrls: competitor.jobUrls.length > 0 ? competitor.jobUrls : existingCompetitor.jobUrls,
-          jobDescriptions: competitor.jobDescriptions.length > 0 ? competitor.jobDescriptions : existingCompetitor.jobDescriptions,
-        }
-        
-        await atomicWriteEnrichedCompetitors(competitors)
-        console.log('✅ Enriched competitor updated successfully. Total:', competitors.length)
-        console.log('✅ Updated:', competitor.companyName)
-        console.log('✅ Current competitors:', competitors.map(c => c.companyName))
       }
+      
+      console.log('✅ Current competitors:', competitors.map(c => c.companyName))
     })
   } catch (error) {
     console.error('❌ Error adding enriched competitor:', error)
