@@ -393,7 +393,7 @@ export default function HomePage() {
               <div className="text-center py-12">
                 <Loader2 className="w-16 h-16 text-gray-300 mx-auto mb-4 animate-spin" />
                 <h3 className="text-xl font-semibold text-gray-700 mb-2">Searching for companies...</h3>
-                <p className="text-gray-500">Companies will appear here as they're found</p>
+                <p className="text-gray-500">{`Companies will appear here as they're found`}</p>
               </div>
             ) : (
               <div className="space-y-4">
