@@ -287,7 +287,7 @@ function mergeEnrichedCompetitor(existing: EnrichedCompetitor, incoming: Enriche
   }
   
   // Helper function to use non-empty value or keep existing
-  const useNonEmpty = <T>(existing: T, incoming: T): T => {
+  const selectNonEmpty = <T>(existing: T, incoming: T): T => {
     if (Array.isArray(existing) && Array.isArray(incoming)) {
       return mergeArrays(existing as string[], incoming as string[]) as T
     }
@@ -303,17 +303,17 @@ function mergeEnrichedCompetitor(existing: EnrichedCompetitor, incoming: Enriche
   return {
     id: incoming.id || existing.id,
     companyName: existing.companyName,
-    domain: useNonEmpty(existing.domain, incoming.domain),
-    linkedinCompanyUrl: useNonEmpty(existing.linkedinCompanyUrl, incoming.linkedinCompanyUrl),
-    industry: useNonEmpty(existing.industry, incoming.industry),
-    description: useNonEmpty(existing.description, incoming.description),
-    tier: useNonEmpty(existing.tier, incoming.tier),
-    totalFundingRaised: useNonEmpty(existing.totalFundingRaised, incoming.totalFundingRaised),
-    employeeCount: useNonEmpty(existing.employeeCount, incoming.employeeCount),
-    percentEmployeeGrowthOverLast6Months: useNonEmpty(existing.percentEmployeeGrowthOverLast6Months, incoming.percentEmployeeGrowthOverLast6Months),
-    companyRevenue: useNonEmpty(existing.companyRevenue, incoming.companyRevenue),
-    salesContactEmail: useNonEmpty(existing.salesContactEmail, incoming.salesContactEmail),
-    enterpriseSalesRepLinkedinUrl: useNonEmpty(existing.enterpriseSalesRepLinkedinUrl, incoming.enterpriseSalesRepLinkedinUrl),
+    domain: selectNonEmpty(existing.domain, incoming.domain),
+    linkedinCompanyUrl: selectNonEmpty(existing.linkedinCompanyUrl, incoming.linkedinCompanyUrl),
+    industry: selectNonEmpty(existing.industry, incoming.industry),
+    description: selectNonEmpty(existing.description, incoming.description),
+    tier: selectNonEmpty(existing.tier, incoming.tier),
+    totalFundingRaised: selectNonEmpty(existing.totalFundingRaised, incoming.totalFundingRaised),
+    employeeCount: selectNonEmpty(existing.employeeCount, incoming.employeeCount),
+    percentEmployeeGrowthOverLast6Months: selectNonEmpty(existing.percentEmployeeGrowthOverLast6Months, incoming.percentEmployeeGrowthOverLast6Months),
+    companyRevenue: selectNonEmpty(existing.companyRevenue, incoming.companyRevenue),
+    salesContactEmail: selectNonEmpty(existing.salesContactEmail, incoming.salesContactEmail),
+    enterpriseSalesRepLinkedinUrl: selectNonEmpty(existing.enterpriseSalesRepLinkedinUrl, incoming.enterpriseSalesRepLinkedinUrl),
     productFeatures: mergeArrays(existing.productFeatures || [], incoming.productFeatures || []),
     pricingPlanSummaryResult: mergeArrays(existing.pricingPlanSummaryResult || [], incoming.pricingPlanSummaryResult || []),
     customerNames: mergeArrays(existing.customerNames || [], incoming.customerNames || []),
@@ -322,7 +322,7 @@ function mergeEnrichedCompetitor(existing: EnrichedCompetitor, incoming: Enriche
     jobTitles: mergeArrays(existing.jobTitles || [], incoming.jobTitles || []),
     jobUrls: mergeArrays(existing.jobUrls || [], incoming.jobUrls || []),
     jobDescriptions: mergeArrays(existing.jobDescriptions || [], incoming.jobDescriptions || []),
-    productRoadmap: useNonEmpty(existing.productRoadmap || '', incoming.productRoadmap || ''),
+    productRoadmap: selectNonEmpty(existing.productRoadmap || '', incoming.productRoadmap || ''),
     originalSearchQuery: incoming.originalSearchQuery || existing.originalSearchQuery,
     enrichmentTimestamp: incoming.enrichmentTimestamp || new Date().toISOString(),
     enrichmentSource: incoming.enrichmentSource || existing.enrichmentSource,

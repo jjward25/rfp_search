@@ -33,6 +33,7 @@ export default function HomePage() {
   const [selectedCompanies, setSelectedCompanies] = useState<Set<string>>(new Set())
   const [isEnriching, setIsEnriching] = useState(false)
   const [hasReceivedBulkData, setHasReceivedBulkData] = useState(false) // New flag
+  const [isFinalEnrichmentStarted, setIsFinalEnrichmentStarted] = useState(false) // Track when final enrichment begins
 
   // Add state for editable source URLs
   const [sourceUrls, setSourceUrls] = useState<Record<string, string>>({})
@@ -217,6 +218,7 @@ export default function HomePage() {
     setCompanies([])
     setSelectedCompanies(new Set())
     setHasReceivedBulkData(false) // Reset bulk data flag
+    setIsFinalEnrichmentStarted(false) // Reset final enrichment flag
     setSourceUrls({}) // Reset source URLs
     
     try {
@@ -269,6 +271,7 @@ export default function HomePage() {
     if (selectedCompanies.size === 0) return
     
     setIsEnriching(true)
+    setIsFinalEnrichmentStarted(true) // Hide initial list and show final enrichment loading
     
     try {
       const selectedCompanyData = companies
@@ -444,7 +447,7 @@ export default function HomePage() {
         </div>
 
         {/* Companies Results */}
-        {hasSearched && (
+        {hasSearched && !isFinalEnrichmentStarted && (
           <div className="mt-12">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-gray-900">
@@ -590,6 +593,63 @@ export default function HomePage() {
                 ))}
               </div>
             )}
+          </div>
+        )}
+
+        {/* Final Enrichment Loading Modal */}
+        {isFinalEnrichmentStarted && !showEnrichedResults && (
+          <div className="mt-20">
+            <div className="text-center py-20 bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl border-2 border-blue-200 shadow-xl">
+              <div className="relative">
+                <Loader2 className="w-20 h-20 text-blue-500 mx-auto mb-6 animate-spin" />
+                <Sparkles className="w-6 h-6 text-purple-400 absolute top-0 right-1/2 transform translate-x-12 animate-pulse" />
+                <Sparkles className="w-4 h-4 text-blue-400 absolute top-4 left-1/2 transform -translate-x-16 animate-pulse delay-300" />
+                <Sparkles className="w-5 h-5 text-purple-500 absolute bottom-2 right-1/2 transform translate-x-20 animate-pulse delay-700" />
+              </div>
+              <h3 className="text-3xl font-bold text-gray-900 mb-3">
+                {searchMode === "rfp" ? "🔍 Deep Vendor Analysis in Progress" : "🔍 Advanced Competitor Analysis in Progress"}
+              </h3>
+              <p className="text-xl text-gray-700 mb-2">
+                Processing {selectedCompanies.size} {searchMode === "rfp" ? "vendors" : "competitors"} for comprehensive analysis
+              </p>
+              <p className="text-lg text-gray-600 mb-6">
+                ⏱️ This typically takes 3-5 minutes
+              </p>
+              <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto border border-white/40">
+                <h4 className="text-lg font-semibold text-gray-800 mb-3">
+                  {searchMode === "rfp" ? "🎯 What we're gathering for you:" : "🎯 What we're analyzing:"}
+                </h4>
+                <div className="grid md:grid-cols-2 gap-3 text-sm text-gray-700">
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
+                    {searchMode === "rfp" ? "Pricing & Plans" : "Company Financials"}
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-purple-400 rounded-full mr-3"></div>
+                    {searchMode === "rfp" ? "Product Features" : "Market Position"}
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
+                    {searchMode === "rfp" ? "Sales Contacts" : "Growth Metrics"}
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-orange-400 rounded-full mr-3"></div>
+                    {searchMode === "rfp" ? "Enterprise Solutions" : "Technology Stack"}
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-pink-400 rounded-full mr-3"></div>
+                    Current Job Openings
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-indigo-400 rounded-full mr-3"></div>
+                    Industry Intelligence
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm text-gray-500 mt-6">
+                💡 Results will appear automatically when ready
+              </p>
+            </div>
           </div>
         )}
 
