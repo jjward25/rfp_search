@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getSharedCompanies } from '../webhook/receive-companies/route'
 
 // Define proper types
 interface CompanyData {
@@ -10,42 +11,30 @@ interface CompanyData {
   linkedinURL?: string | null
 }
 
-// In-memory storage for received companies (in production, use a database)
-const receivedCompanies: CompanyData[] = []
-
 export async function GET(request: NextRequest) {
-  // Return the current list of companies
-  return NextResponse.json({
-    companies: receivedCompanies,
-    total: receivedCompanies.length,
-    timestamp: new Date().toISOString()
-  })
+  try {
+    // Get companies from the shared storage
+    const companies = getSharedCompanies()
+    
+    return NextResponse.json({
+      companies: companies,
+      total: companies.length,
+      timestamp: new Date().toISOString()
+    })
+  } catch (error) {
+    console.error('Error getting companies:', error)
+    return NextResponse.json({
+      companies: [],
+      total: 0,
+      timestamp: new Date().toISOString()
+    })
+  }
 }
 
 export async function POST(request: NextRequest) {
-  // Allow adding companies via POST request
-  try {
-    const body = await request.json()
-    
-    if (!body.Company_Name || !body.search_query) {
-      return NextResponse.json(
-        { error: 'Invalid company data' },
-        { status: 400 }
-      )
-    }
-    
-    receivedCompanies.push(body)
-    console.log('Company added via POST. Total companies:', receivedCompanies.length)
-    
-    return NextResponse.json({
-      success: true,
-      message: 'Company added successfully',
-      total: receivedCompanies.length
-    })
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to add company' },
-      { status: 500 }
-    )
-  }
+  // This endpoint is no longer needed since webhook stores directly
+  return NextResponse.json({
+    message: 'Companies are now stored directly by the webhook',
+    redirect: 'Use GET to retrieve companies'
+  })
 }

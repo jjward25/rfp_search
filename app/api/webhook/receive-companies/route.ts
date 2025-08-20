@@ -10,6 +10,9 @@ interface CompanyData {
   linkedinURL?: string | null
 }
 
+// Shared storage (in production, use a database)
+let sharedCompanies: CompanyData[] = []
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -25,24 +28,9 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    // Add the company by calling the stream-companies endpoint
-    try {
-      const streamResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/stream-companies`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body)
-      })
-      
-      if (streamResponse.ok) {
-        console.log('Company added to stream successfully')
-      } else {
-        console.error('Failed to add company to stream:', streamResponse.status)
-      }
-    } catch (streamError) {
-      console.error('Error calling stream-companies endpoint:', streamError)
-    }
+    // Add the company directly to shared storage
+    sharedCompanies.push(body)
+    console.log('Company added to shared storage. Total companies:', sharedCompanies.length)
     
     return NextResponse.json({
       success: true,
@@ -57,6 +45,11 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   }
+}
+
+// Export function to get companies (for stream-companies to use)
+export function getSharedCompanies() {
+  return sharedCompanies
 }
 
 // Add support for PUT method (in case Clay.com uses that)
@@ -75,24 +68,8 @@ export async function PUT(request: NextRequest) {
       )
     }
     
-    // Add the company by calling the stream-companies endpoint
-    try {
-      const streamResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/stream-companies`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body)
-      })
-      
-      if (streamResponse.ok) {
-        console.log('Company added to stream successfully')
-      } else {
-        console.error('Failed to add company to stream:', streamResponse.status)
-      }
-    } catch (streamError) {
-      console.error('Error calling stream-companies endpoint:', streamError)
-    }
+    sharedCompanies.push(body)
+    console.log('Company added to shared storage. Total companies:', sharedCompanies.length)
     
     return NextResponse.json({
       success: true,
@@ -114,7 +91,8 @@ export async function GET() {
   return NextResponse.json({
     message: 'Webhook endpoint is working',
     methods: ['POST', 'PUT', 'GET'],
-    description: 'This endpoint receives company data from Clay.com'
+    description: 'This endpoint receives company data from Clay.com',
+    companiesReceived: sharedCompanies.length
   })
 }
 
