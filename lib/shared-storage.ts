@@ -383,3 +383,48 @@ async function isEnrichedLockStale(): Promise<boolean> {
     return true
   }
 }
+
+// Update existing enriched competitor with jobs data
+export async function updateEnrichedCompetitorJobs(jobData: {
+  companyName: string
+  jobTitles: string[]
+  jobUrls: string[]
+  jobDescriptions: string[]
+  updatedAt: string
+}): Promise<void> {
+  console.log('=== UPDATING ENRICHED COMPETITOR JOBS ===')
+  console.log('Updating jobs for company:', jobData.companyName)
+  
+  try {
+    await withEnrichedLock(async () => {
+      const competitors = await readEnrichedCompetitorsFromFile()
+      
+      // Find the competitor to update
+      const competitorIndex = competitors.findIndex(c => c.companyName === jobData.companyName)
+      
+      if (competitorIndex !== -1) {
+        // Update the existing competitor with job data
+        competitors[competitorIndex] = {
+          ...competitors[competitorIndex],
+          jobTitles: jobData.jobTitles,
+          jobUrls: jobData.jobUrls,
+          jobDescriptions: jobData.jobDescriptions,
+          enrichmentTimestamp: jobData.updatedAt // Update timestamp
+        }
+        
+        await atomicWriteEnrichedCompetitors(competitors)
+        console.log('✅ Successfully updated jobs data for:', jobData.companyName)
+        console.log('Job count:', jobData.jobTitles.length)
+      } else {
+        console.log('⚠️ Competitor not found for jobs update:', jobData.companyName)
+        console.log('Available competitors:', competitors.map(c => c.companyName))
+        
+        // Don't throw error - jobs data might arrive before main data
+        // This is normal in a two-webhook setup
+      }
+    })
+  } catch (error) {
+    console.error('❌ Error updating competitor jobs:', error)
+    throw error
+  }
+}
