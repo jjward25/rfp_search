@@ -85,7 +85,7 @@ async function readCompaniesFromFile(): Promise<CompanyData[]> {
     console.log('Read companies from file:', companies.length)
     console.log('Company names:', companies.map(c => c.Company_Name))
     return companies
-  } catch (error) {
+  } catch (error: any) {
     if (error.code === 'ENOENT') {
       // File doesn't exist yet, return empty array
       console.log('Companies file does not exist yet, starting with empty array')
