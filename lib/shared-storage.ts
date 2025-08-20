@@ -1,6 +1,5 @@
-import { writeFileSync, readFileSync, existsSync, mkdirSync, statSync, unlinkSync } from 'fs'
+import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs'
 import { join } from 'path'
-import { execSync } from 'child_process'
 
 // Define proper types for company data
 export interface CompanyData {
@@ -34,7 +33,7 @@ function acquireLock(): boolean {
       const lockStats = statSync(LOCK_FILE)
       const lockAge = Date.now() - lockStats.mtime.getTime()
       if (lockAge > 5000) {
-        unlinkSync(LOCK_FILE)
+        require('fs').unlinkSync(LOCK_FILE)
       } else {
         return false // Lock is active
       }
@@ -50,22 +49,10 @@ function acquireLock(): boolean {
 function releaseLock(): void {
   try {
     if (existsSync(LOCK_FILE)) {
-      unlinkSync(LOCK_FILE)
+      require('fs').unlinkSync(LOCK_FILE)
     }
   } catch (error) {
     console.error('Error releasing lock:', error)
-  }
-}
-
-function sleep(ms: number): void {
-  try {
-    execSync(`sleep ${ms / 1000}`)
-  } catch (error) {
-    // Fallback to busy wait if sleep command fails
-    const start = Date.now()
-    while (Date.now() - start < ms) {
-      // Busy wait
-    }
   }
 }
 
@@ -107,7 +94,8 @@ export function addCompany(company: CompanyData): void {
     lockAcquired = acquireLock()
     if (!lockAcquired) {
       console.log('Lock not acquired, waiting...', attempts)
-      sleep(100) // Wait 100ms before retry
+      // Wait 100ms before retry
+      require('child_process').execSync('sleep 0.1')
       attempts++
     }
   }
