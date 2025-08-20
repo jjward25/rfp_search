@@ -8,7 +8,62 @@ export async function POST(request: NextRequest) {
     console.log('=== WEBHOOK DEBUG START ===')
     console.log('Received data from Clay via POST:', JSON.stringify(body, null, 2))
     
-    // Handle new bulk format with CompetitiveCompanies array
+    // Handle direct array format (new)
+    if (Array.isArray(body)) {
+      console.log(`Processing direct array format: ${body.length} companies received`)
+      
+      try {
+        // Map the array format to our CompanyData interface
+        const companies: CompanyData[] = body.map((company: any, index: number) => {
+          const cleanCompanyName = company.company?.toString().trim()
+          const cleanSource = company.source?.toString().trim()
+          const cleanNicheFocus = company.niche_focus?.toString().trim()
+          const cleanWhyRelevant = company.why_relevant?.toString().trim()
+          
+          // Validate that we have actual company data
+          if (!cleanCompanyName) {
+            throw new Error(`Company ${index + 1}: Missing company name`)
+          }
+          
+          return {
+            Company_Name: cleanCompanyName,
+            search_query: 'competitive analysis', // Default since not provided in this format
+            why_relevant: cleanWhyRelevant || undefined,
+            niche_focus: cleanNicheFocus || undefined,
+            source: cleanSource || undefined,
+            linkedinURL: company.linkedinURL || null
+          }
+        })
+        
+        console.log('Mapped companies from direct array:', companies.map(c => c.Company_Name))
+        
+        // Add all companies at once using the bulk method
+        await addCompanies(companies)
+        console.log(`✅ Successfully added ${companies.length} companies from direct array`)
+        
+        console.log('=== WEBHOOK DEBUG END ===')
+        
+        return NextResponse.json({
+          success: true,
+          message: `${companies.length} companies received and processed successfully`,
+          companiesProcessed: companies.length,
+          timestamp: new Date().toISOString()
+        })
+        
+      } catch (mappingError) {
+        console.error('Error during direct array mapping:', mappingError)
+        return NextResponse.json(
+          { 
+            error: 'Company data mapping failed', 
+            details: mappingError instanceof Error ? mappingError.message : 'Unknown mapping error',
+            sampleData: body[0]
+          },
+          { status: 400 }
+        )
+      }
+    }
+    
+    // Handle wrapped format with CompetitiveCompanies array (existing)
     if (body.CompetitiveCompanies && Array.isArray(body.CompetitiveCompanies)) {
       console.log(`Processing bulk companies: ${body.CompetitiveCompanies.length} companies received`)
       
