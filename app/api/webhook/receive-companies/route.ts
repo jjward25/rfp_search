@@ -5,7 +5,8 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     
-    console.log('Received company from Clay via POST:', body)
+    console.log('=== WEBHOOK DEBUG START ===')
+    console.log('Received company from Clay via POST:', JSON.stringify(body, null, 2))
     
     // Validate the expected body format
     if (!body.Company_Name || !body.search_query) {
@@ -16,8 +17,18 @@ export async function POST(request: NextRequest) {
       )
     }
     
+    console.log('Company validation passed, calling addCompany...')
+    
     // Add the company to shared storage
-    addCompany(body)
+    try {
+      addCompany(body)
+      console.log('addCompany completed successfully')
+    } catch (addError) {
+      console.error('Error in addCompany:', addError)
+      throw addError
+    }
+    
+    console.log('=== WEBHOOK DEBUG END ===')
     
     return NextResponse.json({
       success: true,
