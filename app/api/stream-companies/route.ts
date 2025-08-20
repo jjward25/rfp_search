@@ -4,7 +4,7 @@ import { getSharedCompanies } from '@/lib/shared-storage'
 export async function GET(request: NextRequest) {
   try {
     // Get companies from the shared storage
-    const companies = getSharedCompanies()
+    const companies = await getSharedCompanies()
     
     return NextResponse.json({
       companies: companies,
