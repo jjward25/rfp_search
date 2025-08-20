@@ -75,6 +75,34 @@ export default function HomePage() {
     }
   }, [hasSearched])
 
+  // Add this effect to poll for new companies after search
+  useEffect(() => {
+    if (hasSearched) {
+      const pollInterval = setInterval(async () => {
+        try {
+          // Check for new companies
+          const response = await fetch('/api/stream-companies')
+          if (response.ok) {
+            const data = await response.json()
+            if (data.companies && data.companies.length > 0) {
+              setCompanies(data.companies)
+              console.log('Received companies:', data.companies)
+            }
+          }
+        } catch (error) {
+          console.error('Error polling for companies:', error)
+        }
+      }, 2000) // Check every 2 seconds
+
+      // Stop polling after 5 minutes
+      setTimeout(() => {
+        clearInterval(pollInterval)
+      }, 300000)
+
+      return () => clearInterval(pollInterval)
+    }
+  }, [hasSearched])
+
   const handleSearch = async () => {
     if (!searchQuery.trim()) return
     
@@ -365,7 +393,7 @@ export default function HomePage() {
               <div className="text-center py-12">
                 <Loader2 className="w-16 h-16 text-gray-300 mx-auto mb-4 animate-spin" />
                 <h3 className="text-xl font-semibold text-gray-700 mb-2">Searching for companies...</h3>
-                <p className="text-gray-500">{`Companies will appear here as they're found`}</p>
+                <p className="text-gray-500">Companies will appear here as they're found</p>
               </div>
             ) : (
               <div className="space-y-4">
