@@ -58,8 +58,13 @@ export default function HomePage() {
       if (response.ok) {
         const data = await response.json()
         if (data.success && data.competitors) {
-          // Map EnrichedCompetitor to Competitor interface
-          const mappedCompetitors: Competitor[] = data.competitors.map((comp: unknown, index: number) => {
+          console.log('🎯 Frontend: API returned', data.competitors.length, 'enriched competitors')
+          
+          // Only update if we have data or if we currently have no data
+          // This prevents overwriting existing data with empty arrays during polling
+          if (data.competitors.length > 0 || enrichedCompetitors.length === 0) {
+            // Map EnrichedCompetitor to Competitor interface
+            const mappedCompetitors: Competitor[] = data.competitors.map((comp: unknown, index: number) => {
             const competitor = comp as Record<string, unknown>
             return {
               id: (competitor.id as number) || index + 1,
@@ -88,12 +93,22 @@ export default function HomePage() {
           })
           
           setEnrichedCompetitors(mappedCompetitors)
-          console.log('Loaded enriched competitors:', mappedCompetitors.length)
+          console.log('🎯 Frontend: Loaded enriched competitors:', mappedCompetitors.length)
+          console.log('🎯 Frontend: Competitor names:', mappedCompetitors.map(c => c.companyName))
           
           if (mappedCompetitors.length > 0) {
             setShowEnrichedResults(true)
+          } else {
+            console.log('🎯 Frontend: No enriched competitors found, keeping results hidden')
           }
+          } else {
+            console.log('🎯 Frontend: API returned empty data, but keeping existing', enrichedCompetitors.length, 'competitors to prevent overwrite')
+          }
+        } else {
+          console.log('🎯 Frontend: API call successful but no competitor data in response')
         }
+      } else {
+        console.log('🎯 Frontend: API call failed:', response.status)
       }
     } catch (error) {
       console.error('Error loading enriched competitors:', error)

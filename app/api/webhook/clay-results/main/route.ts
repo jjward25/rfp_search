@@ -44,8 +44,13 @@ export async function POST(request: NextRequest) {
       }
       
       try {
+        console.log('💾 About to store enriched competitor:', enrichedCompetitor.companyName)
         await addEnrichedCompetitor(enrichedCompetitor)
         console.log('✅ Successfully stored main enrichment data:', enrichedCompetitor.companyName)
+        
+        // Debug: Check total competitors after adding
+        const { debugEnrichedCompetitors } = await import('@/lib/shared-storage')
+        await debugEnrichedCompetitors()
         
         return NextResponse.json({
           success: true,

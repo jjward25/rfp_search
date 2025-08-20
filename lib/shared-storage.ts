@@ -294,14 +294,28 @@ export async function addEnrichedCompetitor(competitor: EnrichedCompetitor): Pro
       if (!exists) {
         competitors.push(competitor)
         await atomicWriteEnrichedCompetitors(competitors)
-        console.log('✅ Enriched competitor added successfully. Total:', competitors.length)
+        console.log('✅ NEW enriched competitor added successfully. Total:', competitors.length)
+        console.log('✅ Added:', competitor.companyName)
+        console.log('✅ Current competitors:', competitors.map(c => c.companyName))
       } else {
-        console.log('❌ Enriched competitor already exists, updating:', competitor.companyName)
-        // Update existing competitor
+        console.log('🔄 Enriched competitor already exists, updating:', competitor.companyName)
+        // Update existing competitor, but preserve job data if it exists
         const index = competitors.findIndex(c => c.companyName === competitor.companyName)
-        competitors[index] = competitor
+        const existingCompetitor = competitors[index]
+        
+        // Merge data: use new main data but preserve existing job data
+        competitors[index] = {
+          ...competitor,
+          // Preserve existing job data if it exists and new data is empty
+          jobTitles: competitor.jobTitles.length > 0 ? competitor.jobTitles : existingCompetitor.jobTitles,
+          jobUrls: competitor.jobUrls.length > 0 ? competitor.jobUrls : existingCompetitor.jobUrls,
+          jobDescriptions: competitor.jobDescriptions.length > 0 ? competitor.jobDescriptions : existingCompetitor.jobDescriptions,
+        }
+        
         await atomicWriteEnrichedCompetitors(competitors)
-        console.log('✅ Enriched competitor updated successfully')
+        console.log('✅ Enriched competitor updated successfully. Total:', competitors.length)
+        console.log('✅ Updated:', competitor.companyName)
+        console.log('✅ Current competitors:', competitors.map(c => c.companyName))
       }
     })
   } catch (error) {
@@ -314,7 +328,10 @@ export async function addEnrichedCompetitor(competitor: EnrichedCompetitor): Pro
 export async function getEnrichedCompetitors(): Promise<EnrichedCompetitor[]> {
   try {
     const competitors = await readEnrichedCompetitorsFromFile()
-    console.log('Getting enriched competitors from file storage. Total:', competitors.length)
+    console.log('📊 Getting enriched competitors from file storage. Total:', competitors.length)
+    if (competitors.length > 0) {
+      console.log('📊 Competitor names:', competitors.map(c => c.companyName))
+    }
     return competitors
   } catch (error) {
     console.error('Error getting enriched competitors:', error)
@@ -324,16 +341,35 @@ export async function getEnrichedCompetitors(): Promise<EnrichedCompetitor[]> {
 
 // Clear all enriched competitors
 export async function clearEnrichedCompetitors(): Promise<void> {
-  console.log('=== CLEARING ALL ENRICHED COMPETITORS ===')
+  console.log('🧹 === CLEARING ALL ENRICHED COMPETITORS ===')
+  console.log('🧹 WARNING: This will delete all enriched competitor data!')
   
   try {
     await withEnrichedLock(async () => {
+      const existingCompetitors = await readEnrichedCompetitorsFromFile()
+      console.log('🧹 Clearing', existingCompetitors.length, 'enriched competitors')
+      console.log('🧹 Companies being cleared:', existingCompetitors.map(c => c.companyName))
+      
       await atomicWriteEnrichedCompetitors([])
       console.log('✅ Enriched competitors cleared from file storage')
     })
   } catch (error) {
     console.error('❌ Error clearing enriched competitors:', error)
     throw error
+  }
+}
+
+// Debug function to check enriched competitor status
+export async function debugEnrichedCompetitors(): Promise<void> {
+  console.log('🔍 === DEBUG ENRICHED COMPETITORS ===')
+  try {
+    const competitors = await readEnrichedCompetitorsFromFile()
+    console.log('🔍 Total enriched competitors:', competitors.length)
+    competitors.forEach((comp, index) => {
+      console.log(`🔍 ${index + 1}. ${comp.companyName} - Jobs: ${comp.jobTitles.length}`)
+    })
+  } catch (error) {
+    console.error('🔍 Error debugging enriched competitors:', error)
   }
 }
 
