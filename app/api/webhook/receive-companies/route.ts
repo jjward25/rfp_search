@@ -1,6 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { addCompanies, addCompany, type CompanyData } from '@/lib/shared-storage'
 
+// Define interfaces for incoming webhook data
+interface IncomingCompany {
+  company: string
+  source?: string
+  niche_focus?: string
+  why_relevant?: string
+  linkedinURL?: string
+}
+
+interface WrappedCompaniesPayload {
+  CompetitiveCompanies: IncomingCompany[]
+  search_query?: string
+  originalQuery?: string
+}
+
+interface LegacyCompanyPayload {
+  Company_Name: string
+  search_query: string
+  why_relevant?: string
+  niche_focus?: string
+  source?: string
+  linkedinURL?: string | null
+}
+
+type WebhookPayload = IncomingCompany[] | WrappedCompaniesPayload | LegacyCompanyPayload
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -14,7 +40,7 @@ export async function POST(request: NextRequest) {
       
       try {
         // Map the array format to our CompanyData interface
-        const companies: CompanyData[] = body.map((company: any, index: number) => {
+        const companies: CompanyData[] = (body as IncomingCompany[]).map((company: IncomingCompany, index: number) => {
           const cleanCompanyName = company.company?.toString().trim()
           const cleanSource = company.source?.toString().trim()
           const cleanNicheFocus = company.niche_focus?.toString().trim()
@@ -67,15 +93,34 @@ export async function POST(request: NextRequest) {
     if (body.CompetitiveCompanies && Array.isArray(body.CompetitiveCompanies)) {
       console.log(`Processing bulk companies: ${body.CompetitiveCompanies.length} companies received`)
       
-      // Map the new format to our CompanyData interface
-      const companies: CompanyData[] = body.CompetitiveCompanies.map((company: any) => ({
-        Company_Name: company.company,
-        search_query: body.search_query || body.originalQuery || 'bulk import', // Use provided query or fallback
-        why_relevant: company.why_relevant,
-        niche_focus: company.niche_focus,
-        source: company.source,
-        linkedinURL: company.linkedinURL || null
-      }))
+      try {
+        // Map the new format to our CompanyData interface
+        const companies: CompanyData[] = (body as WrappedCompaniesPayload).CompetitiveCompanies.map((company: IncomingCompany, index: number) => {
+          const cleanCompanyName = company.company?.toString().trim()
+          const cleanSource = company.source?.toString().trim()
+          const cleanNicheFocus = company.niche_focus?.toString().trim()
+          const cleanWhyRelevant = company.why_relevant?.toString().trim()
+          
+          console.log(`Mapping company ${index + 1}:`, {
+            original: company.company,
+            cleaned: cleanCompanyName,
+            hasData: !!cleanCompanyName && cleanCompanyName !== 'company'
+          })
+          
+          // Validate that we have actual data, not empty/placeholder
+          if (!cleanCompanyName || cleanCompanyName === 'company' || cleanCompanyName === '') {
+            throw new Error(`Company ${index + 1}: Missing or invalid company name. Original: "${company.company}", Cleaned: "${cleanCompanyName}"`)
+          }
+          
+          return {
+            Company_Name: cleanCompanyName,
+            search_query: (body as WrappedCompaniesPayload).search_query || (body as WrappedCompaniesPayload).originalQuery || 'bulk import',
+            why_relevant: cleanWhyRelevant || undefined,
+            niche_focus: cleanNicheFocus || undefined,
+            source: cleanSource || undefined,
+            linkedinURL: company.linkedinURL || null
+          }
+        })
       
       console.log('Mapped companies:', companies.map(c => c.Company_Name))
       
