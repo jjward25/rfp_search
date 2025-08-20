@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { Search, ArrowRight, Building2, Eye, Loader2, Check, X } from "lucide-react"
+import { Search, ArrowRight, Building2, Eye, Loader2, Check, X, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import CompetitorCard, { type Competitor } from "@/components/CompetitorCard"
+import RFPView from "@/components/RFPView"
 
 // Update the Company interface to match Clay.com's format
 interface Company {
@@ -34,12 +36,77 @@ export default function HomePage() {
   // Add state for editable source URLs
   const [sourceUrls, setSourceUrls] = useState<Record<string, string>>({})
 
+  // Add state for enriched competitors
+  const [enrichedCompetitors, setEnrichedCompetitors] = useState<Competitor[]>([])
+  const [isLoadingEnriched, setIsLoadingEnriched] = useState(false)
+  const [showEnrichedResults, setShowEnrichedResults] = useState(false)
+
   // Function to update source URL
   const updateSourceUrl = (companyName: string, newUrl: string) => {
     setSourceUrls(prev => ({
       ...prev,
       [companyName]: newUrl
     }))
+  }
+
+  // Function to load enriched competitors
+  const loadEnrichedCompetitors = async () => {
+    try {
+      setIsLoadingEnriched(true)
+      const response = await fetch('/api/enriched-competitors')
+      if (response.ok) {
+        const data = await response.json()
+        if (data.success && data.competitors) {
+          // Map EnrichedCompetitor to Competitor interface
+          const mappedCompetitors: Competitor[] = data.competitors.map((comp: any, index: number) => ({
+            id: comp.id || index + 1,
+            companyName: comp.companyName,
+            domain: comp.domain,
+            linkedinCompanyUrl: comp.linkedinCompanyUrl,
+            totalFundingRaised: comp.totalFundingRaised,
+            employeeCount: comp.employeeCount,
+            percentEmployeeGrowthOverLast6Months: comp.percentEmployeeGrowthOverLast6Months,
+            productFeatures: comp.productFeatures || [],
+            pricingPlanSummaryResult: comp.pricingPlanSummaryResult || [],
+            customerNames: comp.customerNames || [],
+            industry: comp.industry,
+            description: comp.description,
+            salesContactEmail: comp.salesContactEmail,
+            enterpriseSalesRepLinkedinUrl: comp.enterpriseSalesRepLinkedinUrl,
+            jobTitles: comp.jobTitles || [],
+            jobUrls: comp.jobUrls || [],
+            jobDescriptions: comp.jobDescriptions || [],
+            integrationsList: comp.integrationsList || [],
+            companyRevenue: comp.companyRevenue,
+            productsAndServicesResult: comp.productsAndServicesResult || [],
+            productRoadmap: comp.productRoadmap,
+            tier: comp.tier
+          }))
+          
+          setEnrichedCompetitors(mappedCompetitors)
+          console.log('Loaded enriched competitors:', mappedCompetitors.length)
+          
+          if (mappedCompetitors.length > 0) {
+            setShowEnrichedResults(true)
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error loading enriched competitors:', error)
+    } finally {
+      setIsLoadingEnriched(false)
+    }
+  }
+
+  // Function to handle competitor tracking
+  const handleTrackCompetitor = (competitor: Competitor) => {
+    if (searchMode === "rfp") {
+      console.log('Adding to vendor shortlist:', competitor.companyName)
+      alert(`${competitor.companyName} added to your vendor shortlist!`)
+    } else {
+      console.log('Tracking competitor:', competitor.companyName)
+      alert(`Now tracking ${competitor.companyName}!`)
+    }
   }
 
   // Poll for companies after search
@@ -100,6 +167,21 @@ export default function HomePage() {
       }
     }
   }, [hasSearched, hasReceivedBulkData])
+
+  // Load enriched competitors on component mount and poll for updates
+  useEffect(() => {
+    // Load initially
+    loadEnrichedCompetitors()
+    
+    // Poll for new enriched competitors every 10 seconds
+    const enrichedPollInterval = setInterval(() => {
+      loadEnrichedCompetitors()
+    }, 10000)
+    
+    return () => {
+      clearInterval(enrichedPollInterval)
+    }
+  }, [])
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) return
@@ -282,7 +364,7 @@ export default function HomePage() {
                 ) : (
                   <ArrowRight className="w-5 h-5 mr-2" />
                 )}
-                {isSearching ? 'Searching...' : 'Search'}
+                {isSearching ? 'Searching...' : (searchMode === "rfp" ? 'Find Vendors' : 'Find Competitors')}
               </Button>
             </div>
           </div>
@@ -341,8 +423,8 @@ export default function HomePage() {
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-gray-900">
                 {companies.length > 0 
-                  ? `${companies.length} Companies Found` 
-                  : 'Waiting for companies...'
+                  ? `${companies.length} ${searchMode === "rfp" ? "Potential Vendors" : "Competitors"} Found` 
+                  : `Searching for ${searchMode === "rfp" ? "vendors" : "competitors"}...`
                 }
               </h3>
               {companies.length > 0 && (
@@ -371,8 +453,17 @@ export default function HomePage() {
                     ) : (
                       <Check className="w-4 h-4 mr-2" />
                     )}
-                    Enrich Selected ({selectedCompanies.size})
+                    {searchMode === "rfp" ? "Get Vendor Details" : "Analyze Competitors"} ({selectedCompanies.size})
                   </Button>
+                  {enrichedCompetitors.length > 0 && !showEnrichedResults && (
+                    <Button
+                      onClick={() => setShowEnrichedResults(true)}
+                      className="bg-purple-600 hover:bg-purple-700"
+                    >
+                      <Sparkles className="w-4 h-4 mr-2" />
+                      View {searchMode === "rfp" ? "Vendor Analysis" : "Competitor Analysis"} ({enrichedCompetitors.length})
+                    </Button>
+                  )}
                   <Button
                     onClick={clearSearch}
                     variant="outline"
@@ -388,8 +479,8 @@ export default function HomePage() {
             {companies.length === 0 ? (
               <div className="text-center py-12">
                 <Loader2 className="w-16 h-16 text-gray-300 mx-auto mb-4 animate-spin" />
-                <h3 className="text-xl font-semibold text-gray-700 mb-2">{`Searching for companies... (takes about 1-2 minutes)`}</h3>
-                <p className="text-gray-500">{`Companies will appear here as they're found`}</p>
+                              <h3 className="text-xl font-semibold text-gray-700 mb-2">{`Searching for ${searchMode === "rfp" ? "vendors" : "competitors"}... (takes about 1-2 minutes)`}</h3>
+              <p className="text-gray-500">{`${searchMode === "rfp" ? "Potential vendors" : "Competitors"} will appear here as they're found`}</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -418,7 +509,7 @@ export default function HomePage() {
                         {company.why_relevant && (
                           <div className="mb-3 p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400">
                             <p className="text-sm text-blue-800">
-                              <strong>Why Relevant:</strong> {company.why_relevant}
+                              <strong>{searchMode === "rfp" ? "Why This Vendor Fits" : "Why Relevant"}:</strong> {company.why_relevant}
                             </p>
                           </div>
                         )}
@@ -435,7 +526,7 @@ export default function HomePage() {
                         {/* Editable Source URL */}
                         <div className="mb-3">
                           <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Source URL:
+                            {searchMode === "rfp" ? "Vendor Website" : "Source URL"}:
                           </label>
                           <div className="flex space-x-2">
                             <Input
@@ -470,6 +561,64 @@ export default function HomePage() {
                       </div>
                     </div>
                   </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Enriched Results Section */}
+        {showEnrichedResults && (
+          <div className="mt-20">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                              <h3 className="text-3xl font-bold text-gray-900 mb-2 flex items-center">
+                {searchMode === "rfp" ? (
+                  <Building2 className="w-8 h-8 mr-3 text-blue-600" />
+                ) : (
+                  <Sparkles className="w-8 h-8 mr-3 text-purple-600" />
+                )}
+                {searchMode === "rfp" ? "Detailed Vendor Analysis" : "Enriched Competitor Analysis"}
+              </h3>
+              <p className="text-xl text-gray-600">
+                {enrichedCompetitors.length} {searchMode === "rfp" ? "vendors" : "companies"} with {searchMode === "rfp" ? "comprehensive business intelligence" : "detailed competitive intelligence"}
+              </p>
+              </div>
+              <Button
+                onClick={() => setShowEnrichedResults(false)}
+                variant="outline"
+                size="sm"
+              >
+                <X className="w-4 h-4 mr-2" />
+                Hide Results
+              </Button>
+            </div>
+
+            {isLoadingEnriched ? (
+              <div className="text-center py-12">
+                <Loader2 className="w-16 h-16 text-purple-400 mx-auto mb-4 animate-spin" />
+                              <h3 className="text-xl font-semibold text-gray-700 mb-2">Loading {searchMode === "rfp" ? "vendor" : "competitor"} analysis...</h3>
+              <p className="text-gray-500">Fetching detailed {searchMode === "rfp" ? "vendor intelligence" : "competitive intelligence"}</p>
+              </div>
+            ) : enrichedCompetitors.length === 0 ? (
+              <div className="text-center py-12 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border border-purple-200">
+                <Sparkles className="w-16 h-16 text-purple-300 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-700 mb-2">No {searchMode === "rfp" ? "vendor analysis" : "enriched data"} yet</h3>
+                <p className="text-gray-500">
+                  Select {searchMode === "rfp" ? "vendors" : "companies"} above and click "{searchMode === "rfp" ? "Get Vendor Details" : "Analyze Competitors"}" to see detailed analysis here
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-8">
+                {enrichedCompetitors.map((competitor, index) => (
+                  <CompetitorCard
+                    key={competitor.id}
+                    competitor={competitor}
+                    index={index}
+                    showTrackButton={true}
+                    onTrackCompetitor={handleTrackCompetitor}
+                    mode={searchMode}
+                  />
                 ))}
               </div>
             )}
