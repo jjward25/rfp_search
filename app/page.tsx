@@ -29,6 +29,7 @@ export default function HomePage() {
   const [companies, setCompanies] = useState<Company[]>([])
   const [selectedCompanies, setSelectedCompanies] = useState<Set<string>>(new Set())
   const [isEnriching, setIsEnriching] = useState(false)
+  const [hasReceivedBulkData, setHasReceivedBulkData] = useState(false) // New flag
 
   // Add state for editable source URLs
   const [sourceUrls, setSourceUrls] = useState<Record<string, string>>({})
@@ -43,15 +44,33 @@ export default function HomePage() {
 
   // Poll for companies after search
   useEffect(() => {
-    if (hasSearched) {
+    if (hasSearched && !hasReceivedBulkData) { // Stop polling once we get bulk data
       const pollInterval = setInterval(async () => {
         try {
           const response = await fetch('/api/stream-companies')
           if (response.ok) {
             const data = await response.json()
             if (data.companies && data.companies.length > 0) {
-              setCompanies(data.companies)
-              // Auto-select new companies
+              
+              // Check if this looks like bulk data (significant number of companies)
+              const isBulkData = data.companies.length >= 5 // Threshold for bulk data
+              
+              if (isBulkData) {
+                console.log(`🎯 Received bulk data: ${data.companies.length} companies - stopping polling`)
+                setHasReceivedBulkData(true)
+                clearInterval(pollInterval)
+              }
+              
+              // Only update companies if we haven't set them yet, or if this is more companies
+              setCompanies(prevCompanies => {
+                if (prevCompanies.length === 0 || data.companies.length > prevCompanies.length) {
+                  console.log(`Updating companies: ${prevCompanies.length} → ${data.companies.length}`)
+                  return data.companies
+                }
+                return prevCompanies // Keep existing to preserve UI state
+              })
+              
+              // Auto-select new companies (only add, don't replace)
               setSelectedCompanies(prev => {
                 const newSet = new Set(prev)
                 data.companies.forEach((company: Company) => {
@@ -59,6 +78,7 @@ export default function HomePage() {
                 })
                 return newSet
               })
+              
               console.log('Received companies:', data.companies)
             }
           }
@@ -67,17 +87,19 @@ export default function HomePage() {
         }
       }, 2000) // Check every 2 seconds
 
-      // Stop polling after 10 minutes as backup
+      // Stop polling after 2 minutes for bulk data (reduced from 10 minutes)
       const timeout = setTimeout(() => {
+        console.log('⏰ Polling timeout reached - stopping')
         clearInterval(pollInterval)
-      }, 600000)
+        setHasReceivedBulkData(true)
+      }, 120000) // 2 minutes
 
       return () => {
         clearInterval(pollInterval)
         clearTimeout(timeout)
       }
     }
-  }, [hasSearched])
+  }, [hasSearched, hasReceivedBulkData])
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) return
@@ -86,6 +108,8 @@ export default function HomePage() {
     setHasSearched(true)
     setCompanies([])
     setSelectedCompanies(new Set())
+    setHasReceivedBulkData(false) // Reset bulk data flag
+    setSourceUrls({}) // Reset source URLs
     
     try {
       const params: SearchParams = {
