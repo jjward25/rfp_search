@@ -29,10 +29,30 @@ type WebhookPayload = IncomingCompany[] | WrappedCompaniesPayload | LegacyCompan
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    let body = await request.json()
     
     console.log('=== WEBHOOK DEBUG START ===')
-    console.log('Received data from Clay via POST:', JSON.stringify(body, null, 2))
+    console.log('Received data from Clay via POST:')
+    console.log('- Type of body:', typeof body)
+    console.log('- Is string:', typeof body === 'string')
+    console.log('- Is array:', Array.isArray(body))
+    
+    // Handle case where Clay sends the array as a string
+    if (typeof body === 'string') {
+      try {
+        console.log('Parsing string body as JSON...')
+        body = JSON.parse(body)
+        console.log('Successfully parsed string body, new type:', typeof body, 'is array:', Array.isArray(body))
+      } catch (parseError) {
+        console.error('Failed to parse string body as JSON:', parseError)
+        return NextResponse.json(
+          { error: 'Invalid JSON string format', details: parseError instanceof Error ? parseError.message : 'Parse error' },
+          { status: 400 }
+        )
+      }
+    }
+    
+    console.log('Final body type:', typeof body, 'is array:', Array.isArray(body))
     
     // Handle direct array format (new)
     if (Array.isArray(body)) {
