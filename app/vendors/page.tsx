@@ -5,7 +5,6 @@ import Link from "next/link"
 import Papa from "papaparse"
 import {
   Search,
-  Filter,
   Building2,
   Users,
   TrendingUp,
