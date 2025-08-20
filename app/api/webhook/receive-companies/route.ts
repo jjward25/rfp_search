@@ -10,9 +10,6 @@ interface CompanyData {
   linkedinURL?: string | null
 }
 
-// In-memory storage for received companies (in production, use a database)
-const receivedCompanies: CompanyData[] = []
-
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -28,9 +25,24 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    // Add the company to our storage
-    receivedCompanies.push(body)
-    console.log('Company added to storage. Total companies:', receivedCompanies.length)
+    // Add the company by calling the stream-companies endpoint
+    try {
+      const streamResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/stream-companies`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body)
+      })
+      
+      if (streamResponse.ok) {
+        console.log('Company added to stream successfully')
+      } else {
+        console.error('Failed to add company to stream:', streamResponse.status)
+      }
+    } catch (streamError) {
+      console.error('Error calling stream-companies endpoint:', streamError)
+    }
     
     return NextResponse.json({
       success: true,
@@ -63,8 +75,24 @@ export async function PUT(request: NextRequest) {
       )
     }
     
-    receivedCompanies.push(body)
-    console.log('Company added to storage. Total companies:', receivedCompanies.length)
+    // Add the company by calling the stream-companies endpoint
+    try {
+      const streamResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/stream-companies`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body)
+      })
+      
+      if (streamResponse.ok) {
+        console.log('Company added to stream successfully')
+      } else {
+        console.error('Failed to add company to stream:', streamResponse.status)
+      }
+    } catch (streamError) {
+      console.error('Error calling stream-companies endpoint:', streamError)
+    }
     
     return NextResponse.json({
       success: true,
@@ -86,8 +114,7 @@ export async function GET() {
   return NextResponse.json({
     message: 'Webhook endpoint is working',
     methods: ['POST', 'PUT', 'GET'],
-    description: 'This endpoint receives company data from Clay.com',
-    companiesReceived: receivedCompanies.length
+    description: 'This endpoint receives company data from Clay.com'
   })
 }
 
