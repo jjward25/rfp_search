@@ -16,6 +16,11 @@ interface Company {
   linkedinURL: string | null
 }
 
+interface SearchParams {
+  query: string
+  mode: 'rfp' | 'competitor'
+}
+
 export default function HomePage() {
   const [searchMode, setSearchMode] = useState<"rfp" | "competitor">("rfp")
   const [searchQuery, setSearchQuery] = useState("")
@@ -79,7 +84,7 @@ export default function HomePage() {
     setSelectedCompanies(new Set())
     
     try {
-      const params: ClaySearchParams = {
+      const params: SearchParams = {
         query: searchQuery,
         mode: searchMode
       }
