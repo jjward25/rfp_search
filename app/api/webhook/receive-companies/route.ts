@@ -82,7 +82,7 @@ export async function PUT(request: NextRequest) {
 }
 
 // Add GET method for testing
-export async function GET(request: NextRequest) {
+export async function GET() {
   return NextResponse.json({
     message: 'Webhook endpoint is working',
     methods: ['POST', 'PUT', 'GET'],
@@ -92,7 +92,7 @@ export async function GET(request: NextRequest) {
 }
 
 // Add OPTIONS method for CORS preflight
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
     headers: {

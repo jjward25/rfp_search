@@ -239,7 +239,8 @@ export default function VendorDiscoveryPage() {
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState("")
   const [showSuggestions, setShowSuggestions] = useState(false)
-  const [accordionOpen, setAccordionOpen] = useState<string | null>(null)
+  // Remove unused state variables
+  // const [accordionOpen, setAccordionOpen] = useState<string | null>(null)
 
   // Load CSV data on component mount
   useEffect(() => {
