@@ -8,52 +8,69 @@ export interface CompanyData {
   linkedinURL?: string | null
 }
 
-// Use process.env as a hack for persistence (not recommended for production)
-const STORAGE_KEY = 'COMPANIES_STORAGE'
+// Use a combination of in-memory cache and simple persistence
+let companiesCache: CompanyData[] = []
+let lastUpdateTime = 0
 
-function getStoredCompanies(): CompanyData[] {
-  try {
-    const stored = process.env[STORAGE_KEY]
-    if (stored) {
-      return JSON.parse(stored) as CompanyData[]
-    }
-  } catch (error) {
-    console.error('Error parsing stored companies:', error)
-  }
-  return []
+// Simple persistence using a global object that survives longer in Vercel
+declare global {
+  var __globalCompaniesStore: {
+    companies: CompanyData[]
+    timestamp: number
+  } | undefined
 }
 
-function storeCompanies(companies: CompanyData[]): void {
-  try {
-    process.env[STORAGE_KEY] = JSON.stringify(companies)
-  } catch (error) {
-    console.error('Error storing companies:', error)
+function initializeStorage(): void {
+  if (!globalThis.__globalCompaniesStore) {
+    globalThis.__globalCompaniesStore = {
+      companies: [],
+      timestamp: Date.now()
+    }
   }
+  
+  // Load from global store if it's newer than our cache
+  if (globalThis.__globalCompaniesStore.timestamp > lastUpdateTime) {
+    companiesCache = [...globalThis.__globalCompaniesStore.companies]
+    lastUpdateTime = globalThis.__globalCompaniesStore.timestamp
+  }
+}
+
+function persistToStorage(): void {
+  if (!globalThis.__globalCompaniesStore) {
+    globalThis.__globalCompaniesStore = {
+      companies: [],
+      timestamp: Date.now()
+    }
+  }
+  
+  globalThis.__globalCompaniesStore.companies = [...companiesCache]
+  globalThis.__globalCompaniesStore.timestamp = Date.now()
+  lastUpdateTime = globalThis.__globalCompaniesStore.timestamp
 }
 
 export function addCompany(company: CompanyData): void {
-  const companies = getStoredCompanies()
+  initializeStorage()
   
   // Check if company already exists to avoid duplicates
-  const exists = companies.find(c => c.Company_Name === company.Company_Name)
+  const exists = companiesCache.find(c => c.Company_Name === company.Company_Name)
   if (!exists) {
-    companies.push(company)
-    storeCompanies(companies)
-    console.log('Company added to storage. Total companies:', companies.length)
+    companiesCache.push(company)
+    persistToStorage()
+    console.log('Company added to persistent storage. Total companies:', companiesCache.length)
     console.log('Added company:', company.Company_Name)
-    console.log('All stored companies:', companies.map(c => c.Company_Name))
   } else {
     console.log('Company already exists, skipping:', company.Company_Name)
   }
 }
 
 export function getSharedCompanies(): CompanyData[] {
-  const companies = getStoredCompanies()
-  console.log('Getting companies from storage. Total:', companies.length)
-  return companies
+  initializeStorage()
+  console.log('Getting companies from persistent storage. Total:', companiesCache.length)
+  return [...companiesCache]
 }
 
 export function clearCompanies(): void {
-  storeCompanies([])
-  console.log('Companies cleared from storage')
+  companiesCache = []
+  persistToStorage()
+  console.log('Companies cleared from persistent storage')
 }

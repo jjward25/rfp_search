@@ -43,7 +43,7 @@ export default function HomePage() {
 
   // Poll for companies after search
   useEffect(() => {
-    if (hasSearched && companies.length === 0) { // Only poll if no companies yet
+    if (hasSearched) {
       const pollInterval = setInterval(async () => {
         try {
           const response = await fetch('/api/stream-companies')
@@ -60,9 +60,6 @@ export default function HomePage() {
                 return newSet
               })
               console.log('Received companies:', data.companies)
-              
-              // Stop polling once we have companies
-              clearInterval(pollInterval)
             }
           }
         } catch (error) {
@@ -70,17 +67,17 @@ export default function HomePage() {
         }
       }, 2000) // Check every 2 seconds
 
-      // Stop polling after 5 minutes as backup
+      // Stop polling after 10 minutes as backup
       const timeout = setTimeout(() => {
         clearInterval(pollInterval)
-      }, 300000)
+      }, 600000)
 
       return () => {
         clearInterval(pollInterval)
         clearTimeout(timeout)
       }
     }
-  }, [hasSearched, companies.length]) // Add companies.length as dependency
+  }, [hasSearched])
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) return
