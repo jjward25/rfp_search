@@ -63,8 +63,8 @@ async function withLock<T>(fn: () => Promise<T>): Promise<T> {
           console.error('Error releasing lock:', error)
         }
       }
-    } catch (error: any) {
-      if (error.code !== 'EEXIST') {
+    } catch (error) {
+      if (error instanceof Error && 'code' in error && error.code !== 'EEXIST') {
         throw error // Some other error, not lock contention
       }
       
