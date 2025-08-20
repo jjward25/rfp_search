@@ -1,3 +1,6 @@
+import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs'
+import { join } from 'path'
+
 // Define proper types for company data
 export interface CompanyData {
   Company_Name: string
@@ -8,69 +11,68 @@ export interface CompanyData {
   linkedinURL?: string | null
 }
 
-// Use a combination of in-memory cache and simple persistence
-let companiesCache: CompanyData[] = []
-let lastUpdateTime = 0
+// Use /tmp directory which persists across function calls in Vercel
+const STORAGE_DIR = '/tmp'
+const STORAGE_FILE = join(STORAGE_DIR, 'companies.json')
 
-// Simple persistence using a global object that survives longer in Vercel
-declare global {
-  var __globalCompaniesStore: {
-    companies: CompanyData[]
-    timestamp: number
-  } | undefined
-}
-
-function initializeStorage(): void {
-  if (!globalThis.__globalCompaniesStore) {
-    globalThis.__globalCompaniesStore = {
-      companies: [],
-      timestamp: Date.now()
+function ensureStorageDir(): void {
+  try {
+    if (!existsSync(STORAGE_DIR)) {
+      mkdirSync(STORAGE_DIR, { recursive: true })
     }
-  }
-  
-  // Load from global store if it's newer than our cache
-  if (globalThis.__globalCompaniesStore.timestamp > lastUpdateTime) {
-    companiesCache = [...globalThis.__globalCompaniesStore.companies]
-    lastUpdateTime = globalThis.__globalCompaniesStore.timestamp
+  } catch (error) {
+    console.error('Error creating storage directory:', error)
   }
 }
 
-function persistToStorage(): void {
-  if (!globalThis.__globalCompaniesStore) {
-    globalThis.__globalCompaniesStore = {
-      companies: [],
-      timestamp: Date.now()
+function readCompaniesFromFile(): CompanyData[] {
+  try {
+    ensureStorageDir()
+    if (existsSync(STORAGE_FILE)) {
+      const data = readFileSync(STORAGE_FILE, 'utf-8')
+      const companies = JSON.parse(data) as CompanyData[]
+      console.log('Read companies from file:', companies.length)
+      return companies
     }
+  } catch (error) {
+    console.error('Error reading companies file:', error)
   }
-  
-  globalThis.__globalCompaniesStore.companies = [...companiesCache]
-  globalThis.__globalCompaniesStore.timestamp = Date.now()
-  lastUpdateTime = globalThis.__globalCompaniesStore.timestamp
+  return []
+}
+
+function writeCompaniesToFile(companies: CompanyData[]): void {
+  try {
+    ensureStorageDir()
+    writeFileSync(STORAGE_FILE, JSON.stringify(companies, null, 2), 'utf-8')
+    console.log('Wrote companies to file:', companies.length)
+  } catch (error) {
+    console.error('Error writing companies file:', error)
+  }
 }
 
 export function addCompany(company: CompanyData): void {
-  initializeStorage()
+  const companies = readCompaniesFromFile()
   
   // Check if company already exists to avoid duplicates
-  const exists = companiesCache.find(c => c.Company_Name === company.Company_Name)
+  const exists = companies.find(c => c.Company_Name === company.Company_Name)
   if (!exists) {
-    companiesCache.push(company)
-    persistToStorage()
-    console.log('Company added to persistent storage. Total companies:', companiesCache.length)
+    companies.push(company)
+    writeCompaniesToFile(companies)
+    console.log('Company added to file storage. Total companies:', companies.length)
     console.log('Added company:', company.Company_Name)
+    console.log('All companies:', companies.map(c => c.Company_Name))
   } else {
     console.log('Company already exists, skipping:', company.Company_Name)
   }
 }
 
 export function getSharedCompanies(): CompanyData[] {
-  initializeStorage()
-  console.log('Getting companies from persistent storage. Total:', companiesCache.length)
-  return [...companiesCache]
+  const companies = readCompaniesFromFile()
+  console.log('Getting companies from file storage. Total:', companies.length)
+  return companies
 }
 
 export function clearCompanies(): void {
-  companiesCache = []
-  persistToStorage()
-  console.log('Companies cleared from persistent storage')
+  writeCompaniesToFile([])
+  console.log('Companies cleared from file storage')
 }
