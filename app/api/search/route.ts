@@ -1,11 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { clearCompanies } from '@/lib/shared-storage'
-
-interface SearchParams {
-  query: string
-  mode: 'rfp' | 'competitor'
-  filters?: Record<string, any>
-}
+import { clearCompanies, setCurrentSession } from '@/lib/shared-storage'
 
 export async function POST(request: NextRequest) {
   try {
@@ -29,9 +23,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Clear previous companies before starting new search
+    // Create new session ID for this search
+    const sessionId = Date.now().toString()
+    
+    // Clear previous companies from this session
     clearCompanies()
-    console.log('Cleared previous companies for new search')
+    console.log('Started new search session:', sessionId)
 
     // Send search request to Clay.com webhook
     try {
@@ -49,12 +46,12 @@ export async function POST(request: NextRequest) {
           timestamp: new Date().toISOString(),
           source: 'business-intelligence-visuals',
           userId: 'anonymous',
-          sessionId: Date.now().toString()
+          sessionId: sessionId // Include session ID in Clay.com request
         })
       })
 
       if (response.ok) {
-        console.log('Search request sent to Clay.com successfully')
+        console.log('Search request sent to Clay.com successfully with session:', sessionId)
       } else {
         console.warn('Clay.com webhook returned non-200 status:', response.status)
       }
@@ -68,6 +65,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'Search request initiated - companies will appear as they are found',
+      sessionId: sessionId,
       timestamp: new Date().toISOString()
     })
 
