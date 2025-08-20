@@ -1,58 +1,177 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
-import { Search, ArrowRight, Building2, Eye, Loader2 } from "lucide-react"
+import { Search, ArrowRight, Building2, Eye, Loader2, Check, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { searchCompanies, type ClayCompany, type ClaySearchParams } from "@/lib/clay-api"
+import { searchCompanies, type ClaySearchParams } from "@/lib/clay-api"
+
+// Update the Company interface to match Clay.com's format
+interface Company {
+  search_query: string
+  why_relevant: string
+  niche_focus: string
+  Company_Name: string
+  source: string
+  linkedinURL: string | null
+}
 
 export default function HomePage() {
   const [searchMode, setSearchMode] = useState<"rfp" | "competitor">("rfp")
   const [searchQuery, setSearchQuery] = useState("")
   const [isSearching, setIsSearching] = useState(false)
-  const [searchResults, setSearchResults] = useState<ClayCompany[]>([])
   const [hasSearched, setHasSearched] = useState(false)
+  const [companies, setCompanies] = useState<Company[]>([])
+  const [selectedCompanies, setSelectedCompanies] = useState<Set<string>>(new Set())
+  const [isEnriching, setIsEnriching] = useState(false)
+  const eventSourceRef = useRef<EventSource | null>(null)
+
+  // Add state for editable source URLs
+  const [sourceUrls, setSourceUrls] = useState<Record<string, string>>({})
+
+  // Function to update source URL
+  const updateSourceUrl = (companyName: string, newUrl: string) => {
+    setSourceUrls(prev => ({
+      ...prev,
+      [companyName]: newUrl
+    }))
+  }
+
+  // Connect to SSE stream
+  useEffect(() => {
+    if (hasSearched) {
+      const eventSource = new EventSource('/api/stream-companies')
+      eventSourceRef.current = eventSource
+
+      eventSource.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data)
+          
+          if (data.type === 'initial') {
+            setCompanies(data.companies)
+          } else if (data.type === 'new_company') {
+            setCompanies(prev => [...prev, data.company])
+            // Auto-select new companies
+            setSelectedCompanies(prev => new Set([...prev, data.company.Company_Name]))
+          }
+        } catch (error) {
+          console.error('Error parsing SSE data:', error)
+        }
+      }
+
+      eventSource.onerror = (error) => {
+        console.error('SSE error:', error)
+      }
+
+      return () => {
+        eventSource.close()
+        eventSourceRef.current = null
+      }
+    }
+  }, [hasSearched])
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) return
     
     setIsSearching(true)
     setHasSearched(true)
+    setCompanies([])
+    setSelectedCompanies(new Set())
     
     try {
-      // Call YOUR API endpoint instead of Clay directly
+      const params: ClaySearchParams = {
+        query: searchQuery,
+        mode: searchMode
+      }
+      
       const response = await fetch('/api/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          query: searchQuery,
-          mode: searchMode
-        })
+        body: JSON.stringify(params)
       })
       
       if (!response.ok) {
         throw new Error(`API error: ${response.status}`)
       }
       
-      const data = await response.json()
-      setSearchResults(data.data.companies || [])
-      
-      console.log(`Search request sent successfully for ${searchMode} mode`)
+      console.log('Search request sent to Clay.com successfully')
     } catch (error) {
       console.error('Search failed:', error)
-      setSearchResults([])
     } finally {
       setIsSearching(false)
     }
   }
 
+  const toggleCompanySelection = (companyId: string) => {
+    setSelectedCompanies(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(companyId)) {
+        newSet.delete(companyId)
+      } else {
+        newSet.add(companyId)
+      }
+      return newSet
+    })
+  }
+
+  const selectAllCompanies = () => {
+    setSelectedCompanies(new Set(companies.map(c => c.Company_Name)))
+  }
+
+  const deselectAllCompanies = () => {
+    setSelectedCompanies(new Set())
+  }
+
+  // Update the sendSelectedToClay function to include updated source URLs
+  const sendSelectedToClay = async () => {
+    if (selectedCompanies.size === 0) return
+    
+    setIsEnriching(true)
+    
+    try {
+      const selectedCompanyData = companies
+        .filter(c => selectedCompanies.has(c.Company_Name))
+        .map(company => ({
+          ...company,
+          // Use updated source URL if available, otherwise use original
+          source: sourceUrls[company.Company_Name] || company.source
+        }))
+      
+      // Send selected companies back to Clay for final enrichment
+      const response = await fetch('/api/enrich-selected', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          companies: selectedCompanyData,
+          originalQuery: searchQuery,
+          mode: searchMode
+        })
+      })
+      
+      if (response.ok) {
+        console.log('Selected companies sent to Clay for enrichment')
+        // You could redirect to a results page or show enrichment status
+      }
+    } catch (error) {
+      console.error('Error sending companies for enrichment:', error)
+    } finally {
+      setIsEnriching(false)
+    }
+  }
+
   const clearSearch = () => {
     setSearchQuery("")
-    setSearchResults([])
+    setCompanies([])
+    setSelectedCompanies(new Set())
     setHasSearched(false)
+    if (eventSourceRef.current) {
+      eventSourceRef.current.close()
+    }
   }
 
   return (
@@ -112,12 +231,12 @@ export default function HomePage() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                  className="border-0 text-lg placeholder-gray-400 focus:ring-0 px-0 py-0 bg-transparent font-medium resize-none"
+                  className="text-lg placeholder-gray-400 focus:ring-0 px-0 py-0 bg-transparent font-medium resize-none"
                   style={{ height: 'auto', minHeight: '24px' }}
                 />
                 <div className="text-sm text-gray-400 mt-1">
-                  <div>... in the workflow automation industry</div>
-                  <div>... with over 5000 people HQed in New Jersey</div>
+                  <div>... workflow automation tools</div>
+                  <div>... with over 1,000 employees and Headquartered in New Jersey</div>
                 </div>
               </div>
               <Button
@@ -183,103 +302,142 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Search Results */}
+        {/* Companies Results */}
         {hasSearched && (
           <div className="mt-12">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-gray-900">
-                {searchResults.length > 0 
-                  ? `${searchResults.length} Companies Found` 
-                  : 'No Companies Found'
+                {companies.length > 0 
+                  ? `${companies.length} Companies Found` 
+                  : 'Waiting for companies...'
                 }
               </h3>
-              {hasSearched && (
-                <Button
-                  onClick={clearSearch}
-                  variant="outline"
-                  className="text-gray-600 hover:text-gray-900"
-                >
-                  Clear Search
-                </Button>
+              {companies.length > 0 && (
+                <div className="flex items-center space-x-4">
+                  <Button
+                    onClick={selectAllCompanies}
+                    variant="outline"
+                    size="sm"
+                  >
+                    Select All
+                  </Button>
+                  <Button
+                    onClick={deselectAllCompanies}
+                    variant="outline"
+                    size="sm"
+                  >
+                    Deselect All
+                  </Button>
+                  <Button
+                    onClick={sendSelectedToClay}
+                    disabled={selectedCompanies.size === 0 || isEnriching}
+                    className="bg-green-600 hover:bg-green-700"
+                  >
+                    {isEnriching ? (
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    ) : (
+                      <Check className="w-4 h-4 mr-2" />
+                    )}
+                    Enrich Selected ({selectedCompanies.size})
+                  </Button>
+                  <Button
+                    onClick={clearSearch}
+                    variant="outline"
+                    size="sm"
+                  >
+                    <X className="w-4 h-4 mr-2" />
+                    Clear
+                  </Button>
+                </div>
               )}
             </div>
 
-            {searchResults.length > 0 ? (
+            {companies.length === 0 ? (
+              <div className="text-center py-12">
+                <Loader2 className="w-16 h-16 text-gray-300 mx-auto mb-4 animate-spin" />
+                <h3 className="text-xl font-semibold text-gray-700 mb-2">Searching for companies...</h3>
+                <p className="text-gray-500">Companies will appear here as they're found</p>
+              </div>
+            ) : (
               <div className="space-y-4">
-                {searchResults.map((company) => (
+                {companies.map((company, index) => (
                   <div
-                    key={company.id}
-                    className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-200"
+                    key={index}
+                    className={`bg-white rounded-xl p-6 shadow-lg border-2 transition-all duration-200 ${
+                      selectedCompanies.has(company.Company_Name)
+                        ? 'border-green-500 bg-green-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
                   >
-                    <div className="flex items-start justify-between">
+                    <div className="flex items-start space-x-4">
+                      <input
+                        type="checkbox"
+                        checked={selectedCompanies.has(company.Company_Name)}
+                        onChange={() => toggleCompanySelection(company.Company_Name)}
+                        className="w-5 h-5 text-green-600 border-gray-300 rounded focus:ring-green-500 mt-1"
+                      />
                       <div className="flex-1">
                         <h4 className="text-xl font-bold text-gray-900 mb-2">
-                          {company.name}
+                          {company.Company_Name}
                         </h4>
-                        {company.domain && (
-                          <p className="text-blue-600 mb-2">
-                            <a 
-                              href={`https://${company.domain}`} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="hover:underline"
-                            >
-                              {company.domain}
-                            </a>
-                          </p>
+                        
+                        {/* Why Relevant Section */}
+                        {company.why_relevant && (
+                          <div className="mb-3 p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                            <p className="text-sm text-blue-800">
+                              <strong>Why Relevant:</strong> {company.why_relevant}
+                            </p>
+                          </div>
                         )}
-                        {company.description && (
-                          <p className="text-gray-600 mb-3">{company.description}</p>
-                        )}
-                        <div className="flex flex-wrap gap-2">
-                          {company.industry && (
-                            <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-                              {company.industry}
-                            </span>
-                          )}
-                          {company.location && (
-                            <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-                              {company.location}
-                            </span>
-                          )}
-                          {company.employeeCount && (
+                        
+                        {/* Niche Focus */}
+                        {company.niche_focus && (
+                          <div className="mb-3">
                             <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
-                              {company.employeeCount.toLocaleString()} employees
+                              {company.niche_focus}
                             </span>
+                          </div>
+                        )}
+                        
+                        {/* Editable Source URL */}
+                        <div className="mb-3">
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Source URL:
+                          </label>
+                          <div className="flex space-x-2">
+                            <Input
+                              type="url"
+                              placeholder="Enter or verify source URL"
+                              value={sourceUrls[company.Company_Name] || company.source || ''}
+                              onChange={(e) => updateSourceUrl(company.Company_Name, e.target.value)}
+                              className="flex-1 text-sm"
+                            />
+                            {sourceUrls[company.Company_Name] && sourceUrls[company.Company_Name] !== company.source && (
+                              <Button
+                                onClick={() => updateSourceUrl(company.Company_Name, company.source || '')}
+                                variant="outline"
+                                size="sm"
+                                className="text-xs"
+                              >
+                                Reset
+                              </Button>
+                            )}
+                          </div>
+                          {company.source && company.source !== (sourceUrls[company.Company_Name] || '') && (
+                            <p className="text-xs text-gray-500 mt-1">
+                              Original: {company.source}
+                            </p>
                           )}
                         </div>
-                      </div>
-                      <div className="flex space-x-2 ml-4">
-                        {company.website && (
-                          <a
-                            href={company.website}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 bg-gray-100 rounded-lg text-gray-600 hover:bg-gray-200 transition-colors duration-200"
-                          >
-                            <ArrowRight className="w-4 h-4" />
-                          </a>
-                        )}
-                        {company.linkedinUrl && (
-                          <a
-                            href={company.linkedinUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 bg-blue-100 rounded-lg text-blue-600 hover:bg-blue-200 transition-colors duration-200"
-                          >
-                            <Building2 className="w-4 h-4" />
-                          </a>
-                        )}
+                        
+                        {/* Search Query Match */}
+                        <div className="mt-3 p-2 bg-gray-50 rounded text-xs text-gray-600">
+                          <strong>Matched Query:</strong> {company.search_query}
+                        </div>
                       </div>
                     </div>
                   </div>
                 ))}
-              </div>
-            ) : (
-              <div className="text-center py-12">
-                <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-700 mb-2">No results found</h3>
-                <p className="text-gray-500">Try adjusting your search criteria</p>
               </div>
             )}
           </div>

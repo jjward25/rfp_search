@@ -10,18 +10,6 @@ export interface ClaySearchParams {
   }
 }
 
-export interface ClayCompany {
-  id: string
-  name: string
-  domain?: string
-  industry?: string
-  description?: string
-  employeeCount?: number
-  location?: string
-  linkedinUrl?: string
-  website?: string
-}
-
 export interface ClaySearchResponse {
   success: boolean
   message: string
@@ -50,7 +38,7 @@ export async function searchCompanies(params: ClaySearchParams): Promise<ClaySea
         searchFilters: { ...filters, ...params.filters },
         timestamp: new Date().toISOString(),
         source: 'business-intelligence-visuals',
-        userId: 'anonymous', // You can add user identification if needed
+        userId: 'anonymous',
         sessionId: Date.now().toString()
       })
     })
