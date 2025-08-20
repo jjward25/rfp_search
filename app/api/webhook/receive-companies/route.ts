@@ -1,17 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-
-// Define proper types for company data
-interface CompanyData {
-  Company_Name: string
-  search_query: string
-  why_relevant?: string
-  niche_focus?: string
-  source?: string
-  linkedinURL?: string | null
-}
-
-// Shared storage (in production, use a database)
-const sharedCompanies: CompanyData[] = []
+import { addCompany, type CompanyData } from '@/lib/shared-storage'
 
 export async function POST(request: NextRequest) {
   try {
@@ -28,9 +16,8 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    // Add the company directly to shared storage
-    sharedCompanies.push(body)
-    console.log('Company added to shared storage. Total companies:', sharedCompanies.length)
+    // Add the company to shared storage
+    addCompany(body)
     
     return NextResponse.json({
       success: true,
@@ -45,11 +32,6 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   }
-}
-
-// Export function to get companies (for stream-companies to use)
-export function getSharedCompanies() {
-  return sharedCompanies
 }
 
 // Add support for PUT method (in case Clay.com uses that)
@@ -68,8 +50,7 @@ export async function PUT(request: NextRequest) {
       )
     }
     
-    sharedCompanies.push(body)
-    console.log('Company added to shared storage. Total companies:', sharedCompanies.length)
+    addCompany(body)
     
     return NextResponse.json({
       success: true,
@@ -91,8 +72,7 @@ export async function GET() {
   return NextResponse.json({
     message: 'Webhook endpoint is working',
     methods: ['POST', 'PUT', 'GET'],
-    description: 'This endpoint receives company data from Clay.com',
-    companiesReceived: sharedCompanies.length
+    description: 'This endpoint receives company data from Clay.com'
   })
 }
 

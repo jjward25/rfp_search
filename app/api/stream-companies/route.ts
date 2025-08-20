@@ -1,15 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getSharedCompanies } from '../webhook/receive-companies/route'
-
-// Define proper types
-interface CompanyData {
-  Company_Name: string
-  search_query: string
-  why_relevant?: string
-  niche_focus?: string
-  source?: string
-  linkedinURL?: string | null
-}
+import { getSharedCompanies } from '@/lib/shared-storage'
 
 export async function GET(request: NextRequest) {
   try {
