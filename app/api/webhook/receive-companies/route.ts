@@ -1,81 +1,91 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { addCompany, type CompanyData } from '@/lib/shared-storage'
+import { addCompanies, addCompany, type CompanyData } from '@/lib/shared-storage'
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     
     console.log('=== WEBHOOK DEBUG START ===')
-    console.log('Received company from Clay via POST:', JSON.stringify(body, null, 2))
+    console.log('Received data from Clay via POST:', JSON.stringify(body, null, 2))
     
-    // Validate the expected body format
-    if (!body.Company_Name || !body.search_query) {
-      console.warn('Invalid company data received:', body)
-      return NextResponse.json(
-        { error: 'Invalid company data format' },
-        { status: 400 }
-      )
+    // Handle new bulk format with CompetitiveCompanies array
+    if (body.CompetitiveCompanies && Array.isArray(body.CompetitiveCompanies)) {
+      console.log(`Processing bulk companies: ${body.CompetitiveCompanies.length} companies received`)
+      
+      // Map the new format to our CompanyData interface
+      const companies: CompanyData[] = body.CompetitiveCompanies.map((company: any) => ({
+        Company_Name: company.company,
+        search_query: body.search_query || body.originalQuery || 'bulk import', // Use provided query or fallback
+        why_relevant: company.why_relevant,
+        niche_focus: company.niche_focus,
+        source: company.source,
+        linkedinURL: company.linkedinURL || null
+      }))
+      
+      console.log('Mapped companies:', companies.map(c => c.Company_Name))
+      
+      // Add all companies at once using the bulk method
+      try {
+        await addCompanies(companies)
+        console.log(`✅ Successfully added ${companies.length} companies`)
+      } catch (addError) {
+        console.error('Error in addCompanies:', addError)
+        throw addError
+      }
+      
+      console.log('=== WEBHOOK DEBUG END ===')
+      
+      return NextResponse.json({
+        success: true,
+        message: `${companies.length} companies received and processed successfully`,
+        companiesProcessed: companies.length,
+        timestamp: new Date().toISOString()
+      })
     }
     
-    console.log('Company validation passed, calling addCompany...')
-    
-    // Add the company to shared storage
-    try {
-      addCompany(body)
-      console.log('addCompany completed successfully')
-    } catch (addError) {
-      console.error('Error in addCompany:', addError)
-      throw addError
+    // Legacy single company format (keeping for backward compatibility)
+    if (body.Company_Name && body.search_query) {
+      console.log('Processing single company (legacy format):', body.Company_Name)
+      
+      try {
+        await addCompany(body)
+        console.log('addCompany completed successfully')
+      } catch (addError) {
+        console.error('Error in addCompany:', addError)
+        throw addError
+      }
+      
+      return NextResponse.json({
+        success: true,
+        message: 'Company received successfully',
+        timestamp: new Date().toISOString()
+      })
     }
     
-    console.log('=== WEBHOOK DEBUG END ===')
-    
-    return NextResponse.json({
-      success: true,
-      message: 'Company received successfully',
-      timestamp: new Date().toISOString()
-    })
+    // Invalid format
+    console.warn('Invalid data format received:', Object.keys(body))
+    return NextResponse.json(
+      { 
+        error: 'Invalid data format', 
+        expected: 'Either { CompetitiveCompanies: [...] } or { Company_Name, search_query, ... }',
+        received: Object.keys(body)
+      },
+      { status: 400 }
+    )
 
   } catch (error) {
     console.error('Webhook Error:', error)
     return NextResponse.json(
-      { error: 'Webhook processing failed' },
+      { error: 'Webhook processing failed', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }
 }
 
-// Add support for PUT method (in case Clay.com uses that)
+// Keep existing PUT method for backward compatibility
 export async function PUT(request: NextRequest) {
-  try {
-    const body = await request.json()
-    
-    console.log('Received company from Clay via PUT:', body)
-    
-    // Same logic as POST
-    if (!body.Company_Name || !body.search_query) {
-      console.warn('Invalid company data received:', body)
-      return NextResponse.json(
-        { error: 'Invalid company data format' },
-        { status: 400 }
-      )
-    }
-    
-    addCompany(body)
-    
-    return NextResponse.json({
-      success: true,
-      message: 'Company received successfully',
-      timestamp: new Date().toISOString()
-    })
-
-  } catch (error) {
-    console.error('Webhook Error:', error)
-    return NextResponse.json(
-      { error: 'Webhook processing failed' },
-      { status: 500 }
-    )
-  }
+  // Same logic as POST - just redirect to POST handler
+  return POST(request)
 }
 
 // Add GET method for testing
@@ -83,7 +93,24 @@ export async function GET() {
   return NextResponse.json({
     message: 'Webhook endpoint is working',
     methods: ['POST', 'PUT', 'GET'],
-    description: 'This endpoint receives company data from Clay.com'
+    description: 'This endpoint receives company data from Clay.com',
+    formats: {
+      bulk: {
+        CompetitiveCompanies: [
+          {
+            company: 'Company Name',
+            source: 'https://example.com',
+            niche_focus: 'Focus area',
+            why_relevant: 'Relevance explanation'
+          }
+        ]
+      },
+      single: {
+        Company_Name: 'Company Name',
+        search_query: 'Query',
+        source: 'https://example.com'
+      }
+    }
   })
 }
 
