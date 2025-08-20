@@ -9,36 +9,36 @@ export async function POST(request: NextRequest) {
     console.log('Received main enrichment data from Clay:', JSON.stringify(body, null, 2))
     
     // Check if this is main enrichment data (company info)
-    if (body.Company_Name) {
-      console.log('🎯 Processing main enrichment data for:', body.Company_Name)
+    if (body['Company Name']) {
+      console.log('🎯 Processing main enrichment data for:', body['Company Name'])
       
-      // Map Clay's main enrichment data to our EnrichedCompetitor interface
+      // Map Clay's exact data structure to our EnrichedCompetitor interface
       const enrichedCompetitor: EnrichedCompetitor = {
         id: Date.now(), // Generate unique ID
-        companyName: body.Company_Name,
-        domain: body.Source || body.domain || '',
-        linkedinCompanyUrl: body.linkedinCompanyUrl || body.LinkedIn_Company_URL || '',
-        totalFundingRaised: body.totalFundingRaised || body.Total_Funding_Raised || '',
-        employeeCount: parseInt(body.employeeCount || body.Employee_Count || '0') || 0,
-        percentEmployeeGrowthOverLast6Months: parseFloat(body.percentEmployeeGrowthOverLast6Months || body.Employee_Growth || '0') || 0,
-        productFeatures: parseStringArray(body.productFeatures || body.Product_Features || ''),
-        pricingPlanSummaryResult: parseStringArray(body.pricingPlanSummaryResult || body.Pricing_Plans || ''),
-        customerNames: parseStringArray(body.customerNames || body.Customer_Names || ''),
-        industry: body.industry || body.Industry || 'Unknown',
-        description: body.description || body.Description || '',
-        salesContactEmail: body.salesContactEmail || body.Sales_Contact_Email || '',
-        enterpriseSalesRepLinkedinUrl: body.enterpriseSalesRepLinkedinUrl || body.Sales_Rep_LinkedIn || '',
+        companyName: body['Company Name'],
+        domain: body['company_Domain'] || '',
+        linkedinCompanyUrl: body['LinkedIn URL'] || '',
+        totalFundingRaised: body['Funding Estimate'] ? body['Funding Estimate'].toString() : '',
+        employeeCount: parseInt(body['Employee Count'] || '0') || 0,
+        percentEmployeeGrowthOverLast6Months: parseFloat(body['Percent Employee Count'] || '0') || 0,
+        productFeatures: parseStringArray(body['Product Features'] || ''),
+        pricingPlanSummaryResult: parseStringArray(body['Pricing Plan Summary'] || ''),
+        customerNames: [], // Not provided in this structure - might come from jobs data or separate endpoint
+        industry: body['Industry'] || 'Unknown',
+        description: body['Company Description'] || '',
+        salesContactEmail: body['Sales Contact Email'] || '',
+        enterpriseSalesRepLinkedinUrl: body['Enterprise Sales Rep'] || '',
         // Initialize job fields as empty - will be populated by jobs webhook
         jobTitles: [],
         jobUrls: [],
         jobDescriptions: [],
-        integrationsList: parseStringArray(body.integrationsList || body.Integrations || ''),
-        companyRevenue: parseInt(body.companyRevenue || body.Company_Revenue || '0') || 0,
-        productsAndServicesResult: parseStringArray(body.productsAndServicesResult || body.Products_Services || ''),
-        productRoadmap: body.productRoadmap || body.Product_Roadmap || '',
-        tier: body.tier || determineTier(parseInt(body.employeeCount || body.Employee_Count || '0')),
+        integrationsList: [], // Not provided in this structure
+        companyRevenue: parseFloat(body['Company Revenue'] || '0') || 0,
+        productsAndServicesResult: parseStringArray(body['Products & Services'] || ''),
+        productRoadmap: body['Upcoming Product Roadmap'] || '',
+        tier: determineTier(parseInt(body['Employee Count'] || '0')),
         // Additional metadata
-        originalSearchQuery: body['Search Query'] || body.originalSearchQuery || '',
+        originalSearchQuery: '', // Will be set from the initial search context
         enrichmentTimestamp: new Date().toISOString(),
         enrichmentSource: 'clay_main_enrichment'
       }
@@ -60,10 +60,10 @@ export async function POST(request: NextRequest) {
         )
       }
     } else {
-      console.log('⚠️ Received data without Company_Name - skipping')
+      console.log('⚠️ Received data without Company Name - skipping')
       return NextResponse.json({
         success: false,
-        message: 'No Company_Name found in main enrichment data'
+        message: 'No Company Name found in main enrichment data'
       })
     }
 

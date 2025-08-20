@@ -9,25 +9,27 @@ export async function POST(request: NextRequest) {
     console.log('Received jobs data from Clay:', JSON.stringify(body, null, 2))
     
     // Check if this is jobs data
-    if (body.Company_Name) {
-      console.log('🎯 Processing jobs data for:', body.Company_Name)
+    if (body['Company Name']) {
+      console.log('🎯 Processing jobs data for:', body['Company Name'])
       
-      // Parse job data from Clay
-      const jobTitles = parseJobArray(body.Job_Titles || body.jobTitles || body.Job_Title || '')
-      const jobUrls = parseJobArray(body.Job_URLs || body.jobUrls || body.Job_URL || '')
-      const jobDescriptions = parseJobArray(body.Job_Descriptions || body.jobDescriptions || body.Job_Description || '')
+      // Clay sends individual job records, so we need to handle this differently
+      // Extract individual job data from Clay's structure
+      const jobTitle = body['Title'] || body['Normalized Title'] || ''
+      const jobUrl = body['URL'] || ''
+      const jobDescription = body['Description'] || ''
       
-      // Ensure all arrays are the same length
-      const maxLength = Math.max(jobTitles.length, jobUrls.length, jobDescriptions.length)
-      const normalizedJobTitles = padArray(jobTitles, maxLength)
-      const normalizedJobUrls = padArray(jobUrls, maxLength)
-      const normalizedJobDescriptions = padArray(jobDescriptions, maxLength)
+      console.log('Received individual job:', {
+        company: body['Company Name'],
+        title: jobTitle,
+        hasUrl: !!jobUrl,
+        hasDescription: !!jobDescription
+      })
       
       const jobData = {
-        companyName: body.Company_Name,
-        jobTitles: normalizedJobTitles,
-        jobUrls: normalizedJobUrls,
-        jobDescriptions: normalizedJobDescriptions,
+        companyName: body['Company Name'],
+        jobTitles: jobTitle ? [jobTitle] : [],
+        jobUrls: jobUrl ? [jobUrl] : [],
+        jobDescriptions: jobDescription ? [jobDescription] : [],
         updatedAt: new Date().toISOString()
       }
       
@@ -38,13 +40,13 @@ export async function POST(request: NextRequest) {
       
       try {
         await updateEnrichedCompetitorJobs(jobData)
-        console.log('✅ Successfully updated jobs data for:', body.Company_Name)
+        console.log('✅ Successfully added job data for:', body['Company Name'])
         
         return NextResponse.json({
           success: true,
-          message: 'Jobs data received and updated successfully',
-          companyName: body.Company_Name,
-          jobCount: jobData.jobTitles.length
+          message: 'Job data received and added successfully',
+          companyName: body['Company Name'],
+          jobTitle: jobTitle
         })
       } catch (storageError) {
         console.error('❌ Error updating jobs data:', storageError)
@@ -54,10 +56,10 @@ export async function POST(request: NextRequest) {
         )
       }
     } else {
-      console.log('⚠️ Received jobs data without Company_Name - skipping')
+      console.log('⚠️ Received jobs data without Company Name - skipping')
       return NextResponse.json({
         success: false,
-        message: 'No Company_Name found in jobs data'
+        message: 'No Company Name found in jobs data'
       })
     }
 

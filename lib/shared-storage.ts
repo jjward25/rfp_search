@@ -384,7 +384,7 @@ async function isEnrichedLockStale(): Promise<boolean> {
   }
 }
 
-// Update existing enriched competitor with jobs data
+// Update existing enriched competitor with jobs data (append individual jobs)
 export async function updateEnrichedCompetitorJobs(jobData: {
   companyName: string
   jobTitles: string[]
@@ -393,7 +393,7 @@ export async function updateEnrichedCompetitorJobs(jobData: {
   updatedAt: string
 }): Promise<void> {
   console.log('=== UPDATING ENRICHED COMPETITOR JOBS ===')
-  console.log('Updating jobs for company:', jobData.companyName)
+  console.log('Adding jobs for company:', jobData.companyName)
   
   try {
     await withEnrichedLock(async () => {
@@ -403,18 +403,20 @@ export async function updateEnrichedCompetitorJobs(jobData: {
       const competitorIndex = competitors.findIndex(c => c.companyName === jobData.companyName)
       
       if (competitorIndex !== -1) {
-        // Update the existing competitor with job data
+        // Append new job data to existing arrays
+        const existingCompetitor = competitors[competitorIndex]
+        
         competitors[competitorIndex] = {
-          ...competitors[competitorIndex],
-          jobTitles: jobData.jobTitles,
-          jobUrls: jobData.jobUrls,
-          jobDescriptions: jobData.jobDescriptions,
+          ...existingCompetitor,
+          jobTitles: [...existingCompetitor.jobTitles, ...jobData.jobTitles],
+          jobUrls: [...existingCompetitor.jobUrls, ...jobData.jobUrls],
+          jobDescriptions: [...existingCompetitor.jobDescriptions, ...jobData.jobDescriptions],
           enrichmentTimestamp: jobData.updatedAt // Update timestamp
         }
         
         await atomicWriteEnrichedCompetitors(competitors)
-        console.log('✅ Successfully updated jobs data for:', jobData.companyName)
-        console.log('Job count:', jobData.jobTitles.length)
+        console.log('✅ Successfully added job data for:', jobData.companyName)
+        console.log('New job count:', competitors[competitorIndex].jobTitles.length)
       } else {
         console.log('⚠️ Competitor not found for jobs update:', jobData.companyName)
         console.log('Available competitors:', competitors.map(c => c.companyName))
