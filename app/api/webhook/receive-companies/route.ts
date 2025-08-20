@@ -141,6 +141,18 @@ export async function POST(request: NextRequest) {
         companiesProcessed: companies.length,
         timestamp: new Date().toISOString()
       })
+      
+      } catch (mappingError) {
+        console.error('Error during CompetitiveCompanies mapping:', mappingError)
+        return NextResponse.json(
+          { 
+            error: 'Company data mapping failed', 
+            details: mappingError instanceof Error ? mappingError.message : 'Unknown mapping error',
+            sampleData: (body as WrappedCompaniesPayload).CompetitiveCompanies?.[0]
+          },
+          { status: 400 }
+        )
+      }
     }
     
     // Legacy single company format (keeping for backward compatibility)
