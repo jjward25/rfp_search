@@ -5,7 +5,6 @@ import Image from "next/image"
 import { Search, ArrowRight, Building2, Eye, Loader2, Check, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { searchCompanies, type ClaySearchParams } from "@/lib/clay-api"
 
 // Update the Company interface to match Clay.com's format
 interface Company {
