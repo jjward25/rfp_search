@@ -11,9 +11,8 @@ export async function POST(request: NextRequest) {
       mode 
     })
     
-    // Send selected companies back to Clay for final enrichment
-    // You can customize this based on what Clay.com expects
-    const response = await fetch('https://api.clay.com/v3/sources/webhook/pull-in-data-from-a-webhook-717b978b-98aa-4d91-8be2-8cd73bcf6222', {
+    // Send selected companies to Clay.com's enrichment webhook
+    const response = await fetch('https://api.clay.com/v3/sources/webhook/pull-in-data-from-a-webhook-86cd7154-5f2b-47cd-92ec-fd02d80029fd', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -24,24 +23,35 @@ export async function POST(request: NextRequest) {
         originalQuery: originalQuery,
         mode: mode,
         timestamp: new Date().toISOString(),
-        source: 'business-intelligence-visuals'
+        source: 'business-intelligence-visuals',
+        enrichmentType: 'final_selection'
       })
     })
     
     if (!response.ok) {
+      const errorText = await response.text()
+      console.error('Clay enrichment error:', errorText)
       throw new Error(`Clay enrichment error: ${response.status}`)
     }
+    
+    const responseData = await response.json()
+    console.log('Clay enrichment response:', responseData)
     
     return NextResponse.json({
       success: true,
       message: 'Selected companies sent for enrichment',
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      companiesSent: companies.length
     })
     
   } catch (error) {
     console.error('Enrichment Error:', error)
     return NextResponse.json(
-      { error: 'Enrichment failed' },
+      { 
+        success: false,
+        error: 'Enrichment failed',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 500 }
     )
   }

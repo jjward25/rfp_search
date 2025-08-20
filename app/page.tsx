@@ -125,7 +125,7 @@ export default function HomePage() {
     setSelectedCompanies(new Set())
   }
 
-  // Update the sendSelectedToClay function to include updated source URLs
+  // Update the sendSelectedToClay function to use the new webhook
   const sendSelectedToClay = async () => {
     if (selectedCompanies.size === 0) return
     
@@ -140,7 +140,9 @@ export default function HomePage() {
           source: sourceUrls[company.Company_Name] || company.source
         }))
       
-      // Send selected companies back to Clay for final enrichment
+      console.log('Sending selected companies for enrichment:', selectedCompanyData)
+      
+      // Send selected companies to Clay.com's enrichment webhook
       const response = await fetch('/api/enrich-selected', {
         method: 'POST',
         headers: {
@@ -155,10 +157,13 @@ export default function HomePage() {
       
       if (response.ok) {
         console.log('Selected companies sent to Clay for enrichment')
-        // You could redirect to a results page or show enrichment status
+        // You could show a success message or redirect to results
+      } else {
+        throw new Error(`Enrichment failed: ${response.status}`)
       }
     } catch (error) {
       console.error('Error sending companies for enrichment:', error)
+      // You could show an error message to the user
     } finally {
       setIsEnriching(false)
     }
