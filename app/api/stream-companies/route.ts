@@ -14,7 +14,7 @@ interface CompanyData {
 const receivedCompanies: CompanyData[] = []
 
 export async function GET(request: NextRequest) {
-  // Return the current list of companies instead of a stream
+  // Return the current list of companies
   return NextResponse.json({
     companies: receivedCompanies,
     total: receivedCompanies.length,
@@ -22,18 +22,30 @@ export async function GET(request: NextRequest) {
   })
 }
 
-// Function to add a company (called by the webhook)
-export function addCompany(company: CompanyData) {
-  receivedCompanies.push(company)
-  console.log('Company added to storage. Total companies:', receivedCompanies.length)
-}
-
-// Function to get all received companies
-export function getCompanies() {
-  return receivedCompanies
-}
-
-// Function to clear companies (for testing)
-export function clearCompanies() {
-  receivedCompanies.length = 0
+export async function POST(request: NextRequest) {
+  // Allow adding companies via POST request
+  try {
+    const body = await request.json()
+    
+    if (!body.Company_Name || !body.search_query) {
+      return NextResponse.json(
+        { error: 'Invalid company data' },
+        { status: 400 }
+      )
+    }
+    
+    receivedCompanies.push(body)
+    console.log('Company added via POST. Total companies:', receivedCompanies.length)
+    
+    return NextResponse.json({
+      success: true,
+      message: 'Company added successfully',
+      total: receivedCompanies.length
+    })
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Failed to add company' },
+      { status: 500 }
+    )
+  }
 }
